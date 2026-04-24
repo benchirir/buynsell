@@ -1,0 +1,1649 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SecondChance - Premium Second-Hand Marketplace</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #2c3e50;
+            --secondary: #3498db;
+            --accent: #e74c3c;
+            --gold: #f39c12;
+            --light: #ecf0f1;
+            --dark: #2c3e50;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0,0,0,0.1);
+            --shadow-hover: 0 20px 40px rgba(0,0,0,0.2);
+            --gradient-1: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --gradient-2: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            --gradient-3: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            --gradient-4: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            --gradient-5: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+            --border-radius: 20px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(circle at 20% 50%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 80%, rgba(255,255,255,0.1) 0%, transparent 50%),
+                radial-gradient(circle at 50% 20%, rgba(255,255,255,0.1) 0%, transparent 50%);
+            animation: backgroundShift 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        @keyframes backgroundShift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Glass-morphism Header */
+        header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 25px 30px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: slideDown 0.6s ease-out;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo-container {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 3em;
+            font-weight: 900;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: logoGlow 2s ease-in-out infinite;
+        }
+
+        @keyframes logoGlow {
+            0%, 100% { filter: brightness(1); }
+            50% { filter: brightness(1.2); }
+        }
+
+        .logo span {
+            background: var(--gradient-2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .tagline {
+            font-size: 1.1em;
+            color: #7f8c8d;
+            margin-top: -5px;
+            font-style: italic;
+            letter-spacing: 3px;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .search-container {
+            flex: 1;
+            min-width: 250px;
+            max-width: 500px;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1.1em;
+            background: rgba(255, 255, 255, 0.9);
+            transition: var(--transition);
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            background: white;
+        }
+
+        .search-btn {
+            position: absolute;
+            right: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--gradient-1);
+            border: none;
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2em;
+            transition: var(--transition);
+        }
+
+        .search-btn:hover {
+            transform: translateY(-50%) scale(1.1);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .nav-actions {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1em;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            letter-spacing: 0.5px;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-primary {
+            background: var(--gradient-1);
+            color: white;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(102, 126, 234, 0.5);
+        }
+
+        .btn-accent {
+            background: var(--gradient-2);
+            color: white;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .btn-accent:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(245, 87, 108, 0.5);
+        }
+
+        .btn-outline {
+            background: white;
+            color: #667eea;
+            border: 2px solid #667eea;
+        }
+
+        .btn-outline:hover {
+            background: #667eea;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .cart-badge {
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            padding: 2px 8px;
+            font-size: 0.8em;
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            animation: bounce 1s ease infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        /* Category Navigation */
+        .categories-nav {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            padding: 20px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            overflow-x: auto;
+            white-space: nowrap;
+        }
+
+        .categories-scroll {
+            display: flex;
+            gap: 15px;
+            padding: 5px;
+        }
+
+        .category-card {
+            flex: 0 0 auto;
+            padding: 15px 25px;
+            background: white;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            text-align: center;
+            border: 2px solid transparent;
+            min-width: 120px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: var(--gradient-1);
+            opacity: 0;
+            transition: var(--transition);
+            z-index: 0;
+        }
+
+        .category-card:hover::before,
+        .category-card.active::before {
+            opacity: 1;
+        }
+
+        .category-card:hover,
+        .category-card.active {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-hover);
+            border-color: #667eea;
+        }
+
+        .category-icon {
+            font-size: 2.5em;
+            position: relative;
+            z-index: 1;
+            transition: var(--transition);
+        }
+
+        .category-name {
+            font-size: 0.9em;
+            font-weight: 600;
+            margin-top: 5px;
+            position: relative;
+            z-index: 1;
+            color: #2c3e50;
+            transition: var(--transition);
+        }
+
+        .category-card:hover .category-name,
+        .category-card.active .category-name {
+            color: white;
+        }
+
+        .category-card:hover .category-icon,
+        .category-card.active .category-icon {
+            transform: scale(1.2);
+            color: white;
+        }
+
+        /* Items Grid */
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .item-card {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(20px);
+            border-radius: var(--border-radius);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            animation: fadeInUp 0.6s ease-out;
+            position: relative;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .item-card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .item-image-container {
+            position: relative;
+            height: 250px;
+            overflow: hidden;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        .item-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .item-card:hover .item-image {
+            transform: scale(1.1);
+        }
+
+        .item-category-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            color: #667eea;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .item-status-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-size: 0.85em;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .status-pending {
+            background: rgba(255, 215, 0, 0.9);
+            color: #333;
+        }
+
+        .status-approved {
+            background: rgba(76, 175, 80, 0.9);
+            color: white;
+        }
+
+        .status-rejected {
+            background: rgba(244, 67, 54, 0.9);
+            color: white;
+        }
+
+        .item-details {
+            padding: 20px;
+        }
+
+        .item-title {
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .item-price {
+            font-size: 2em;
+            font-weight: 700;
+            background: var(--gradient-1);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 10px;
+        }
+
+        .item-description {
+            color: #7f8c8d;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            font-size: 0.95em;
+        }
+
+        .item-meta {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #ecf0f1;
+        }
+
+        .seller-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .seller-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: var(--gradient-1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .seller-name {
+            font-size: 0.9em;
+            color: #7f8c8d;
+        }
+
+        .seller-rating {
+            color: var(--gold);
+            font-size: 0.9em;
+        }
+
+        .btn-buy {
+            width: 100%;
+            padding: 12px;
+            background: var(--gradient-3);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-buy:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 25px rgba(79, 172, 254, 0.4);
+        }
+
+        .item-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .btn-favorite {
+            flex: 1;
+            padding: 10px;
+            border: 2px solid #e74c3c;
+            background: white;
+            color: #e74c3c;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .btn-favorite:hover {
+            background: #e74c3c;
+            color: white;
+        }
+
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .modal {
+            background: white;
+            border-radius: var(--border-radius);
+            padding: 30px;
+            max-width: 600px;
+            width: 90%;
+            max-height: 80vh;
+            overflow-y: auto;
+            box-shadow: var(--shadow-hover);
+            animation: slideUp 0.4s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #ecf0f1;
+        }
+
+        .modal-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 2em;
+            color: #2c3e50;
+        }
+
+        .btn-close {
+            background: none;
+            border: none;
+            font-size: 2em;
+            color: #95a5a6;
+            cursor: pointer;
+            transition: var(--transition);
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .btn-close:hover {
+            background: #ecf0f1;
+            color: #e74c3c;
+            transform: rotate(90deg);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+            font-size: 0.95em;
+        }
+
+        .form-input,
+        .form-select,
+        .form-textarea {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 15px;
+            font-size: 1em;
+            transition: var(--transition);
+            background: #f8f9fa;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .form-input:focus,
+        .form-select:focus,
+        .form-textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .image-upload-zone {
+            border: 2px dashed #667eea;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #f8f9ff;
+            position: relative;
+        }
+
+        .image-upload-zone:hover {
+            border-color: #764ba2;
+            background: #f0f0ff;
+            transform: scale(1.02);
+        }
+
+        .image-upload-zone i {
+            font-size: 3em;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+
+        .image-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .image-preview-item {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+            aspect-ratio: 1;
+        }
+
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .btn-remove-image {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background: rgba(231, 76, 60, 0.9);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 25px;
+            height: 25px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .btn-remove-image:hover {
+            background: #c0392b;
+            transform: scale(1.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 15px;
+            background: var(--gradient-1);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Pricing Plans */
+        .pricing-banner {
+            background: var(--gradient-5);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            margin: 20px 0;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(250, 112, 154, 0.4); }
+            50% { box-shadow: 0 0 0 20px rgba(250, 112, 154, 0); }
+        }
+
+        .price-tag {
+            font-size: 3em;
+            font-weight: 900;
+            font-family: 'Playfair Display', serif;
+        }
+
+        .payment-methods {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .payment-method {
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 25px;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 500;
+        }
+
+        .payment-method:hover {
+            background: rgba(255, 255, 255, 0.4);
+            transform: scale(1.05);
+        }
+
+        .payment-method.selected {
+            background: white;
+            color: #e74c3c;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .logo {
+                font-size: 2em;
+            }
+            
+            nav {
+                flex-direction: column;
+            }
+            
+            .items-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+            
+            .category-card {
+                min-width: 100px;
+                padding: 10px 15px;
+            }
+            
+            .category-icon {
+                font-size: 2em;
+            }
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            width: 50px;
+            height: 50px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 50px auto;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        /* Toast Notifications */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 15px 25px;
+            border-radius: 15px;
+            box-shadow: var(--shadow-hover);
+            z-index: 2000;
+            animation: slideInRight 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(100px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .toast-success {
+            border-left: 4px solid #4caf50;
+        }
+
+        .toast-error {
+            border-left: 4px solid #f44336;
+        }
+
+        .hidden {
+            display: none !important;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo-container">
+                <div class="logo">Second<span>Chance</span></div>
+                <div class="tagline">✦ Where Treasures Find New Homes ✦</div>
+            </div>
+            <nav>
+                <div class="search-container">
+                    <input type="text" class="search-input" id="searchInput" placeholder="🔍 Search for anything...">
+                    <button class="search-btn" onclick="searchItems()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </div>
+                <div class="nav-actions">
+                    <button class="btn btn-primary" onclick="openSellModal()">
+                        <i class="fas fa-plus-circle"></i> Sell Item
+                    </button>
+                    <button class="btn btn-outline" onclick="viewCart()" style="position: relative;">
+                        <i class="fas fa-shopping-cart"></i> Cart
+                        <span class="cart-badge" id="cartCount">0</span>
+                    </button>
+                    <button class="btn btn-outline" id="loginBtn" onclick="openAuthModal()">
+                        <i class="fas fa-user"></i> Login
+                    </button>
+                    <button class="btn btn-accent" id="adminBtn" onclick="openAdminPanel()" style="display:none;">
+                        <i class="fas fa-crown"></i> Admin
+                    </button>
+                </div>
+            </nav>
+        </header>
+
+        <!-- Categories Navigation -->
+        <div class="categories-nav">
+            <div class="categories-scroll" id="categoriesScroll">
+                <div class="category-card active" onclick="filterByCategory('all')">
+                    <div class="category-icon">🌟</div>
+                    <div class="category-name">All Items</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('kitchen')">
+                    <div class="category-icon">🍳</div>
+                    <div class="category-name">Kitchen</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('electronics')">
+                    <div class="category-icon">📱</div>
+                    <div class="category-name">Electronics</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('furniture')">
+                    <div class="category-icon">🛋️</div>
+                    <div class="category-name">Furniture</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('fashion')">
+                    <div class="category-icon">👗</div>
+                    <div class="category-name">Fashion</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('automotive')">
+                    <div class="category-icon">🚗</div>
+                    <div class="category-name">Automotive</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('sports')">
+                    <div class="category-icon">⚽</div>
+                    <div class="category-name">Sports</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('books')">
+                    <div class="category-icon">📚</div>
+                    <div class="category-name">Books</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('garden')">
+                    <div class="category-icon">🌿</div>
+                    <div class="category-name">Garden</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('baby')">
+                    <div class="category-icon">👶</div>
+                    <div class="category-name">Baby & Kids</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('pets')">
+                    <div class="category-icon">🐾</div>
+                    <div class="category-name">Pets</div>
+                </div>
+                <div class="category-card" onclick="filterByCategory('tools')">
+                    <div class="category-icon">🔧</div>
+                    <div class="category-name">Tools</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Items Grid -->
+        <div class="items-grid" id="itemsGrid">
+            <div class="loading-spinner"></div>
+        </div>
+    </div>
+
+    <!-- Auth Modal -->
+    <div class="modal-overlay hidden" id="authModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title" id="authTitle">Welcome Back</h2>
+                <button class="btn-close" onclick="closeModal('authModal')">×</button>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+                <button class="btn btn-primary" onclick="switchAuthTab('login')" id="loginTabBtn" style="flex:1;">Login</button>
+                <button class="btn btn-outline" onclick="switchAuthTab('register')" id="registerTabBtn" style="flex:1;">Register</button>
+            </div>
+            <form id="authForm">
+                <div id="registerFields" class="hidden">
+                    <div class="form-group">
+                        <label class="form-label">Full Name</label>
+                        <input type="text" class="form-input" id="fullName" placeholder="John Doe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Username</label>
+                        <input type="text" class="form-input" id="username" placeholder="johndoe">
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label">Phone Number</label>
+                        <input type="tel" class="form-input" id="phoneNumber" placeholder="+254700000000">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Email</label>
+                    <input type="email" class="form-input" id="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Password</label>
+                    <input type="password" class="form-input" id="password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-submit" id="authSubmit">Login</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Sell Item Modal -->
+    <div class="modal-overlay hidden" id="sellModal">
+        <div class="modal" style="max-width: 700px;">
+            <div class="modal-header">
+                <h2 class="modal-title">List Your Item</h2>
+                <button class="btn-close" onclick="closeModal('sellModal')">×</button>
+            </div>
+            <div id="sellerPrompt" class="hidden">
+                <div class="pricing-banner">
+                    <h3>Become a Seller</h3>
+                    <div class="price-tag">KSH 350</div>
+                    <p>One-time registration fee</p>
+                    <div class="payment-methods">
+                        <div class="payment-method" onclick="selectPayment('mpesa')">
+                            <i class="fas fa-mobile-alt"></i> M-Pesa
+                        </div>
+                        <div class="payment-method" onclick="selectPayment('bank')">
+                            <i class="fas fa-university"></i> Bank
+                        </div>
+                        <div class="payment-method" onclick="selectPayment('card')">
+                            <i class="fas fa-credit-card"></i> Card
+                        </div>
+                    </div>
+                    <button class="btn btn-accent" onclick="submitRegistrationPayment()" style="margin-top: 15px;">
+                        Pay Now & Start Selling
+                    </button>
+                </div>
+            </div>
+            <form id="sellForm" class="hidden">
+                <div class="form-group">
+                    <label class="form-label">Item Title *</label>
+                    <input type="text" class="form-input" id="itemTitle" required placeholder="e.g., Samsung Refrigerator 200L">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Category *</label>
+                    <select class="form-select" id="itemCategory" required>
+                        <option value="">Select Category</option>
+                        <optgroup label="🏠 Home & Living">
+                            <option value="kitchen">Kitchen - Fridges, Pans, Utensils</option>
+                            <option value="furniture">Furniture - Sofas, Beds, Tables</option>
+                            <option value="garden">Garden - Tools, Plants, Decor</option>
+                        </optgroup>
+                        <optgroup label="📱 Electronics">
+                            <option value="electronics">Electronics - Phones, Laptops, TVs</option>
+                        </optgroup>
+                        <optgroup label="👗 Fashion">
+                            <option value="fashion">Fashion - Clothes, Shoes, Accessories</option>
+                        </optgroup>
+                        <optgroup label="🚗 Automotive">
+                            <option value="automotive">Automotive - Cars, Parts, Accessories</option>
+                        </optgroup>
+                        <optgroup label="⚽ Sports & Outdoors">
+                            <option value="sports">Sports - Equipment, Gear, Bikes</option>
+                        </optgroup>
+                        <optgroup label="📚 Books & Media">
+                            <option value="books">Books - Textbooks, Novels, Magazines</option>
+                        </optgroup>
+                        <optgroup label="👶 Baby & Kids">
+                            <option value="baby">Baby & Kids - Toys, Clothes, Gear</option>
+                        </optgroup>
+                        <optgroup label="🐾 Pets">
+                            <option value="pets">Pets - Food, Accessories, Cages</option>
+                        </optgroup>
+                        <optgroup label="🔧 Tools & DIY">
+                            <option value="tools">Tools - Power Tools, Hand Tools</option>
+                        </optgroup>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Price (KSH) *</label>
+                    <input type="number" class="form-input" id="itemPrice" required placeholder="0.00" step="0.01" min="0">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Condition *</label>
+                    <select class="form-select" id="itemCondition" required>
+                        <option value="">Select Condition</option>
+                        <option value="new">✨ Brand New</option>
+                        <option value="like-new">💫 Like New</option>
+                        <option value="good">👍 Good</option>
+                        <option value="fair">👌 Fair</option>
+                        <option value="poor">🔧 Needs Repair</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Description *</label>
+                    <textarea class="form-textarea" id="itemDescription" required placeholder="Describe your item in detail... Include brand, model, age, and any defects"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Photos (Max 10) *</label>
+                    <div class="image-upload-zone" id="imageUploadZone" onclick="document.getElementById('itemImages').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p>Click to upload photos</p>
+                        <p style="font-size: 0.9em; color: #95a5a6;">JPG, PNG, GIF, WebP (Max 10MB each)</p>
+                    </div>
+                    <input type="file" id="itemImages" accept="image/*" multiple style="display:none;" max="10" onchange="handleImagePreview(event)">
+                    <div class="image-preview-grid" id="imagePreview"></div>
+                </div>
+                <button type="submit" class="btn-submit">Submit for Review</button>
+                <p style="text-align: center; margin-top: 10px; color: #95a5a6; font-size: 0.9em;">
+                    <i class="fas fa-shield-alt"></i> Your item will be reviewed before listing
+                </p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Cart Modal -->
+    <div class="modal-overlay hidden" id="cartModal">
+        <div class="modal">
+            <div class="modal-header">
+                <h2 class="modal-title">Shopping Cart</h2>
+                <button class="btn-close" onclick="closeModal('cartModal')">×</button>
+            </div>
+            <div id="cartContent"></div>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div class="modal-overlay hidden" id="adminModal">
+        <div class="modal" style="max-width: 900px;">
+            <div class="modal-header">
+                <h2 class="modal-title">Admin Dashboard</h2>
+                <button class="btn-close" onclick="closeModal('adminModal')">×</button>
+            </div>
+            <div style="display: flex; gap: 10px; margin-bottom: 25px;">
+                <button class="btn btn-primary" onclick="showAdminSection('pending')">Pending Items</button>
+                <button class="btn btn-outline" onclick="showAdminSection('users')">Users</button>
+                <button class="btn btn-outline" onclick="showAdminSection('payments')">Payments</button>
+            </div>
+            <div id="adminContent"></div>
+        </div>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toastContainer"></div>
+
+    <script>
+        // ============ DATA STORE ============
+        const API_URL = 'http://localhost:5000/api';
+        let authToken = localStorage.getItem('authToken');
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        let cart = JSON.parse(localStorage.getItem('cart')) || [];
+        let uploadedImages = [];
+        let selectedPaymentMethod = 'mpesa';
+        let currentCategory = 'all';
+
+        // Sample items with proper categorization
+        let items = [
+            { id: 1, title: "Samsung Double Door Fridge", category: "kitchen", price: 45000, description: "Excellent condition, 2 years old", condition: "good", seller: "JaneDoe", rating: 4.5, images: [] },
+            { id: 2, title: "Non-Stick Cooking Pan Set", category: "kitchen", price: 2500, description: "5-piece set, barely used", condition: "like-new", seller: "ChefMike", rating: 4.8, images: [] },
+            { id: 3, title: "iPhone 13 Pro Max", category: "electronics", price: 85000, description: "128GB, Graphite, with box", condition: "good", seller: "TechGuru", rating: 4.3, images: [] },
+            { id: 4, title: "Leather Sofa Set", category: "furniture", price: 35000, description: "3+2 seater, brown leather", condition: "fair", seller: "HomeDecor", rating: 4.0, images: [] },
+            { id: 5, title: "Designer Evening Gown", category: "fashion", price: 8000, description: "Size M, worn once", condition: "like-new", seller: "Fashionista", rating: 4.7, images: [] },
+            { id: 6, title: "Toyota Alloy Rims", category: "automotive", price: 15000, description: "Set of 4, 17 inch", condition: "good", seller: "CarParts", rating: 4.2, images: [] },
+            { id: 7, title: "Treadmill Machine", category: "sports", price: 28000, description: "Electric, multiple programs", condition: "good", seller: "FitnessFreak", rating: 4.6, images: [] },
+            { id: 8, title: "Complete Harry Potter Set", category: "books", price: 5000, description: "All 7 books, hardcover", condition: "good", seller: "Bookworm", rating: 4.9, images: [] },
+            { id: 9, title: "Garden Tool Set", category: "garden", price: 3000, description: "Rake, shovel, hoe included", condition: "good", seller: "GreenThumb", rating: 4.1, images: [] },
+            { id: 10, title: "Baby Stroller", category: "baby", price: 12000, description: "Travel system, 6 months old", condition: "like-new", seller: "NewParent", rating: 4.4, images: [] },
+            { id: 11, title: "Dog Kennel Large", category: "pets", price: 4500, description: "Suitable for large breeds", condition: "good", seller: "PetLover", rating: 4.3, images: [] },
+            { id: 12, title: "Power Drill Set", category: "tools", price: 6500, description: "Cordless, with bits set", condition: "good", seller: "DIYMaster", rating: 4.5, images: [] },
+        ];
+
+        // ============ INITIALIZATION ============
+        document.addEventListener('DOMContentLoaded', () => {
+            if (authToken && currentUser) updateUIForLoggedInUser();
+            loadItems();
+            updateCartCount();
+            setupImageUpload();
+        });
+
+        // ============ UI FUNCTIONS ============
+        function loadItems(filters = {}) {
+            const grid = document.getElementById('itemsGrid');
+            grid.innerHTML = '<div class="loading-spinner"></div>';
+            
+            setTimeout(() => {
+                let filteredItems = [...items];
+                
+                if (filters.category && filters.category !== 'all') {
+                    filteredItems = filteredItems.filter(item => item.category === filters.category);
+                }
+                
+                if (filters.search) {
+                    const searchTerm = filters.search.toLowerCase();
+                    filteredItems = filteredItems.filter(item => 
+                        item.title.toLowerCase().includes(searchTerm) ||
+                        item.description.toLowerCase().includes(searchTerm)
+                    );
+                }
+                
+                if (filters.minPrice) {
+                    filteredItems = filteredItems.filter(item => item.price >= filters.minPrice);
+                }
+                
+                if (filters.maxPrice) {
+                    filteredItems = filteredItems.filter(item => item.price <= filters.maxPrice);
+                }
+                
+                displayItems(filteredItems);
+            }, 500);
+        }
+
+        function displayItems(itemsToShow) {
+            const grid = document.getElementById('itemsGrid');
+            
+            if (itemsToShow.length === 0) {
+                grid.innerHTML = `
+                    <div style="grid-column: 1/-1; text-align: center; padding: 50px; color: white;">
+                        <i class="fas fa-box-open" style="font-size: 4em; margin-bottom: 20px;"></i>
+                        <h2>No items found</h2>
+                        <p>Try adjusting your filters or search terms</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            grid.innerHTML = itemsToShow.map(item => `
+                <div class="item-card">
+                    <div class="item-image-container">
+                        ${item.images && item.images.length > 0 
+                            ? `<img src="${item.images[0]}" alt="${item.title}" class="item-image">`
+                            : `<div style="font-size: 5em; display: flex; align-items: center; justify-content: center; height: 100%;">${getCategoryEmoji(item.category)}</div>`
+                        }
+                        <div class="item-category-badge">
+                            <i class="fas fa-tag"></i> ${getCategoryName(item.category)}
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <h3 class="item-title">${item.title}</h3>
+                        <div class="item-price">KSH ${item.price.toLocaleString()}</div>
+                        <p class="item-description">${item.description}</p>
+                        <div class="item-meta">
+                            <div class="seller-info">
+                                <div class="seller-avatar">${item.seller[0]}</div>
+                                <div>
+                                    <div class="seller-name">${item.seller}</div>
+                                    <div class="seller-rating">
+                                        ${'⭐'.repeat(Math.floor(item.rating))} ${item.rating}
+                                    </div>
+                                </div>
+                            </div>
+                            <span style="color: #95a5a6; font-size: 0.9em;">${item.condition}</span>
+                        </div>
+                        <button class="btn-buy" onclick="addToCart(${item.id})">
+                            <i class="fas fa-shopping-cart"></i> Add to Cart
+                        </button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getCategoryEmoji(category) {
+            const emojis = {
+                kitchen: '🍳', electronics: '📱', furniture: '🛋️', fashion: '👗',
+                automotive: '🚗', sports: '⚽', books: '📚', garden: '🌿',
+                baby: '👶', pets: '🐾', tools: '🔧', all: '🌟'
+            };
+            return emojis[category] || '📦';
+        }
+
+        function getCategoryName(category) {
+            const names = {
+                kitchen: 'Kitchen', electronics: 'Electronics', furniture: 'Furniture',
+                fashion: 'Fashion', automotive: 'Automotive', sports: 'Sports',
+                books: 'Books', garden: 'Garden', baby: 'Baby & Kids',
+                pets: 'Pets', tools: 'Tools'
+            };
+            return names[category] || category;
+        }
+
+        // ============ SEARCH & FILTER ============
+        function searchItems() {
+            const searchTerm = document.getElementById('searchInput').value;
+            loadItems({ search: searchTerm, category: currentCategory });
+        }
+
+        function filterByCategory(category) {
+            currentCategory = category;
+            
+            // Update active state
+            document.querySelectorAll('.category-card').forEach(card => {
+                card.classList.remove('active');
+            });
+            event.target.closest('.category-card').classList.add('active');
+            
+            loadItems({ category });
+        }
+
+        // ============ CART FUNCTIONS ============
+        function addToCart(itemId) {
+            const item = items.find(i => i.id === itemId);
+            if (!item) return;
+            
+            cart.push(item);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            showToast(`${item.title} added to cart!`, 'success');
+        }
+
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateCartCount();
+            viewCart();
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function viewCart() {
+            const modal = document.getElementById('cartModal');
+            const content = document.getElementById('cartContent');
+            
+            if (cart.length === 0) {
+                content.innerHTML = `
+                    <div style="text-align: center; padding: 50px;">
+                        <i class="fas fa-shopping-cart" style="font-size: 4em; color: #95a5a6; margin-bottom: 20px;"></i>
+                        <h3>Your cart is empty</h3>
+                        <p>Start shopping and add items to your cart</p>
+                    </div>
+                `;
+            } else {
+                const total = cart.reduce((sum, item) => sum + item.price, 0);
+                content.innerHTML = `
+                    ${cart.map((item, index) => `
+                        <div style="display: flex; justify-content: space-between; align-items: center; padding: 15px; border-bottom: 1px solid #ecf0f1;">
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <div style="font-size: 2em;">${getCategoryEmoji(item.category)}</div>
+                                <div>
+                                    <strong>${item.title}</strong>
+                                    <div style="color: #7f8c8d;">${item.condition}</div>
+                                </div>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 600; color: #667eea;">KSH ${item.price.toLocaleString()}</div>
+                                <button onclick="removeFromCart(${index})" style="background: none; border: none; color: #e74c3c; cursor: pointer; margin-top: 5px;">
+                                    <i class="fas fa-trash"></i> Remove
+                                </button>
+                            </div>
+                        </div>
+                    `).join('')}
+                    <div style="padding: 20px; background: #f8f9fa; border-radius: 15px; margin-top: 20px;">
+                        <div style="display: flex; justify-content: space-between; align-items: center; font-size: 1.3em; font-weight: 700;">
+                            <span>Total:</span>
+                            <span style="color: #667eea;">KSH ${total.toLocaleString()}</span>
+                        </div>
+                        <button class="btn-submit" onclick="checkout()" style="margin-top: 15px;">
+                            <i class="fas fa-lock"></i> Proceed to Checkout
+                        </button>
+                    </div>
+                `;
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function checkout() {
+            if (cart.length === 0) return;
+            const total = cart.reduce((sum, item) => sum + item.price, 0);
+            alert(`Thank you for your purchase!\nTotal: KSH ${total.toLocaleString()}\n\nThe sellers will contact you shortly.`);
+            cart = [];
+            localStorage.removeItem('cart');
+            updateCartCount();
+            closeModal('cartModal');
+            showToast('Order placed successfully!', 'success');
+        }
+
+        // ============ AUTHENTICATION ============
+        function openAuthModal() {
+            document.getElementById('authModal').classList.remove('hidden');
+            switchAuthTab('login');
+        }
+
+        function switchAuthTab(tab) {
+            const isLogin = tab === 'login';
+            document.getElementById('authTitle').textContent = isLogin ? 'Welcome Back' : 'Create Account';
+            document.getElementById('authSubmit').textContent = isLogin ? 'Login' : 'Register';
+            document.getElementById('registerFields').classList.toggle('hidden', isLogin);
+            
+            document.getElementById('loginTabBtn').className = isLogin ? 'btn btn-primary' : 'btn btn-outline';
+            document.getElementById('registerTabBtn').className = isLogin ? 'btn btn-outline' : 'btn btn-primary';
+        }
+
+        document.getElementById('authForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const isLogin = document.getElementById('authTitle').textContent === 'Welcome Back';
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            
+            if (isLogin) {
+                // Simulate login
+                currentUser = {
+                    id: Date.now(),
+                    email,
+                    fullName: 'John Doe',
+                    role: email.includes('admin') ? 'admin' : 'user',
+                    registrationFeePaid: email.includes('admin')
+                };
+            } else {
+                // Simulate registration
+                currentUser = {
+                    id: Date.now(),
+                    email,
+                    fullName: document.getElementById('fullName').value,
+                    username: document.getElementById('username').value,
+                    phoneNumber: document.getElementById('phoneNumber').value,
+                    role: 'user',
+                    registrationFeePaid: false
+                };
+            }
+            
+            authToken = 'sample_token_' + Date.now();
+            localStorage.setItem('authToken', authToken);
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
+            
+            updateUIForLoggedInUser();
+            closeModal('authModal');
+            showToast('Successfully logged in!', 'success');
+        });
+
+        function updateUIForLoggedInUser() {
+            document.getElementById('loginBtn').style.display = 'none';
+            
+            if (currentUser && currentUser.role === 'admin') {
+                document.getElementById('adminBtn').style.display = 'inline-flex';
+            }
+        }
+
+        // ============ SELL ITEM ============
+        function openSellModal() {
+            if (!authToken) {
+                showToast('Please login first', 'error');
+                openAuthModal();
+                return;
+            }
+            
+            const modal = document.getElementById('sellModal');
+            const form = document.getElementById('sellForm');
+            const prompt = document.getElementById('sellerPrompt');
+            
+            if (currentUser && (currentUser.registrationFeePaid || currentUser.role === 'admin')) {
+                form.classList.remove('hidden');
+                prompt.classList.add('hidden');
+            } else {
+                form.classList.add('hidden');
+                prompt.classList.remove('hidden');
+            }
+            
+            modal.classList.remove('hidden');
+        }
+
+        function selectPayment(method) {
+            selectedPaymentMethod = method;
+            document.querySelectorAll('.payment-method').forEach(el => {
+                el.classList.toggle('selected', el.textContent.toLowerCase().includes(method));
+            });
+        }
+
+        function submitRegistrationPayment() {
+            const ref = prompt('Enter payment transaction ID or reference:');
+            if (!ref) return;
+            
+            // Simulate payment verification
+            if (currentUser) {
+                currentUser.registrationFeePaid = true;
+                localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                
+                document.getElementById('sellerPrompt').classList.add('hidden');
+                document.getElementById('sellForm').classList.remove('hidden');
+                
+                showToast('Payment verified! You can now list items.', 'success');
+            }
+        }
+
+        function setupImageUpload() {
+            const imageInput = document.getElementById('itemImages');
+            if (imageInput) {
+                imageInput.addEventListener('change', handleImagePreview);
+            }
+        }
+
+        function handleImagePreview(event) {
+            const files = Array.from(event.target.files);
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+            
+            if (files.length > 10) {
+                showToast('Maximum 10 photos allowed', 'error');
+                return;
+            }
+            
+            uploadedImages = files;
+            
+            files.forEach((file, index) => {
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    const div = document.createElement('div');
+                    div.className = 'image-preview-item';
+                    div.innerHTML = `
+                        <img src="${e.target.result}" alt="Preview ${index + 1}">
+                        <button class="btn-remove-image" onclick="removeUploadedImage(${index})">×</button>
+                    `;
+                    preview.appendChild(div);
+                };
+                reader.readAsDataURL(file);
+            });
+        }
+
+        function removeUploadedImage(index) {
+            uploadedImages.splice(index, 1);
+            const dt = new DataTransfer();
+            uploadedImages.forEach(file => dt.items.add(file));
+            document.getElementById('itemImages').files = dt.files;
+            handleImagePreview({ target: { files: dt.files } });
+        }
+
+        document.getElementById('sellForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            
+            const newItem = {
+                id: items.length + 1,
+                title: document.getElementById('itemTitle').value,
+                category: document.getElementById('itemCategory').value,
+                price: parseFloat(document.getElementById('itemPrice').value),
+                description: document.getElementById('itemDescription').value,
+                condition: document.getElementById('itemCondition').value,
+                seller: currentUser?.fullName || 'Current User',
+                rating: 5.0,
+                images: uploadedImages.map(file => URL.createObjectURL(file)),
+                status: 'pending'
+            };
+            
+            items.unshift(newItem);
+            loadItems({ category: currentCategory });
+            closeModal('sellModal');
+            showToast('Item submitted for review!', 'success');
+        });
+
+        // ============ ADMIN FUNCTIONS ============
+        function openAdminPanel() {
+            if (!currentUser || currentUser.role !== 'admin') {
+                showToast('Admin access required', 'error');
+                return;
+            }
+            document.getElementById('adminModal').classList.remove('hidden');
+            showAdminSection('pending');
+        }
+
+        function showAdminSection(section) {
+            const content = document.getElementById('adminContent');
+            
+            if (section === 'pending') {
+                const pendingItems = items.filter(item => item.status === 'pending');
+                content.innerHTML = pendingItems.length === 0 ? 
+                    '<p style="text-align:center;padding:20px;">No pending items</p>' :
+                    pendingItems.map(item => `
+                        <div style="border:1px solid #e0e0e0;border-radius:15px;padding:20px;margin-bottom:15px;display:flex;gap:15px;align-items:center;">
+                            <div style="font-size:3em;">${getCategoryEmoji(item.category)}</div>
+                            <div style="flex:1;">
+                                <h3>${item.title}</h3>
+                                <p><strong>KSH ${item.price.toLocaleString()}</strong> | ${item.condition}</p>
+                                <p>${item.description}</p>
+                            </div>
+                            <div>
+                                <button class="btn btn-primary" onclick="approveItem(${item.id})" style="margin-bottom:10px;">✓ Approve</button>
+                                <button class="btn btn-accent" onclick="rejectItem(${item.id})">✕ Reject</button>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+        }
+
+        function approveItem(itemId) {
+            const item = items.find(i => i.id === itemId);
+            if (item) {
+                item.status = 'approved';
+                loadItems({ category: currentCategory });
+                showAdminSection('pending');
+                showToast('Item approved!', 'success');
+            }
+        }
+
+        function rejectItem(itemId) {
+            const reason = prompt('Rejection reason:');
+            if (!reason) return;
+            const item = items.find(i => i.id === itemId);
+            if (item) {
+                item.status = 'rejected';
+                loadItems({ category: currentCategory });
+                showAdminSection('pending');
+                showToast('Item rejected', 'error');
+            }
+        }
+
+        // ============ UTILITY FUNCTIONS ============
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.add('hidden');
+        }
+
+        function showToast(message, type = 'success') {
+            const container = document.getElementById('toastContainer');
+            const toast = document.createElement('div');
+            toast.className = `toast toast-${type}`;
+            toast.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : 'exclamation-circle'}"></i>
+                ${message}
+            `;
+            container.appendChild(toast);
+            
+            setTimeout(() => {
+                toast.style.opacity = '0';
+                toast.style.transform = 'translateX(100px)';
+                toast.style.transition = 'all 0.3s ease';
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+
+        // Close modals when clicking overlay
+        document.addEventListener('click', (e) => {
+            if (e.target.classList.contains('modal-overlay')) {
+                e.target.classList.add('hidden');
+            }
+        });
+
+        // Real-time search
+        document.getElementById('searchInput').addEventListener('input', searchItems);
+
+        // Initialize
+        loadItems();
+    </script>
+</body>
+</html>
