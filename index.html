@@ -8,16 +8,10 @@
     <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1a1a2e">
-    <meta name="description" content="Buy & Sell Second-Hand Items - Kenya's Premium Marketplace">
     <title>SecondChance • Buy & Sell</title>
-    
-    <!-- App Icons -->
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='110' font-size='100' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231a1a2e'/><text x='256' y='320' font-size='280' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
-    <link rel="manifest" href="data:application/json,{'name':'SecondChance','short_name':'SecondChance','start_url':'.','display':'standalone','background_color':'%231a1a2e','theme_color':'%23c9a84c','icons':[{'src':'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%22100%22 fill=%22%231a1a2e%22/><text x=%22256%22 y=%22320%22 font-size=%22280%22 text-anchor=%22middle%22 fill=%22%23c9a84c%22>💰</text></svg>','sizes':'512x512','type':'image/svg+xml','purpose':'any maskable'}]}">
-    
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --bg: #fafafa;
@@ -27,22 +21,15 @@
             --primary: #1e2a4a;
             --gold: #c9a84c;
             --gold-dark: #a68a3e;
-            --gold-light: #d4b96a;
             --border: #e5e7eb;
             --success: #059669;
             --danger: #dc2626;
             --warning: #d97706;
-            --info: #0891b2;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
-            --radius-sm: 10px;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06);
             --radius: 14px;
-            --radius-lg: 20px;
-            --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            --transition: all 0.2s ease;
             --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
-
         .dark-mode {
             --bg: #0a0a0f;
             --surface: #14141f;
@@ -51,32 +38,20 @@
             --primary: #4a5b8c;
             --gold: #d4b96a;
             --gold-dark: #c9a84c;
-            --gold-light: #e0c87a;
             --border: #1f2937;
         }
-
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-
-        html, body {
-            width: 100%;
-            height: 100%;
-            overflow: hidden;
-            position: fixed;
-            top: 0;
-            left: 0;
-        }
-
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', sans-serif;
             background: var(--bg);
             color: var(--text);
-            transition: var(--transition);
+            height: 100vh;
             display: flex;
             flex-direction: column;
-            height: 100vh;
-            height: -webkit-fill-available;
+            overflow: hidden;
+            transition: var(--transition);
+            user-select: none;
         }
-
         .app-container {
             display: flex;
             flex-direction: column;
@@ -87,16 +62,6 @@
             background: var(--bg);
             position: relative;
         }
-
-        @media (min-width: 481px) {
-            .app-container {
-                border-left: 1px solid var(--border);
-                border-right: 1px solid var(--border);
-                box-shadow: 0 0 60px rgba(0,0,0,0.1);
-            }
-        }
-
-        /* Header */
         .top-header {
             background: var(--surface);
             padding: 10px 16px;
@@ -105,504 +70,190 @@
             justify-content: space-between;
             border-bottom: 1px solid var(--border);
             flex-shrink: 0;
-            z-index: 10;
         }
-
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -1px;
-        }
-        .logo span { color: var(--gold); }
-
-        .header-actions {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-        }
-
+        .logo { font-family:'Playfair Display',serif; font-size:1.4rem; font-weight:900; color:var(--primary); }
+        .logo span { color:var(--gold); }
+        .header-actions { display:flex; gap:6px; align-items:center; }
         .icon-btn {
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            border: none;
-            background: transparent;
-            cursor: pointer;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--text);
-            position: relative;
-            transition: var(--transition);
+            width:36px; height:36px; border-radius:50%; border:none; background:transparent;
+            cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+            color:var(--text); position:relative; transition:var(--transition);
         }
-        .icon-btn:active { transform: scale(0.9); }
-
-        .cart-dot {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--danger);
-            display: none;
-        }
-        .cart-dot.show { display: block; }
-
+        .icon-btn:active { transform:scale(0.9); }
+        .cart-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%; background:var(--danger); display:none; }
+        .cart-dot.show { display:block; }
         .status-badge {
-            padding: 4px 10px;
-            border-radius: 12px;
-            font-size: 0.65rem;
-            font-weight: 700;
-            letter-spacing: 0.5px;
+            padding:4px 10px; border-radius:12px; font-size:0.65rem; font-weight:700; letter-spacing:0.5px;
         }
-        .status-pending { background: rgba(217,119,6,0.2); color: var(--warning); }
-        .status-approved { background: rgba(5,150,105,0.2); color: var(--success); }
-        .status-rejected { background: rgba(220,38,38,0.2); color: var(--danger); }
-
-        /* Search */
+        .status-pending { background:rgba(217,119,6,0.2); color:var(--warning); }
+        .status-approved { background:rgba(5,150,105,0.2); color:var(--success); }
+        .status-rejected { background:rgba(220,38,38,0.2); color:var(--danger); }
         .search-bar {
-            padding: 8px 16px;
-            flex-shrink: 0;
-            background: var(--bg);
+            padding:8px 16px; flex-shrink:0; background:var(--bg);
         }
         .search-input-wrap {
-            display: flex;
-            align-items: center;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 24px;
-            overflow: hidden;
-            transition: var(--transition);
-        }
-        .search-input-wrap:focus-within {
-            border-color: var(--gold);
-            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+            display:flex; align-items:center; background:var(--surface); border:1px solid var(--border);
+            border-radius:24px; overflow:hidden;
         }
         .search-input-wrap input {
-            border: none;
-            padding: 10px 14px;
-            flex: 1;
-            background: transparent;
-            color: var(--text);
-            outline: none;
-            font-size: 0.85rem;
-            font-family: inherit;
+            border:none; padding:10px 14px; flex:1; background:transparent;
+            color:var(--text); outline:none; font-size:0.85rem; font-family:inherit;
         }
         .search-input-wrap button {
-            background: none;
-            border: none;
-            padding: 10px 14px;
-            cursor: pointer;
-            color: var(--text-secondary);
+            background:none; border:none; padding:10px 14px; cursor:pointer; color:var(--text-secondary);
         }
-
-        /* Main Content */
-        .main-scroll {
-            flex: 1;
-            overflow-y: auto;
-            overflow-x: hidden;
-            -webkit-overflow-scrolling: touch;
-        }
-
-        /* Bottom Navigation */
+        .main-scroll { flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; }
         .bottom-nav {
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 4px calc(6px + var(--safe-bottom));
-            flex-shrink: 0;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+            background:var(--surface); border-top:1px solid var(--border);
+            display:flex; justify-content:space-around; padding:6px 4px calc(6px + var(--safe-bottom));
+            flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.04);
         }
-
         .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 2px;
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 0.6rem;
-            font-weight: 500;
-            cursor: pointer;
-            padding: 6px 4px;
-            border-radius: 10px;
-            transition: var(--transition);
-            font-family: inherit;
-            min-width: 48px;
+            display:flex; flex-direction:column; align-items:center; gap:2px;
+            background:none; border:none; color:var(--text-secondary); font-size:0.6rem;
+            font-weight:500; cursor:pointer; padding:6px 4px; border-radius:10px;
+            transition:var(--transition); font-family:inherit; min-width:48px;
         }
-        .nav-item.active { color: var(--gold); font-weight: 700; }
-        .nav-item i { font-size: 1.1rem; }
-
-        /* Section Titles */
+        .nav-item.active { color:var(--gold); font-weight:700; }
+        .nav-item i { font-size:1.1rem; }
         .section-title {
-            padding: 16px 16px 8px;
-            font-family: 'Playfair Display', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            padding:16px 16px 8px; font-family:'Playfair Display',serif;
+            font-size:1.1rem; font-weight:700; display:flex; justify-content:space-between;
         }
-
-        /* Cards */
         .card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            padding: 16px;
-            margin: 0 16px 12px;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
+            background:var(--surface); border-radius:var(--radius); padding:16px;
+            margin:0 16px 12px; box-shadow:var(--shadow); border:1px solid var(--border);
         }
-
-        .card-gold {
-            border: 2px solid var(--gold);
-            background: linear-gradient(135deg, var(--surface), rgba(201,168,76,0.05));
-        }
-
-        /* Buttons */
         .btn {
-            padding: 10px 18px;
-            border-radius: 25px;
-            border: none;
-            font-weight: 600;
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: var(--transition);
-            font-family: inherit;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            justify-content: center;
-            letter-spacing: 0.3px;
+            padding:10px 18px; border-radius:25px; border:none; font-weight:600;
+            font-size:0.85rem; cursor:pointer; transition:var(--transition); font-family:inherit;
+            display:inline-flex; align-items:center; gap:6px; justify-content:center; letter-spacing:0.3px;
         }
-        .btn:active { transform: scale(0.95); }
-        .btn-gold { background: var(--gold); color: #1a1a1a; font-weight: 700; }
-        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-        .btn-success { background: var(--success); color: white; }
-        .btn-warning { background: var(--warning); color: #1a1a1a; }
-        .btn-block { width: 100%; }
-        .btn-sm { padding: 6px 12px; font-size: 0.7rem; }
-
-        /* Products Grid */
+        .btn:active { transform:scale(0.95); }
+        .btn-gold { background:var(--gold); color:#1a1a1a; }
+        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+        .btn-block { width:100%; }
+        .btn-sm { padding:6px 12px; font-size:0.7rem; }
         .products-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            padding: 0 16px 16px;
+            display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 16px 16px;
         }
-
         .product-card {
-            background: var(--surface);
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: var(--shadow-sm);
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: var(--transition);
+            background:var(--surface); border-radius:var(--radius); overflow:hidden;
+            box-shadow:var(--shadow); border:1px solid var(--border); cursor:pointer; transition:var(--transition);
         }
-        .product-card:active { transform: scale(0.97); }
-
+        .product-card:active { transform:scale(0.97); }
         .product-img {
-            width: 100%;
-            aspect-ratio: 1/1;
-            background-size: cover;
-            background-position: center;
-            background-color: #e5e7eb;
-            position: relative;
+            width:100%; aspect-ratio:1/1; background-size:cover; background-position:center; background-color:#e5e7eb;
         }
-
-        .product-badge {
-            position: absolute;
-            top: 6px;
-            right: 6px;
-            background: var(--gold);
-            color: #1a1a1a;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.6rem;
-            font-weight: 700;
-        }
-
-        .product-info { padding: 10px; }
-        .product-title {
-            font-weight: 600;
-            font-size: 0.8rem;
-            margin-bottom: 4px;
-            line-height: 1.3;
-        }
-        .product-price {
-            font-weight: 800;
-            font-size: 0.95rem;
-            color: var(--gold-dark);
-            margin-bottom: 6px;
-        }
-        .product-footer {
-            display: flex;
-            justify-content: space-between;
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            margin-bottom: 6px;
-        }
-
-        /* Modal Sheet */
+        .product-info { padding:10px; }
+        .product-title { font-weight:600; font-size:0.8rem; margin-bottom:4px; }
+        .product-price { font-weight:800; font-size:0.95rem; color:var(--gold-dark); }
+        .product-footer { display:flex; justify-content:space-between; font-size:0.65rem; color:var(--text-secondary); margin-bottom:6px; }
         .modal-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.6);
-            z-index: 200;
-            display: flex;
-            align-items: flex-end;
-            justify-content: center;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
+            position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200;
+            display:flex; align-items:flex-end; justify-content:center;
+            opacity:0; pointer-events:none; transition:opacity 0.3s;
         }
-        .modal-overlay.open { opacity: 1; pointer-events: auto; }
-
+        .modal-overlay.open { opacity:1; pointer-events:auto; }
         .modal-sheet {
-            background: var(--surface);
-            border-radius: 20px 20px 0 0;
-            width: 100%;
-            max-width: 480px;
-            max-height: 85vh;
-            overflow-y: auto;
-            padding: 20px;
-            transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+            background:var(--surface); border-radius:20px 20px 0 0;
+            width:100%; max-width:480px; max-height:85vh; overflow-y:auto;
+            padding:20px; transform:translateY(100%);
+            transition:transform 0.3s cubic-bezier(0.4,0,0.2,1);
         }
-        .modal-overlay.open .modal-sheet { transform: translateY(0); }
-
-        .modal-handle {
-            width: 36px;
-            height: 4px;
-            background: var(--border);
-            border-radius: 2px;
-            margin: 0 auto 16px;
+        .modal-overlay.open .modal-sheet { transform:translateY(0); }
+        .modal-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 16px; }
+        .form-group { margin-bottom:14px; }
+        .form-group label { display:block; margin-bottom:5px; font-weight:600; font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase; }
+        .form-input, .form-select {
+            width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:10px;
+            background:var(--bg); color:var(--text); font-family:inherit; font-size:0.9rem;
         }
-
-        .modal-sheet h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            margin-bottom: 16px;
-            font-weight: 700;
+        .toggle-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
+        .toggle-switch { position:relative; width:44px; height:24px; }
+        .toggle-switch input { opacity:0; width:0; height:0; }
+        .toggle-slider { position:absolute; cursor:pointer; inset:0; background:#ccc; border-radius:24px; transition:.3s; }
+        .toggle-slider:before { content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px; background:white; border-radius:50%; transition:.3s; }
+        input:checked + .toggle-slider { background:var(--gold); }
+        input:checked + .toggle-slider:before { transform:translateX(20px); }
+        .hidden { display:none !important; }
+        .toast-msg {
+            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+            background:var(--surface); color:var(--text); padding:10px 20px;
+            border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:400;
+            font-weight:600; font-size:0.85rem; animation:toastIn 0.3s ease; white-space:nowrap;
+            border:1px solid var(--border);
         }
-
-        .form-group { margin-bottom: 14px; }
-        .form-group label {
-            display: block;
-            margin-bottom: 5px;
-            font-weight: 600;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .form-input, .form-select, .form-textarea {
-            width: 100%;
-            padding: 10px 14px;
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            background: var(--bg);
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.9rem;
-            transition: var(--transition);
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--gold);
-        }
-
-        .toggle-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .toggle-switch {
-            position: relative;
-            width: 44px;
-            height: 24px;
-        }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute;
-            cursor: pointer;
-            inset: 0;
-            background: #ccc;
-            border-radius: 24px;
-            transition: .3s;
-        }
-        .toggle-slider:before {
-            content: "";
-            position: absolute;
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background: white;
-            border-radius: 50%;
-            transition: .3s;
-        }
-        input:checked + .toggle-slider { background: var(--gold); }
-        input:checked + .toggle-slider:before { transform: translateX(20px); }
-
-        .hidden { display: none !important; }
-
-        .verification-pending {
-            background: rgba(217,119,6,0.1);
-            border: 2px dashed var(--warning);
-            border-radius: var(--radius);
-            padding: 16px;
-            text-align: center;
-            margin: 12px 0;
-        }
-
-        .verification-pending i {
-            font-size: 2rem;
-            color: var(--warning);
-            margin-bottom: 8px;
-        }
-
-        .whatsapp-btn {
-            background: #25D366;
-            color: white;
-            font-weight: 700;
-        }
-        .whatsapp-btn:hover { background: #20bd5a; }
-
-        .install-prompt {
-            background: linear-gradient(135deg, var(--primary), #2a3f6e);
-            color: white;
-            padding: 12px 16px;
-            border-radius: var(--radius);
-            margin: 10px 16px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.85rem;
-        }
-        .install-prompt:active { transform: scale(0.98); }
-
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes toastIn { from { opacity:0; transform:translateX(-50%) translateY(20px); } }
     </style>
 </head>
 <body>
 <div class="app-container" id="appContainer">
-    <!-- Install Prompt -->
-    <div class="install-prompt hidden" id="installPrompt" onclick="installApp()">
-        <span style="font-size:1.5rem;">📲</span>
-        <span>Tap to install SecondChance on your phone</span>
-    </div>
-
-    <!-- Header -->
     <div class="top-header">
         <div class="logo">Second<span>Chance</span></div>
         <div class="header-actions">
-            <span id="userStatusBadge" class="hidden"></span>
             <button class="icon-btn" onclick="openCart()">🛒<span class="cart-dot" id="cartDot"></span></button>
-            <button class="icon-btn" onclick="openProfile()">👤</button>
+            <button class="icon-btn" onclick="navigateTo('profile')">👤</button>
         </div>
     </div>
-
-    <!-- Search -->
     <div class="search-bar">
         <div class="search-input-wrap">
-            <input type="text" id="searchInput" placeholder="Search anything..." oninput="searchItems()">
+            <input type="text" id="searchInput" placeholder="Search items..." oninput="applySearch()">
             <button>🔍</button>
         </div>
     </div>
-
-    <!-- Main Content -->
     <div class="main-scroll" id="mainScroll"></div>
-
-    <!-- Bottom Navigation -->
     <div class="bottom-nav">
         <button class="nav-item active" data-page="home"><i class="fas fa-home"></i>Home</button>
         <button class="nav-item" data-page="large"><i class="fas fa-couch"></i>Large</button>
-        <button class="nav-item" data-page="sell"><i class="fas fa-plus-circle"></i>Sell</button>
-        <button class="nav-item" data-page="services"><i class="fas fa-concierge-bell"></i>Services</button>
+        <button class="nav-item" data-page="sell"><i class="fas fa-store"></i>Sell</button>
+        <button class="nav-item" data-page="help"><i class="fab fa-whatsapp"></i>Help</button>
         <button class="nav-item" data-page="profile"><i class="fas fa-user"></i>Profile</button>
     </div>
 </div>
-
-<!-- Modal Container -->
 <div id="modalContainer"></div>
 
 <script>
-    // ==================== CONSTANTS ====================
+    // ============ DATA ============
     const MASTER_MPESA = '0792091769';
     const WHATSAPP_NUMBER = '+254753711672';
     const WHATSAPP_LINK = 'https://wa.me/254753711672';
-    
-    // ==================== STATE ====================
+
     let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
     let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
     let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
     let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: false, notifications: true };
     let page = 'home';
-    
-    // Admin data (synced)
-    let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || {
-        payments: [],
-        products: [],
-        approvedSellers: []
-    };
+    let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || { payments: [], approvedSellers: [] };
 
-    // Product images
     const productImages = {
-        kitchen_fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
-        kitchen_pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
-        electronics_phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
-        electronics_laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=300&fit=crop',
-        furniture_sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
-        furniture_bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
-        furniture_table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
-        fashion_dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
-        fashion_shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop',
-        automotive_car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
-        automotive_rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
-        sports_treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
-        books_novels: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
-        garden_tools: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=300&fit=crop',
-        baby_stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
-        pets_kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop',
-        tools_drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop'
+        fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
+        pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
+        phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
+        sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
+        dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
+        rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
+        treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
+        books: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
+        stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
+        drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
+        car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop'
     };
 
     const items = [
-        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years', seller:'Jane', rating:4.5, img:productImages.kitchen_fridge, isLarge:true },
-        { id:2, title:'Non-stick Pan Set 5pc', category:'kitchen', price:2500, desc:'Like new', seller:'Mike', rating:4.8, img:productImages.kitchen_pans, isLarge:false },
-        { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, with box', seller:'TechKe', rating:4.3, img:productImages.electronics_phone, isLarge:false },
-        { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown', seller:'HomeDecor', rating:4.0, img:productImages.furniture_sofa, isLarge:true },
-        { id:5, title:'Designer Evening Gown', category:'fashion', price:8000, desc:'Size M, worn once', seller:'GlamCloset', rating:4.7, img:productImages.fashion_dress, isLarge:false },
-        { id:6, title:'Alloy Rims 17" Set', category:'automotive', price:28000, desc:'Set of 4', seller:'CarParts', rating:4.2, img:productImages.automotive_rims, isLarge:false },
-        { id:7, title:'Electric Treadmill', category:'sports', price:35000, desc:'12 programs', seller:'FitnessKe', rating:4.6, img:productImages.sports_treadmill, isLarge:true },
-        { id:8, title:'Harry Potter Book Set', category:'books', price:5000, desc:'All 7 hardcover', seller:'Bookworm', rating:4.9, img:productImages.books_novels, isLarge:false },
-        { id:9, title:'Garden Tool Set 7pc', category:'garden', price:3000, desc:'Complete set', seller:'GreenThumb', rating:4.1, img:productImages.garden_tools, isLarge:false },
-        { id:10, title:'Baby Stroller Travel', category:'baby', price:12000, desc:'Travel system', seller:'NewParent', rating:4.4, img:productImages.baby_stroller, isLarge:false },
-        { id:11, title:'Large Dog Kennel', category:'pets', price:4500, desc:'Wooden, large breed', seller:'PetLover', rating:4.3, img:productImages.pets_kennel, isLarge:false },
-        { id:12, title:'Cordless Power Drill', category:'tools', price:6500, desc:'18V with bits', seller:'DIYMaster', rating:4.5, img:productImages.tools_drill, isLarge:false },
-        { id:13, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage, clean', seller:'AutoDealer', rating:4.0, img:productImages.automotive_car, isLarge:true },
-        { id:14, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden, storage', seller:'FurnitureHub', rating:4.3, img:productImages.furniture_bed, isLarge:true },
-        { id:15, title:'Dining Table 6-Seater', category:'furniture', price:22000, desc:'Solid wood', seller:'WoodCraft', rating:4.4, img:productImages.furniture_table, isLarge:true }
+        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years', seller:'Jane', rating:4.5, img:productImages.fridge, isLarge:true },
+        { id:2, title:'Non-stick Pan Set', category:'kitchen', price:2500, desc:'Like new', seller:'Mike', rating:4.8, img:productImages.pans, isLarge:false },
+        { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, with box', seller:'TechKe', rating:4.3, img:productImages.phone, isLarge:false },
+        { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown', seller:'HomeDecor', rating:4.0, img:productImages.sofa, isLarge:true },
+        { id:5, title:'Evening Gown', category:'fashion', price:8000, desc:'Size M, designer', seller:'GlamCloset', rating:4.7, img:productImages.dress, isLarge:false },
+        { id:6, title:'Alloy Rims 17"', category:'automotive', price:28000, desc:'Set of 4', seller:'CarParts', rating:4.2, img:productImages.rims, isLarge:false },
+        { id:7, title:'Electric Treadmill', category:'sports', price:35000, desc:'12 programs', seller:'FitnessKe', rating:4.6, img:productImages.treadmill, isLarge:true },
+        { id:8, title:'Harry Potter Set', category:'books', price:5000, desc:'All 7 hardcover', seller:'Bookworm', rating:4.9, img:productImages.books, isLarge:false },
+        { id:9, title:'Baby Stroller', category:'baby', price:12000, desc:'Travel system', seller:'NewParent', rating:4.4, img:productImages.stroller, isLarge:false },
+        { id:10, title:'Power Drill', category:'tools', price:6500, desc:'18V with bits', seller:'DIYMaster', rating:4.5, img:productImages.drill, isLarge:false },
+        { id:11, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage', seller:'AutoDealer', rating:4.0, img:productImages.car, isLarge:true }
     ];
 
-    // ==================== HELPERS ====================
     function saveAll() {
         localStorage.setItem('sc_cart', JSON.stringify(cart));
         localStorage.setItem('sc_orders', JSON.stringify(orders));
@@ -611,21 +262,10 @@
         localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
     }
 
-    function showToast(msg, type = 'info') {
-        const existing = document.querySelector('.toast-msg');
-        if (existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.className = 'toast-msg';
-        toast.style.cssText = `
-            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
-            background:var(--surface); color:var(--text); padding:10px 20px;
-            border-radius:25px; box-shadow:var(--shadow-lg); z-index:400;
-            font-weight:600; font-size:0.85rem; animation:toastIn 0.3s ease;
-            border:1px solid var(--border); white-space:nowrap;
-        `;
-        toast.textContent = msg;
+    function showToast(msg) {
+        let toast = document.createElement('div'); toast.className='toast-msg'; toast.textContent=msg;
         document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2500);
+        setTimeout(()=>{ toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); },2000);
     }
 
     function isVerifiedSeller() {
@@ -643,410 +283,259 @@
         return adminData.payments.some(p => p.userId === currentUser.id && p.status === 'pending');
     }
 
-    // ==================== RENDER ====================
+    // ============ NAVIGATION ============
+    function navigateTo(p) {
+        page = p;
+        renderPage();
+        document.getElementById('mainScroll').scrollTop = 0;
+    }
+
     function renderPage() {
         const container = document.getElementById('mainScroll');
         switch(page) {
             case 'home': container.innerHTML = renderHome(); break;
             case 'large': container.innerHTML = renderLargeItems(); break;
             case 'sell': container.innerHTML = renderSellPage(); break;
-            case 'services': container.innerHTML = renderServices(); break;
-            case 'profile': container.innerHTML = renderProfile(); break;
+            case 'help': container.innerHTML = renderHelpPage(); break;
+            case 'profile': container.innerHTML = renderProfilePage(); break;
         }
         document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+        const activeNav = document.querySelector(`.nav-item[data-page="${page}"]`);
+        if (activeNav) activeNav.classList.add('active');
         updateCartDot();
-        updateUserBadge();
     }
 
-    function navigateTo(p) { page = p; renderPage(); document.getElementById('mainScroll').scrollTop = 0; }
-
+    // ============ PAGES ============
     function renderHome() {
         let filtered = items.filter(i => !i.isLarge);
-        let searchTerm = document.getElementById('searchInput')?.value?.toLowerCase() || '';
-        if (searchTerm) filtered = filtered.filter(i => i.title.toLowerCase().includes(searchTerm) || i.desc.toLowerCase().includes(searchTerm));
-        
-        return `
-        <div class="section-title">🔥 Trending Now</div>
-        <div class="products-grid">
-            ${filtered.map(item => `
-                <div class="product-card" onclick="viewItem(${item.id})">
-                    <div class="product-img" style="background-image:url('${item.img}');"></div>
-                    <div class="product-info">
-                        <div class="product-title">${item.title}</div>
-                        <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-                        <div class="product-footer">
-                            <span>⭐ ${item.rating}</span>
-                            <span>${item.seller}</span>
-                        </div>
-                        <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">Add to cart</button>
-                    </div>
-                </div>
-            `).join('') || '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--text-secondary);">No items found</div>'}
-        </div>`;
+        const term = (document.getElementById('searchInput')?.value || '').toLowerCase();
+        if (term) filtered = filtered.filter(i => i.title.toLowerCase().includes(term) || i.desc.toLowerCase().includes(term));
+        let html = `<div class="section-title">🔥 Trending</div><div class="products-grid">`;
+        filtered.forEach(item => {
+            html += productCard(item);
+        });
+        html += `</div>`;
+        if (filtered.length===0) html = `<div class="section-title">No items found</div>`;
+        return html;
     }
 
     function renderLargeItems() {
-        let largeItems = items.filter(i => i.isLarge);
-        return `
-        <div class="section-title">🏠 Large Items</div>
-        <div class="products-grid">
-            ${largeItems.map(item => `
-                <div class="product-card" onclick="viewItem(${item.id})">
-                    <div class="product-img" style="background-image:url('${item.img}');height:180px;"></div>
-                    <div class="product-info">
-                        <div class="product-title">${item.title}</div>
-                        <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-                        <div class="product-footer">
-                            <span>⭐ ${item.rating}</span>
-                            <span>${item.seller}</span>
-                        </div>
-                        <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">Add to cart</button>
-                    </div>
-                </div>
-            `).join('')}
+        let large = items.filter(i => i.isLarge);
+        let html = `<div class="section-title">🏠 Large Items</div><div class="products-grid">`;
+        large.forEach(item => html += productCard(item));
+        html += `</div>`;
+        return html;
+    }
+
+    function productCard(item) {
+        return `<div class="product-card" onclick="viewItem(${item.id})">
+            <div class="product-img" style="background-image:url('${item.img}');"></div>
+            <div class="product-info">
+                <div class="product-title">${item.title}</div>
+                <div class="product-price">KSH ${item.price.toLocaleString()}</div>
+                <div class="product-footer"><span>⭐${item.rating}</span><span>${item.seller}</span></div>
+                <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">Add to cart</button>
+            </div>
         </div>`;
     }
 
     function renderSellPage() {
-        if (!currentUser) {
-            return `<div class="card" style="margin-top:20px;"><p>Please login to sell items.</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
-        }
-        
-        // Check verification status
-        if (isPendingVerification()) {
-            return `
-            <div class="section-title">💼 Seller Status</div>
-            <div class="card">
-                <div class="verification-pending">
-                    <i class="fas fa-clock"></i>
-                    <h3>Payment Under Review</h3>
-                    <p style="font-size:0.85rem;color:var(--text-secondary);">Your KSH 350 registration payment has been submitted and is being reviewed by our admin team.</p>
-                    <p style="font-size:0.8rem;color:var(--warning);margin-top:8px;">⏳ You can continue browsing and buying, but selling is locked until admin approves your payment.</p>
-                    <button class="btn whatsapp-btn btn-block" onclick="contactAdmin()" style="margin-top:12px;">
-                        <i class="fab fa-whatsapp"></i> Contact Admin: ${WHATSAPP_NUMBER}
-                    </button>
-                </div>
-            </div>`;
-        }
-        
-        if (!hasPaidRegistration() && !isPendingVerification()) {
-            return `
-            <div class="section-title">💼 Become a Seller</div>
-            <div class="card card-gold">
-                <h3 style="color:var(--gold-dark);">Register as a Seller</h3>
-                <p style="font-size:0.85rem;margin:8px 0;">One-time fee: <strong>KSH 350</strong></p>
-                <p style="font-size:0.8rem;color:var(--text-secondary);">Send to <strong>${MASTER_MPESA}</strong> via M-Pesa</p>
-                <button class="btn btn-gold btn-block" onclick="showRegistrationPayment()">Pay KSH 350 Now</button>
-            </div>
-            <div class="card">
-                <h4>What you get:</h4>
-                <ul style="font-size:0.8rem;color:var(--text-secondary);padding-left:20px;margin-top:8px;">
-                    <li>List unlimited items</li>
-                    <li>3% commission (under KSH 10k)</li>
-                    <li>5% commission (KSH 10k+)</li>
-                    <li>Admin-reviewed listings</li>
-                    <li>Seller dashboard</li>
-                </ul>
-            </div>`;
-        }
-        
-        // Verified seller
-        let myItems = items.filter(i => i.seller === currentUser.name || i.sellerId === currentUser.id);
-        return `
-        <div class="section-title">💼 My Seller Dashboard</div>
-        <div class="card">
-            <span class="status-badge status-approved">✅ Verified Seller</span>
-            <p style="margin-top:8px;">Welcome back, ${currentUser.name}!</p>
-            <p style="font-size:0.8rem;color:var(--text-secondary);">You can list and sell items.</p>
-            <button class="btn btn-gold btn-block" onclick="showListForm()">+ List New Item</button>
+        if (!currentUser) return loginPrompt('sell');
+        if (isPendingVerification()) return pendingVerificationView();
+        if (!hasPaidRegistration() && !isPendingVerification()) return sellerRegistrationView();
+        let myItems = items.filter(i => i.seller === currentUser.name);
+        let html = `<div class="section-title">💼 Seller Dashboard</div>
+        <div class="card"><span class="status-badge status-approved">✅ Verified Seller</span><p>Welcome, ${currentUser.name}!</p>
+        <button class="btn btn-gold btn-block" onclick="showListForm()">+ List New Item</button></div>
+        <div class="section-title">📦 My Listings (${myItems.length})</div>`;
+        myItems.forEach(item => html += `<div class="card" style="display:flex;gap:10px;align-items:center;">
+            <div style="width:50px;height:50px;background-image:url(${item.img});background-size:cover;border-radius:8px;"></div>
+            <div><strong>${item.title}</strong><br>KSH ${item.price}</div></div>`);
+        if (myItems.length===0) html += `<div class="card">No listings yet.</div>`;
+        return html;
+    }
+
+    function renderHelpPage() {
+        return `<div class="section-title">💬 Need Help?</div>
+        <div class="card" style="text-align:center;">
+            <p style="font-size:3rem;">👋</p>
+            <h3>Chat with us on WhatsApp</h3>
+            <p style="color:var(--text-secondary);margin:8px 0;">We reply quickly!</p>
+            <button class="btn btn-gold btn-block" onclick="openWhatsApp()"><i class="fab fa-whatsapp"></i> ${WHATSAPP_NUMBER}</button>
         </div>
-        <div class="section-title">📦 My Listings (${myItems.length})</div>
-        ${myItems.map(item => `
-            <div class="card" style="display:flex;gap:10px;align-items:center;">
-                <div style="width:50px;height:50px;background-image:url('${item.img}');background-size:cover;border-radius:8px;flex-shrink:0;"></div>
-                <div style="flex:1;"><strong>${item.title}</strong><br><span style="color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</span></div>
-            </div>
-        `).join('') || '<div class="card"><p style="color:var(--text-secondary);">No listings yet</p></div>'}`;
+        <div class="card">
+            <h4>📧 Email Support</h4>
+            <p style="font-size:0.8rem;">support@secondchance.co.ke</p>
+        </div>`;
     }
 
-    function renderServices() {
-        return `
-        <div class="section-title">🛎️ Services</div>
-        <div class="card"><h4>📸 Pro Photography</h4><p style="font-size:0.8rem;">Get professional photos for your listing. KSH 500.</p><button class="btn btn-outline btn-sm" onclick="bookService('photo')">Book</button></div>
-        <div class="card"><h4>🔍 Item Inspection</h4><p style="font-size:0.8rem;">Certified check for big items. KSH 1,000.</p><button class="btn btn-outline btn-sm" onclick="bookService('inspect')">Schedule</button></div>
-        <div class="card"><h4>🛡️ Transit Insurance</h4><p style="font-size:0.8rem;">Cover your delivery. From KSH 200.</p><button class="btn btn-outline btn-sm" onclick="bookService('insurance')">Add</button></div>
-        <div class="card"><h4>🚚 Delivery Partners</h4><p style="font-size:0.8rem;">Sendy, Fargo, G4S available.</p><button class="btn btn-outline btn-sm" onclick="showDeliveryOptions()">Calculate</button></div>
-        <div class="card"><h4>📊 Market Reports</h4><p style="font-size:0.8rem;">Pricing trends. KSH 2,000/report.</p><button class="btn btn-outline btn-sm" onclick="purchaseReport()">Buy</button></div>`;
-    }
-
-    function renderProfile() {
-        if (!currentUser) {
-            return `<div class="card" style="margin-top:20px;"><p>Please login to see your profile.</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
-        }
-        let verified = isVerifiedSeller();
-        let pending = isPendingVerification();
-        return `
-        <div class="section-title">👤 Profile</div>
+    function renderProfilePage() {
+        if (!currentUser) return loginPrompt('profile');
+        let html = `<div class="section-title">👤 Profile</div>
         <div class="card">
             <p><strong>${currentUser.name}</strong></p>
-            <p style="font-size:0.8rem;color:var(--text-secondary);">Phone: ${currentUser.phone || 'Not set'}</p>
-            <p>Seller Status: ${verified ? '<span class="status-badge status-approved">✅ Verified</span>' : pending ? '<span class="status-badge status-pending">⏳ Pending</span>' : '<span class="status-badge status-rejected">Not Registered</span>'}</p>
+            <p>Phone: ${currentUser.phone || '—'}</p>
+            <p>Seller Status: ${isVerifiedSeller() ? '<span class="status-badge status-approved">Verified</span>' : (isPendingVerification() ? '<span class="status-badge status-pending">Pending</span>' : '<span class="status-badge status-rejected">Not registered</span>')}</p>
         </div>
         <div class="card">
-            <div class="toggle-row">
-                <span>🌙 Dark Mode</span>
+            <div class="toggle-row"><span>🌙 Dark Mode</span>
                 <label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label>
             </div>
-            <div class="toggle-row">
-                <span>🔔 Notifications</span>
+            <div class="toggle-row"><span>🔔 Notifications</span>
                 <label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;saveAll()"><span class="toggle-slider"></span></label>
-            </div>
-            <div class="toggle-row">
-                <span>💬 Help (WhatsApp)</span>
-                <button class="btn whatsapp-btn btn-sm" onclick="contactSupport()">Chat: ${WHATSAPP_NUMBER}</button>
             </div>
             <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
         </div>
         <div class="card">
-            <h4>📦 My Orders (${orders.filter(o=>o.buyer===currentUser?.name).length})</h4>
-            ${orders.filter(o=>o.buyer===currentUser?.name).slice(0,3).map(o=>`
-                <div style="font-size:0.8rem;padding:8px 0;border-bottom:1px solid var(--border);">
-                    <strong>#${o.id}</strong> - ${o.items.join(', ')}<br>
-                    KSH ${o.total.toLocaleString()} • ${new Date(o.date).toLocaleDateString()}
-                </div>
-            `).join('') || '<p style="font-size:0.8rem;color:var(--text-secondary);">No orders yet</p>'}
+            <h4>📦 Recent Orders</h4>
+            ${orders.filter(o=>o.buyer===currentUser.name).slice(0,3).map(o=>`
+                <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
+                    <strong>#${o.id}</strong> - ${o.items.join(', ')}<br>KSH ${o.total} • ${new Date(o.date).toLocaleDateString()}
+                </div>`).join('') || '<p style="font-size:0.8rem;">No orders yet</p>'}
+        </div>`;
+        return html;
+    }
+
+    function loginPrompt(returnPage) {
+        return `<div class="card" style="margin-top:20px;"><p>Please login to access this section.</p>
+        <button class="btn btn-gold btn-block" onclick="showLogin('${returnPage}')">Login / Register</button></div>`;
+    }
+
+    function pendingVerificationView() {
+        return `<div class="section-title">⏳ Verification Pending</div>
+        <div class="card" style="text-align:center;">
+            <p style="font-size:3rem;">⏳</p>
+            <h3>Payment Under Review</h3>
+            <p style="color:var(--text-secondary);">Your KSH 350 registration is being verified by admin. You can still browse and buy items.</p>
+            <button class="btn btn-gold btn-block" onclick="openWhatsApp()">Contact Admin: ${WHATSAPP_NUMBER}</button>
         </div>`;
     }
 
-    // ==================== SELLER REGISTRATION ====================
-    function showRegistrationPayment() {
-        const html = `
-        <div class="modal-overlay open" id="regModal" onclick="if(event.target===this)closeModal()">
-            <div class="modal-sheet">
-                <div class="modal-handle"></div>
-                <h2>📱 Register as Seller</h2>
-                <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;margin-bottom:16px;">
-                    <p style="font-size:0.9rem;">Send <strong>KSH 350</strong> via M-Pesa to:</p>
-                    <p style="font-size:1.5rem;font-weight:800;letter-spacing:2px;">${MASTER_MPESA}</p>
-                    <p style="font-size:0.8rem;">SECONDCHANCE MARKET</p>
-                </div>
-                <p style="font-size:0.8rem;color:var(--text-secondary);text-align:center;margin-bottom:12px;">
-                    ⚠️ After sending, enter your M-Pesa confirmation code below.<br>
-                    Your account will be verified by admin before you can sell.
-                </p>
-                <div class="form-group">
-                    <label>M-Pesa Transaction Code</label>
-                    <input type="text" class="form-input" id="mpesaCode" placeholder="e.g., QWE1234567">
-                </div>
-                <button class="btn btn-gold btn-block" onclick="submitRegistration()">Submit for Verification</button>
-                <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
-            </div>
+    function sellerRegistrationView() {
+        return `<div class="section-title">💰 Become a Seller</div>
+        <div class="card card-gold">
+            <h3>Register for KSH 350</h3>
+            <p style="margin:8px 0;">Send to <strong>${MASTER_MPESA}</strong> via M-Pesa, then enter confirmation code.</p>
+            <button class="btn btn-gold btn-block" onclick="showRegistrationModal()">Pay KSH 350</button>
         </div>`;
+    }
+
+    // ============ MODALS ============
+    function showLogin(fromPage) {
+        let html = `<div class="modal-overlay open" id="loginModal" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+            <div class="modal-handle"></div><h2>Create Account</h2>
+            <div class="form-group"><label>Full Name</label><input class="form-input" id="loginName"></div>
+            <div class="form-group"><label>Phone</label><input class="form-input" id="loginPhone"></div>
+            <button class="btn btn-gold btn-block" onclick="registerUser('${fromPage}')">Register</button>
+            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+        </div></div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function registerUser(fromPage) {
+        const name = document.getElementById('loginName').value.trim();
+        if (!name) return alert('Enter name');
+        currentUser = { id: Date.now(), name, phone: document.getElementById('loginPhone').value };
+        saveAll();
+        closeModal();
+        page = fromPage;
+        renderPage();
+    }
+
+    function showRegistrationModal() {
+        let html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+            <div class="modal-handle"></div><h2>📱 M-Pesa Payment</h2>
+            <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;">
+                <p>Send <strong>KSH 350</strong> to:</p>
+                <p style="font-size:1.5rem;font-weight:800;">${MASTER_MPESA}</p>
+            </div>
+            <div class="form-group"><label>M-Pesa Code</label><input class="form-input" id="mpesaCode" placeholder="QWE1234567"></div>
+            <button class="btn btn-gold btn-block" onclick="submitRegistration()">Submit for Verification</button>
+            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+        </div></div>`;
         document.getElementById('modalContainer').innerHTML = html;
     }
 
     function submitRegistration() {
         const code = document.getElementById('mpesaCode').value.trim();
-        if (!code) return alert('Please enter your M-Pesa transaction code');
-        
-        // Add to pending payments
-        const payment = {
-            id: Date.now(),
-            userId: currentUser.id,
-            userName: currentUser.name,
-            phone: currentUser.phone,
-            amount: 350,
-            method: 'mpesa',
-            code: code,
-            status: 'pending',
-            date: new Date().toISOString()
-        };
-        adminData.payments.push(payment);
+        if (!code) return alert('Enter M-Pesa code');
+        adminData.payments.push({ id:Date.now(), userId:currentUser.id, userName:currentUser.name, amount:350, method:'mpesa', code, status:'pending', date:new Date().toISOString() });
         saveAll();
-        
         closeModal();
-        showToast('Payment submitted! Awaiting admin verification ⏳');
-        
-        // Show verification pending message
-        setTimeout(() => {
-            page = 'sell';
-            renderPage();
-        }, 500);
+        showToast('Payment submitted! Await admin verification.');
+        page = 'sell';
+        renderPage();
     }
 
-    // ==================== ADMIN VERIFICATION SIMULATION ====================
-    function contactAdmin() {
-        window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20submitted%20my%20seller%20registration%20payment.%20Please%20verify%20my%20account.`, '_blank');
+    function showListForm() {
+        alert('List form would open here. (Simulated)');
     }
 
-    function contactSupport() {
-        window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20need%20help%20with%20SecondChance%20app.`, '_blank');
-    }
-
-    // Admin verification (for testing - in production this would be in the admin panel)
-    window.verifySeller = function(userId) {
-        const payment = adminData.payments.find(p => p.userId === userId && p.status === 'pending');
-        if (payment) {
-            payment.status = 'completed';
-            if (!adminData.approvedSellers.includes(userId)) {
-                adminData.approvedSellers.push(userId);
-            }
-            saveAll();
-            return 'Verified!';
-        }
-        return 'No pending payment found';
-    };
-
-    window.verifyAllPending = function() {
-        adminData.payments.forEach(p => {
-            if (p.status === 'pending') {
-                p.status = 'completed';
-                if (!adminData.approvedSellers.includes(p.userId)) {
-                    adminData.approvedSellers.push(p.userId);
-                }
-            }
-        });
-        saveAll();
-        return 'All pending payments verified!';
-    };
-
-    // ==================== CART ====================
-    function addToCart(id) {
-        const item = items.find(i => i.id === id);
+    function viewItem(id) {
+        const item = items.find(i=>i.id===id);
         if (!item) return;
-        cart.push({ ...item, cartId: Date.now() });
+        let html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+            <div class="modal-handle"></div>
+            <img src="${item.img}" style="width:100%;border-radius:12px;aspect-ratio:1/1;object-fit:cover;">
+            <h2>${item.title}</h2>
+            <p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
+            <p>${item.desc}</p>
+            <p>Seller: ${item.seller} • ⭐${item.rating}</p>
+            <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
+            <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
+        </div></div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function openCart() {
+        const total = cart.reduce((s,i)=>s+i.price,0);
+        const comm = total>=10000 ? total*0.05 : total*0.03;
+        let html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+            <div class="modal-handle"></div><h2>🛒 Cart</h2>`;
+        if (cart.length===0) {
+            html += `<div style="text-align:center;padding:30px;"><p style="font-size:3rem;">🛍️</p><p>Your cart is empty</p></div>`;
+        } else {
+            cart.forEach(item => {
+                html += `<div style="display:flex;gap:10px;align-items:center;margin-bottom:10px;background:var(--bg);padding:8px;border-radius:10px;">
+                    <div style="width:40px;height:40px;background-image:url(${item.img});background-size:cover;border-radius:6px;"></div>
+                    <div style="flex:1;"><strong>${item.title}</strong><br>KSH ${item.price}</div>
+                    <button onclick="removeFromCart(${item.cartId})">🗑</button></div>`;
+            });
+            html += `<hr><p>Subtotal: KSH ${total}</p><p style="color:var(--gold);">Commission (${total>=10000?'5%':'3%'}): KSH ${comm}</p>
+            <p>Seller gets: KSH ${(total-comm).toFixed(2)}</p>
+            <button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>`;
+        }
+        html += `<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function addToCart(id) {
+        const item = items.find(i=>i.id===id);
+        if (!item) return;
+        cart.push({...item, cartId:Date.now()});
         saveAll();
         updateCartDot();
-        showToast(`${item.title} added! 🛒`);
+        showToast(`${item.title} added!`);
     }
 
     function removeFromCart(cartId) {
-        cart = cart.filter(i => i.cartId !== cartId);
+        cart = cart.filter(i=>i.cartId!==cartId);
         saveAll();
         updateCartDot();
         openCart();
     }
 
-    function openCart() {
-        const total = cart.reduce((s, i) => s + i.price, 0);
-        const commission = total >= 10000 ? total * 0.05 : total * 0.03;
-        
-        const html = `
-        <div class="modal-overlay open" id="cartModal" onclick="if(event.target===this)closeModal()">
-            <div class="modal-sheet">
-                <div class="modal-handle"></div>
-                <h2>🛒 Your Cart</h2>
-                ${cart.length === 0 ? `
-                    <div style="text-align:center;padding:40px;">
-                        <p style="font-size:3rem;">🛍️</p>
-                        <h3>Your cart is empty</h3>
-                        <p style="color:var(--text-secondary);">Tap + on items to add them here</p>
-                    </div>
-                ` : `
-                    ${cart.map(item => `
-                        <div style="display:flex;gap:12px;align-items:center;padding:12px;background:var(--bg);border-radius:10px;margin-bottom:8px;">
-                            <div style="width:50px;height:50px;background-image:url('${item.img}');background-size:cover;border-radius:8px;flex-shrink:0;"></div>
-                            <div style="flex:1;min-width:0;">
-                                <div style="font-weight:600;font-size:0.85rem;">${item.title}</div>
-                                <div style="color:var(--gold-dark);font-weight:700;">KSH ${item.price.toLocaleString()}</div>
-                            </div>
-                            <button onclick="removeFromCart(${item.cartId})" style="background:none;border:none;cursor:pointer;font-size:1.1rem;">🗑️</button>
-                        </div>
-                    `).join('')}
-                    <hr style="margin:12px 0;">
-                    <div style="display:flex;justify-content:space-between;font-weight:700;">
-                        <span>Subtotal</span><span>KSH ${total.toLocaleString()}</span>
-                    </div>
-                    <p style="color:var(--gold);font-size:0.8rem;text-align:center;">Commission (${total>=10000?'5%':'3%'}): KSH ${commission.toFixed(2)}</p>
-                    <p style="text-align:center;font-size:0.8rem;">Seller receives: <strong>KSH ${(total-commission).toFixed(2)}</strong></p>
-                    <button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>
-                `}
-                <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
-            </div>
-        </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
     function checkout() {
-        if (!currentUser) {
-            closeModal();
-            showLogin();
-            return;
-        }
-        if (cart.length === 0) return;
-        
-        const total = cart.reduce((s, i) => s + i.price, 0);
-        const commission = total >= 10000 ? total * 0.05 : total * 0.03;
-        
-        const order = {
-            id: Date.now(),
-            buyer: currentUser.name,
-            buyerId: currentUser.id,
-            sellerId: cart[0]?.sellerId || 'various',
-            items: cart.map(i => i.title),
-            total: total,
-            commission: commission,
-            date: new Date().toISOString()
-        };
-        orders.push(order);
+        if (!currentUser) { closeModal(); showLogin(page); return; }
+        if (cart.length===0) return;
+        const total = cart.reduce((s,i)=>s+i.price,0);
+        const comm = total>=10000 ? total*0.05 : total*0.03;
+        orders.push({ id:Date.now(), buyer:currentUser.name, buyerId:currentUser.id, items:cart.map(i=>i.title), total, commission:comm, date:new Date().toISOString() });
         cart = [];
         saveAll();
         closeModal();
-        showToast('Order placed! ✅');
         updateCartDot();
-    }
-
-    function updateCartDot() {
-        document.getElementById('cartDot').classList.toggle('show', cart.length > 0);
-    }
-
-    function updateUserBadge() {
-        const badge = document.getElementById('userStatusBadge');
-        if (currentUser && isVerifiedSeller()) {
-            badge.className = 'status-badge status-approved';
-            badge.textContent = '✅ Verified';
-            badge.classList.remove('hidden');
-        } else if (currentUser && isPendingVerification()) {
-            badge.className = 'status-badge status-pending';
-            badge.textContent = '⏳ Pending';
-            badge.classList.remove('hidden');
-        } else {
-            badge.classList.add('hidden');
-        }
-    }
-
-    // ==================== LOGIN ====================
-    function showLogin() {
-        const html = `
-        <div class="modal-overlay open" id="loginModal" onclick="if(event.target===this)closeModal()">
-            <div class="modal-sheet">
-                <div class="modal-handle"></div>
-                <h2>Create Account</h2>
-                <div class="form-group"><label>Full Name</label><input class="form-input" id="loginName" placeholder="John Doe"></div>
-                <div class="form-group"><label>Phone Number</label><input class="form-input" id="loginPhone" placeholder="0712345678"></div>
-                <button class="btn btn-gold btn-block" onclick="registerUser()">Register</button>
-                <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
-            </div>
-        </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function registerUser() {
-        const name = document.getElementById('loginName').value.trim();
-        const phone = document.getElementById('loginPhone').value.trim();
-        if (!name) return alert('Please enter your name');
-        
-        currentUser = {
-            id: Date.now(),
-            name: name,
-            phone: phone,
-            registeredAt: new Date().toISOString()
-        };
-        saveAll();
-        closeModal();
-        showToast(`Welcome, ${name}! 👋`);
-        updateUserBadge();
+        showToast('Order placed! ✅');
     }
 
     function logout() {
@@ -1054,83 +543,46 @@
         localStorage.removeItem('sc_user');
         cart = [];
         saveAll();
+        updateCartDot();
         page = 'home';
         renderPage();
-        updateCartDot();
-        showToast('Logged out');
     }
 
-    // ==================== MISC ====================
-    function showListForm() {
-        alert('List form would open here. In production, you upload photos, set price, and submit for admin review.');
+    function toggleDark(val) {
+        settings.darkMode = val;
+        document.body.classList.toggle('dark-mode', val);
+        saveAll();
     }
 
-    function viewItem(id) {
-        const item = items.find(i => i.id === id);
-        if (!item) return;
-        const html = `
-        <div class="modal-overlay open" onclick="if(event.target===this)closeModal()">
-            <div class="modal-sheet">
-                <div class="modal-handle"></div>
-                <img src="${item.img}" style="width:100%;border-radius:12px;aspect-ratio:1/1;object-fit:cover;">
-                <h2 style="margin-top:16px;">${item.title}</h2>
-                <p style="font-size:1.4rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
-                <p>${item.desc}</p>
-                <p style="color:var(--text-secondary);">Seller: ${item.seller} • ⭐ ${item.rating}</p>
-                <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
-                <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
-            </div>
-        </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
+    function openWhatsApp() {
+        window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20need%20help%20with%20SecondChance`, '_blank');
     }
 
-    function bookService(type) { alert(`Service "${type}" booked! (simulated) We'll contact you via WhatsApp: ${WHATSAPP_NUMBER}`); }
-    function showDeliveryOptions() { alert('Delivery options: Sendy, Fargo, G4S. Choose at checkout.'); }
-    function purchaseReport() { alert(`Market report purchase simulated. Pay KSH 2,000 to ${MASTER_MPESA}`); }
-    function toggleDark(val) { settings.darkMode = val; document.body.classList.toggle('dark-mode', val); saveAll(); }
-    function searchItems() { if (page === 'home' || page === 'large') renderPage(); }
+    function applySearch() { if (page==='home'||page==='large') renderPage(); }
+    function updateCartDot() { document.getElementById('cartDot').classList.toggle('show', cart.length>0); }
     function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
 
-    // ==================== PWA INSTALL ====================
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        document.getElementById('installPrompt').classList.remove('hidden');
-    });
+    // Admin helpers (for testing)
+    window.verifySeller = function(userId) {
+        const p = adminData.payments.find(p=>p.userId===userId && p.status==='pending');
+        if (p) { p.status='completed'; if (!adminData.approvedSellers.includes(userId)) adminData.approvedSellers.push(userId); saveAll(); return 'Verified!'; }
+        return 'No pending payment';
+    };
+    window.verifyAll = function() {
+        adminData.payments.forEach(p=>{ if(p.status==='pending'){ p.status='completed'; if(!adminData.approvedSellers.includes(p.userId)) adminData.approvedSellers.push(p.userId); } });
+        saveAll(); return 'All verified!';
+    };
 
-    function installApp() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then(() => {
-                document.getElementById('installPrompt').classList.add('hidden');
-            });
-        } else {
-            alert('To install: open in Chrome/Safari → tap Share → Add to Home Screen');
-        }
-    }
-
-    window.addEventListener('appinstalled', () => {
-        document.getElementById('installPrompt').classList.add('hidden');
-    });
-
-    // ==================== INIT ====================
+    // Init
     document.querySelectorAll('.nav-item').forEach(btn => {
         btn.addEventListener('click', (e) => {
             page = e.currentTarget.dataset.page;
             renderPage();
         });
     });
-
     if (settings.darkMode) document.body.classList.add('dark-mode');
     renderPage();
     updateCartDot();
-    updateUserBadge();
-
-    console.log('💰 SecondChance App Ready');
-    console.log('📱 WhatsApp Help:', WHATSAPP_NUMBER);
-    console.log('💳 M-Pesa Master:', MASTER_MPESA);
-    console.log('🔧 Admin commands: verifySeller(userId), verifyAllPending()');
 </script>
 </body>
     </html>
