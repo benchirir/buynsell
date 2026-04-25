@@ -2,14 +2,21 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Buy & Sell Second-Hand Items - Kenya's Premium Marketplace">
     <title>SecondChance • Buy & Sell</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    
+    <!-- App Icons -->
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='110' font-size='100' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><rect width='512' height='512' rx='100' fill='%231a1a2e'/><text x='256' y='320' font-size='280' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
+    <link rel="manifest" href="data:application/json,{'name':'SecondChance','short_name':'SecondChance','start_url':'.','display':'standalone','background_color':'%231a1a2e','theme_color':'%23c9a84c','icons':[{'src':'data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 512 512%22><rect width=%22512%22 height=%22512%22 rx=%22100%22 fill=%22%231a1a2e%22/><text x=%22256%22 y=%22320%22 font-size=%22280%22 text-anchor=%22middle%22 fill=%22%23c9a84c%22>💰</text></svg>','sizes':'512x512','type':'image/svg+xml','purpose':'any maskable'}]}">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -18,13 +25,14 @@
             --text: #1a1a2e;
             --text-secondary: #6b7280;
             --primary: #1e2a4a;
-            --secondary: #3d2c5e;
-            --accent: #8b7355;
             --gold: #c9a84c;
             --gold-dark: #a68a3e;
+            --gold-light: #d4b96a;
             --border: #e5e7eb;
             --success: #059669;
             --danger: #dc2626;
+            --warning: #d97706;
+            --info: #0891b2;
             --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
             --shadow: 0 4px 12px rgba(0,0,0,0.08);
             --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
@@ -41,21 +49,13 @@
             --text: #e5e7eb;
             --text-secondary: #9ca3af;
             --primary: #4a5b8c;
-            --secondary: #5b4a7a;
-            --accent: #a08464;
             --gold: #d4b96a;
             --gold-dark: #c9a84c;
+            --gold-light: #e0c87a;
             --border: #1f2937;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: none;
-            user-select: none;
-        }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
 
         html, body {
             width: 100%;
@@ -75,20 +75,17 @@
             flex-direction: column;
             height: 100vh;
             height: -webkit-fill-available;
-            max-width: 100vw;
-            overflow-x: hidden;
         }
 
-        /* App Container */
         .app-container {
             display: flex;
             flex-direction: column;
             height: 100%;
-            width: 100%;
             max-width: 480px;
             margin: 0 auto;
+            width: 100%;
+            background: var(--bg);
             position: relative;
-            overflow: hidden;
         }
 
         @media (min-width: 481px) {
@@ -99,17 +96,16 @@
             }
         }
 
-        /* Top Header - Fixed */
+        /* Header */
         .top-header {
             background: var(--surface);
-            padding: 12px 16px;
-            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 10px;
+            border-bottom: 1px solid var(--border);
             flex-shrink: 0;
-            z-index: 50;
+            z-index: 10;
         }
 
         .logo {
@@ -118,49 +114,18 @@
             font-weight: 900;
             color: var(--primary);
             letter-spacing: -1px;
-            white-space: nowrap;
         }
         .logo span { color: var(--gold); }
 
-        .user-pill {
+        .header-actions {
             display: flex;
-            gap: 2px;
-            background: var(--bg);
-            border-radius: 22px;
-            padding: 3px;
-            border: 1px solid var(--border);
-            flex-shrink: 0;
-        }
-
-        .pill-btn {
-            padding: 6px 12px;
-            border-radius: 20px;
-            border: none;
-            cursor: pointer;
-            font-weight: 600;
-            font-size: 0.7rem;
-            transition: var(--transition);
-            background: transparent;
-            color: var(--text-secondary);
-            white-space: nowrap;
-            letter-spacing: 0.3px;
-        }
-
-        .pill-btn.active {
-            background: var(--gold);
-            color: #1a1a1a;
-        }
-
-        .header-icons {
-            display: flex;
-            gap: 4px;
+            gap: 6px;
             align-items: center;
-            flex-shrink: 0;
         }
 
         .icon-btn {
-            width: 34px;
-            height: 34px;
+            width: 36px;
+            height: 36px;
             border-radius: 50%;
             border: none;
             background: transparent;
@@ -169,17 +134,16 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: var(--transition);
             color: var(--text);
             position: relative;
+            transition: var(--transition);
         }
-
         .icon-btn:active { transform: scale(0.9); }
 
         .cart-dot {
             position: absolute;
-            top: 4px;
-            right: 4px;
+            top: 6px;
+            right: 6px;
             width: 8px;
             height: 8px;
             border-radius: 50%;
@@ -188,13 +152,23 @@
         }
         .cart-dot.show { display: block; }
 
-        /* Search Bar - Fixed */
+        .status-badge {
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 0.65rem;
+            font-weight: 700;
+            letter-spacing: 0.5px;
+        }
+        .status-pending { background: rgba(217,119,6,0.2); color: var(--warning); }
+        .status-approved { background: rgba(5,150,105,0.2); color: var(--success); }
+        .status-rejected { background: rgba(220,38,38,0.2); color: var(--danger); }
+
+        /* Search */
         .search-bar {
             padding: 8px 16px;
             flex-shrink: 0;
             background: var(--bg);
         }
-
         .search-input-wrap {
             display: flex;
             align-items: center;
@@ -204,12 +178,10 @@
             overflow: hidden;
             transition: var(--transition);
         }
-
         .search-input-wrap:focus-within {
             border-color: var(--gold);
             box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
         }
-
         .search-input-wrap input {
             border: none;
             padding: 10px 14px;
@@ -220,64 +192,110 @@
             font-size: 0.85rem;
             font-family: inherit;
         }
-
         .search-input-wrap button {
             background: none;
             border: none;
             padding: 10px 14px;
             cursor: pointer;
             color: var(--text-secondary);
-            font-size: 0.9rem;
         }
 
-        /* Categories - Scrollable */
-        .categories-scroll {
-            display: flex;
-            gap: 6px;
-            padding: 8px 16px;
-            overflow-x: auto;
-            flex-shrink: 0;
-            -webkit-overflow-scrolling: touch;
-            scrollbar-width: none;
-        }
-        .categories-scroll::-webkit-scrollbar { display: none; }
-
-        .cat-chip {
-            padding: 6px 14px;
-            border-radius: 18px;
-            background: var(--surface);
-            border: 1px solid var(--border);
-            white-space: nowrap;
-            cursor: pointer;
-            font-size: 0.75rem;
-            font-weight: 500;
-            transition: var(--transition);
-            flex-shrink: 0;
-        }
-
-        .cat-chip:active { transform: scale(0.95); }
-        .cat-chip.active {
-            background: var(--gold);
-            color: #1a1a1a;
-            border-color: transparent;
-            font-weight: 700;
-        }
-
-        /* Main Content - Scrollable */
-        .main-content {
+        /* Main Content */
+        .main-scroll {
             flex: 1;
             overflow-y: auto;
             overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
-            padding-bottom: 8px;
         }
 
-        /* Products Grid - 2 per row, compact */
+        /* Bottom Navigation */
+        .bottom-nav {
+            background: var(--surface);
+            border-top: 1px solid var(--border);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 6px 4px calc(6px + var(--safe-bottom));
+            flex-shrink: 0;
+            box-shadow: 0 -2px 8px rgba(0,0,0,0.04);
+        }
+
+        .nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 2px;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 0.6rem;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 6px 4px;
+            border-radius: 10px;
+            transition: var(--transition);
+            font-family: inherit;
+            min-width: 48px;
+        }
+        .nav-item.active { color: var(--gold); font-weight: 700; }
+        .nav-item i { font-size: 1.1rem; }
+
+        /* Section Titles */
+        .section-title {
+            padding: 16px 16px 8px;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 700;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        /* Cards */
+        .card {
+            background: var(--surface);
+            border-radius: var(--radius);
+            padding: 16px;
+            margin: 0 16px 12px;
+            box-shadow: var(--shadow-sm);
+            border: 1px solid var(--border);
+        }
+
+        .card-gold {
+            border: 2px solid var(--gold);
+            background: linear-gradient(135deg, var(--surface), rgba(201,168,76,0.05));
+        }
+
+        /* Buttons */
+        .btn {
+            padding: 10px 18px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: var(--transition);
+            font-family: inherit;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            justify-content: center;
+            letter-spacing: 0.3px;
+        }
+        .btn:active { transform: scale(0.95); }
+        .btn-gold { background: var(--gold); color: #1a1a1a; font-weight: 700; }
+        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
+        .btn-success { background: var(--success); color: white; }
+        .btn-warning { background: var(--warning); color: #1a1a1a; }
+        .btn-block { width: 100%; }
+        .btn-sm { padding: 6px 12px; font-size: 0.7rem; }
+
+        /* Products Grid */
         .products-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            padding: 10px 16px;
+            padding: 0 16px 16px;
         }
 
         .product-card {
@@ -285,11 +303,10 @@
             border-radius: var(--radius);
             overflow: hidden;
             box-shadow: var(--shadow-sm);
-            transition: var(--transition);
             border: 1px solid var(--border);
             cursor: pointer;
+            transition: var(--transition);
         }
-
         .product-card:active { transform: scale(0.97); }
 
         .product-img {
@@ -298,238 +315,48 @@
             background-size: cover;
             background-position: center;
             background-color: #e5e7eb;
+            position: relative;
         }
 
-        .product-info {
-            padding: 10px;
+        .product-badge {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            background: var(--gold);
+            color: #1a1a1a;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.6rem;
+            font-weight: 700;
         }
 
+        .product-info { padding: 10px; }
         .product-title {
             font-weight: 600;
             font-size: 0.8rem;
             margin-bottom: 4px;
             line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
-
         .product-price {
             font-weight: 800;
             font-size: 0.95rem;
             color: var(--gold-dark);
-            margin-bottom: 4px;
-        }
-
-        .product-desc {
-            color: var(--text-secondary);
-            font-size: 0.7rem;
             margin-bottom: 6px;
-            display: -webkit-box;
-            -webkit-line-clamp: 1;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
         }
-
         .product-footer {
             display: flex;
             justify-content: space-between;
-            align-items: center;
             font-size: 0.65rem;
             color: var(--text-secondary);
+            margin-bottom: 6px;
         }
 
-        .btn-add-cart {
-            width: 100%;
-            padding: 8px;
-            background: var(--gold);
-            color: #1a1a1a;
-            border: none;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 0.75rem;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-top: 6px;
-            font-family: inherit;
-            letter-spacing: 0.3px;
-        }
-
-        .btn-add-cart:active { transform: scale(0.95); opacity: 0.8; }
-
-        /* Bottom Navigation - Fixed */
-        .bottom-nav {
-            position: sticky;
-            bottom: 0;
-            background: var(--surface);
-            border-top: 1px solid var(--border);
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            padding: 6px 8px calc(6px + var(--safe-bottom));
-            z-index: 50;
-            flex-shrink: 0;
-            box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
-        }
-
-        .nav-tab {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 3px;
-            cursor: pointer;
-            color: var(--text-secondary);
-            font-size: 0.6rem;
-            font-weight: 500;
-            transition: var(--transition);
-            padding: 6px 10px;
-            border-radius: 10px;
-            min-width: 50px;
-            border: none;
-            background: none;
-            font-family: inherit;
-        }
-
-        .nav-tab:active { transform: scale(0.9); }
-        .nav-tab.active { color: var(--gold); font-weight: 700; }
-        .nav-tab i { font-size: 1.2rem; }
-
-        /* Cart Sidebar */
-        .cart-overlay {
-            position: fixed;
-            inset: 0;
-            background: rgba(0,0,0,0.5);
-            z-index: 200;
-            display: flex;
-            justify-content: flex-end;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.3s;
-        }
-        .cart-overlay.open { opacity: 1; pointer-events: auto; }
-
-        .cart-panel {
-            width: 100%;
-            max-width: 380px;
-            background: var(--surface);
-            height: 100%;
-            display: flex;
-            flex-direction: column;
-            transform: translateX(100%);
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        .cart-overlay.open .cart-panel { transform: translateX(0); }
-
-        .cart-header {
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .cart-header h2 {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .cart-items {
-            flex: 1;
-            overflow-y: auto;
-            padding: 12px;
-        }
-
-        .cart-item {
-            display: flex;
-            gap: 12px;
-            padding: 12px;
-            background: var(--bg);
-            border-radius: var(--radius-sm);
-            margin-bottom: 8px;
-            align-items: center;
-        }
-
-        .cart-item-img {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            background-size: cover;
-            background-position: center;
-            flex-shrink: 0;
-        }
-
-        .cart-item-info { flex: 1; min-width: 0; }
-        .cart-item-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
-        .cart-item-price { font-weight: 700; color: var(--gold-dark); font-size: 0.9rem; }
-
-        .cart-item-remove {
-            background: none;
-            border: none;
-            color: var(--danger);
-            cursor: pointer;
-            font-size: 1rem;
-            padding: 4px;
-        }
-
-        .cart-footer {
-            padding: 16px 20px;
-            border-top: 1px solid var(--border);
-        }
-
-        .cart-total {
-            display: flex;
-            justify-content: space-between;
-            font-weight: 700;
-            margin-bottom: 8px;
-            font-size: 1rem;
-        }
-
-        .cart-commission {
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            margin-bottom: 12px;
-            text-align: center;
-        }
-
-        .btn-checkout {
-            width: 100%;
-            padding: 14px;
-            background: var(--gold);
-            color: #1a1a1a;
-            border: none;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            font-family: inherit;
-            letter-spacing: 0.5px;
-        }
-
-        .btn-checkout:active { transform: scale(0.95); }
-
-        .cart-empty {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100%;
-            color: var(--text-secondary);
-            text-align: center;
-            padding: 40px;
-        }
-
-        .cart-empty i { font-size: 4rem; margin-bottom: 16px; opacity: 0.3; }
-        .cart-empty h3 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
-        .cart-empty p { font-size: 0.85rem; }
-
-        /* Modals */
+        /* Modal Sheet */
         .modal-overlay {
             position: fixed;
             inset: 0;
             background: rgba(0,0,0,0.6);
-            z-index: 300;
+            z-index: 200;
             display: flex;
             align-items: flex-end;
             justify-content: center;
@@ -541,7 +368,7 @@
 
         .modal-sheet {
             background: var(--surface);
-            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            border-radius: 20px 20px 0 0;
             width: 100%;
             max-width: 480px;
             max-height: 85vh;
@@ -592,35 +419,6 @@
             outline: none;
             border-color: var(--gold);
         }
-        .form-textarea { resize: vertical; min-height: 80px; }
-
-        .btn-full {
-            width: 100%;
-            padding: 12px;
-            border-radius: 25px;
-            border: none;
-            font-weight: 700;
-            font-size: 0.9rem;
-            cursor: pointer;
-            font-family: inherit;
-            transition: var(--transition);
-            letter-spacing: 0.3px;
-        }
-        .btn-full-gold { background: var(--gold); color: #1a1a1a; }
-        .btn-full-outline { background: transparent; border: 1px solid var(--border); color: var(--text); margin-top: 8px; }
-
-        .agreement-box {
-            border: 1px solid var(--border);
-            border-radius: 10px;
-            padding: 12px;
-            height: 120px;
-            overflow-y: auto;
-            background: var(--bg);
-            font-size: 0.75rem;
-            color: var(--text-secondary);
-            line-height: 1.5;
-            margin: 10px 0;
-        }
 
         .toggle-row {
             display: flex;
@@ -630,13 +428,10 @@
             border-bottom: 1px solid var(--border);
         }
 
-        .toggle-row span { font-weight: 500; font-size: 0.9rem; }
-
         .toggle-switch {
             position: relative;
             width: 44px;
             height: 24px;
-            flex-shrink: 0;
         }
         .toggle-switch input { opacity: 0; width: 0; height: 0; }
         .toggle-slider {
@@ -663,131 +458,117 @@
 
         .hidden { display: none !important; }
 
-        .mpesa-highlight {
-            background: #1a1a1a;
-            color: #4caf50;
-            padding: 12px;
-            border-radius: 10px;
+        .verification-pending {
+            background: rgba(217,119,6,0.1);
+            border: 2px dashed var(--warning);
+            border-radius: var(--radius);
+            padding: 16px;
             text-align: center;
-            font-weight: 700;
-            letter-spacing: 1px;
-            margin: 8px 0;
+            margin: 12px 0;
         }
 
-        /* Install Banner */
-        .install-banner {
-            background: var(--gold);
-            color: #1a1a1a;
-            padding: 10px 16px;
-            text-align: center;
-            font-weight: 600;
-            font-size: 0.8rem;
+        .verification-pending i {
+            font-size: 2rem;
+            color: var(--warning);
+            margin-bottom: 8px;
+        }
+
+        .whatsapp-btn {
+            background: #25D366;
+            color: white;
+            font-weight: 700;
+        }
+        .whatsapp-btn:hover { background: #20bd5a; }
+
+        .install-prompt {
+            background: linear-gradient(135deg, var(--primary), #2a3f6e);
+            color: white;
+            padding: 12px 16px;
+            border-radius: var(--radius);
+            margin: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
             cursor: pointer;
-            display: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+        }
+        .install-prompt:active { transform: scale(0.98); }
+
+        @keyframes toastIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
-
-<div class="app-container">
-    <!-- Install Banner -->
-    <div class="install-banner" id="installBanner" onclick="installApp()">
-        📲 Tap to install this app on your home screen
+<div class="app-container" id="appContainer">
+    <!-- Install Prompt -->
+    <div class="install-prompt hidden" id="installPrompt" onclick="installApp()">
+        <span style="font-size:1.5rem;">📲</span>
+        <span>Tap to install SecondChance on your phone</span>
     </div>
 
-    <!-- Top Header -->
+    <!-- Header -->
     <div class="top-header">
         <div class="logo">Second<span>Chance</span></div>
-        <div class="user-pill">
-            <button class="pill-btn active" id="buyerPill" onclick="switchMode('buyer')">Buyer</button>
-            <button class="pill-btn" id="sellerPill" onclick="switchMode('seller')">Seller</button>
-        </div>
-        <div class="header-icons">
-            <button class="icon-btn" onclick="openCart()">
-                🛒<span class="cart-dot" id="cartDot"></span>
-            </button>
+        <div class="header-actions">
+            <span id="userStatusBadge" class="hidden"></span>
+            <button class="icon-btn" onclick="openCart()">🛒<span class="cart-dot" id="cartDot"></span></button>
+            <button class="icon-btn" onclick="openProfile()">👤</button>
         </div>
     </div>
 
     <!-- Search -->
     <div class="search-bar">
         <div class="search-input-wrap">
-            <input type="text" id="searchInput" placeholder="Search items...">
-            <button onclick="searchItems()">🔍</button>
+            <input type="text" id="searchInput" placeholder="Search anything..." oninput="searchItems()">
+            <button>🔍</button>
         </div>
     </div>
 
-    <!-- Categories -->
-    <div class="categories-scroll" id="categoriesScroll"></div>
-
     <!-- Main Content -->
-    <div class="main-content" id="mainContent">
-        <div class="products-grid" id="productsGrid"></div>
-    </div>
+    <div class="main-scroll" id="mainScroll"></div>
 
     <!-- Bottom Navigation -->
     <div class="bottom-nav">
-        <button class="nav-tab active" onclick="showPage('home')">
-            <i class="fas fa-home"></i> Home
-        </button>
-        <button class="nav-tab" onclick="showPage('large')">
-            <i class="fas fa-couch"></i> Large
-        </button>
-        <button class="nav-tab" onclick="openSellModal()">
-            <i class="fas fa-plus-circle"></i> Sell
-        </button>
-        <button class="nav-tab" onclick="openHelp()">
-            <i class="fab fa-whatsapp"></i> Help
-        </button>
-        <button class="nav-tab" onclick="openSettings()">
-            <i class="fas fa-cog"></i> Settings
-        </button>
-    </div>
-</div>
-
-<!-- Cart Overlay -->
-<div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
-    <div class="cart-panel">
-        <div class="cart-header">
-            <h2>Your Cart</h2>
-            <button class="icon-btn" onclick="closeCart()">✕</button>
-        </div>
-        <div class="cart-items" id="cartItems"></div>
-        <div class="cart-footer" id="cartFooter"></div>
+        <button class="nav-item active" data-page="home"><i class="fas fa-home"></i>Home</button>
+        <button class="nav-item" data-page="large"><i class="fas fa-couch"></i>Large</button>
+        <button class="nav-item" data-page="sell"><i class="fas fa-plus-circle"></i>Sell</button>
+        <button class="nav-item" data-page="services"><i class="fas fa-concierge-bell"></i>Services</button>
+        <button class="nav-item" data-page="profile"><i class="fas fa-user"></i>Profile</button>
     </div>
 </div>
 
 <!-- Modal Container -->
 <div id="modalContainer"></div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
     // ==================== CONSTANTS ====================
     const MASTER_MPESA = '0792091769';
-    const WHATSAPP_NUMBER = '0753711672';
+    const WHATSAPP_NUMBER = '+254753711672';
+    const WHATSAPP_LINK = 'https://wa.me/254753711672';
     
     // ==================== STATE ====================
-    let currentUser = JSON.parse(localStorage.getItem('sc_user'));
-    let userMode = 'buyer';
+    let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
     let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
     let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
-    let currentCategory = 'all';
-    let currentPage = 'home';
-    let settings = JSON.parse(localStorage.getItem('sc_settings')) || {
-        darkMode: false,
-        notifications: true,
-        currency: 'KSH',
-        language: 'en'
+    let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: false, notifications: true };
+    let page = 'home';
+    
+    // Admin data (synced)
+    let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || {
+        payments: [],
+        products: [],
+        approvedSellers: []
     };
 
-    // ==================== PRODUCT DATA ====================
+    // Product images
     const productImages = {
         kitchen_fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
         kitchen_pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
-        kitchen_cooker: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=300&fit=crop',
         electronics_phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
         electronics_laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=300&fit=crop',
-        electronics_tv: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=300&h=300&fit=crop',
         furniture_sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
         furniture_bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
         furniture_table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
@@ -804,482 +585,552 @@
     };
 
     const items = [
-        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years old', condition:'good', seller:'Jane', rating:4.5, img:productImages.kitchen_fridge, isLarge:true },
-        { id:2, title:'Non-stick Pan Set 5pcs', category:'kitchen', price:2500, desc:'Like new', condition:'like-new', seller:'Mike', rating:4.8, img:productImages.kitchen_pans, isLarge:false },
-        { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, box included', condition:'good', seller:'TechGuy', rating:4.3, img:productImages.electronics_phone, isLarge:false },
-        { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown leather', condition:'fair', seller:'HomeDecor', rating:4.0, img:productImages.furniture_sofa, isLarge:true },
-        { id:5, title:'Designer Evening Gown', category:'fashion', price:8000, desc:'Size M, worn once', condition:'like-new', seller:'Fashionista', rating:4.7, img:productImages.fashion_dress, isLarge:false },
-        { id:6, title:'Alloy Rims 17" Set', category:'automotive', price:28000, desc:'Set of 4', condition:'good', seller:'CarParts', rating:4.2, img:productImages.automotive_rims, isLarge:false },
-        { id:7, title:'Electric Treadmill', category:'sports', price:35000, desc:'12 programs', condition:'good', seller:'Fitness', rating:4.6, img:productImages.sports_treadmill, isLarge:true },
-        { id:8, title:'Harry Potter Book Set', category:'books', price:5000, desc:'All 7 hardcover', condition:'good', seller:'Bookworm', rating:4.9, img:productImages.books_novels, isLarge:false },
-        { id:9, title:'Garden Tool Set 7pcs', category:'garden', price:3000, desc:'Complete set', condition:'good', seller:'Green', rating:4.1, img:productImages.garden_tools, isLarge:false },
-        { id:10, title:'Baby Stroller', category:'baby', price:12000, desc:'Travel system', condition:'like-new', seller:'Parent', rating:4.4, img:productImages.baby_stroller, isLarge:false },
-        { id:11, title:'Large Dog Kennel', category:'pets', price:4500, desc:'Wooden, large breed', condition:'good', seller:'PetLover', rating:4.3, img:productImages.pets_kennel, isLarge:false },
-        { id:12, title:'Cordless Power Drill', category:'tools', price:6500, desc:'18V with bits', condition:'good', seller:'DIY', rating:4.5, img:productImages.tools_drill, isLarge:false },
-        { id:13, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage', condition:'good', seller:'AutoDealer', rating:4.0, img:productImages.automotive_car, isLarge:true },
-        { id:14, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden, storage', condition:'good', seller:'FurnitureHub', rating:4.3, img:productImages.furniture_bed, isLarge:true },
-        { id:15, title:'Dining Table 6-Seater', category:'furniture', price:22000, desc:'Solid wood', condition:'good', seller:'WoodCraft', rating:4.4, img:productImages.furniture_table, isLarge:true }
+        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years', seller:'Jane', rating:4.5, img:productImages.kitchen_fridge, isLarge:true },
+        { id:2, title:'Non-stick Pan Set 5pc', category:'kitchen', price:2500, desc:'Like new', seller:'Mike', rating:4.8, img:productImages.kitchen_pans, isLarge:false },
+        { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, with box', seller:'TechKe', rating:4.3, img:productImages.electronics_phone, isLarge:false },
+        { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown', seller:'HomeDecor', rating:4.0, img:productImages.furniture_sofa, isLarge:true },
+        { id:5, title:'Designer Evening Gown', category:'fashion', price:8000, desc:'Size M, worn once', seller:'GlamCloset', rating:4.7, img:productImages.fashion_dress, isLarge:false },
+        { id:6, title:'Alloy Rims 17" Set', category:'automotive', price:28000, desc:'Set of 4', seller:'CarParts', rating:4.2, img:productImages.automotive_rims, isLarge:false },
+        { id:7, title:'Electric Treadmill', category:'sports', price:35000, desc:'12 programs', seller:'FitnessKe', rating:4.6, img:productImages.sports_treadmill, isLarge:true },
+        { id:8, title:'Harry Potter Book Set', category:'books', price:5000, desc:'All 7 hardcover', seller:'Bookworm', rating:4.9, img:productImages.books_novels, isLarge:false },
+        { id:9, title:'Garden Tool Set 7pc', category:'garden', price:3000, desc:'Complete set', seller:'GreenThumb', rating:4.1, img:productImages.garden_tools, isLarge:false },
+        { id:10, title:'Baby Stroller Travel', category:'baby', price:12000, desc:'Travel system', seller:'NewParent', rating:4.4, img:productImages.baby_stroller, isLarge:false },
+        { id:11, title:'Large Dog Kennel', category:'pets', price:4500, desc:'Wooden, large breed', seller:'PetLover', rating:4.3, img:productImages.pets_kennel, isLarge:false },
+        { id:12, title:'Cordless Power Drill', category:'tools', price:6500, desc:'18V with bits', seller:'DIYMaster', rating:4.5, img:productImages.tools_drill, isLarge:false },
+        { id:13, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage, clean', seller:'AutoDealer', rating:4.0, img:productImages.automotive_car, isLarge:true },
+        { id:14, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden, storage', seller:'FurnitureHub', rating:4.3, img:productImages.furniture_bed, isLarge:true },
+        { id:15, title:'Dining Table 6-Seater', category:'furniture', price:22000, desc:'Solid wood', seller:'WoodCraft', rating:4.4, img:productImages.furniture_table, isLarge:true }
     ];
 
-    const categories = ['all','kitchen','electronics','furniture','fashion','automotive','sports','books','garden','baby','pets','tools'];
-    const catNames = {all:'🌟 All',kitchen:'🍳 Kitchen',electronics:'📱 Electronics',furniture:'🛋️ Furniture',fashion:'👗 Fashion',automotive:'🚗 Automotive',sports:'⚽ Sports',books:'📚 Books',garden:'🌿 Garden',baby:'👶 Baby',pets:'🐾 Pets',tools:'🔧 Tools'};
+    // ==================== HELPERS ====================
+    function saveAll() {
+        localStorage.setItem('sc_cart', JSON.stringify(cart));
+        localStorage.setItem('sc_orders', JSON.stringify(orders));
+        localStorage.setItem('sc_settings', JSON.stringify(settings));
+        if (currentUser) localStorage.setItem('sc_user', JSON.stringify(currentUser));
+        localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
+    }
+
+    function showToast(msg, type = 'info') {
+        const existing = document.querySelector('.toast-msg');
+        if (existing) existing.remove();
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.style.cssText = `
+            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+            background:var(--surface); color:var(--text); padding:10px 20px;
+            border-radius:25px; box-shadow:var(--shadow-lg); z-index:400;
+            font-weight:600; font-size:0.85rem; animation:toastIn 0.3s ease;
+            border:1px solid var(--border); white-space:nowrap;
+        `;
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2500);
+    }
+
+    function isVerifiedSeller() {
+        if (!currentUser) return false;
+        return adminData.approvedSellers.includes(currentUser.id);
+    }
+
+    function hasPaidRegistration() {
+        if (!currentUser) return false;
+        return adminData.payments.some(p => p.userId === currentUser.id && p.status === 'completed');
+    }
+
+    function isPendingVerification() {
+        if (!currentUser) return false;
+        return adminData.payments.some(p => p.userId === currentUser.id && p.status === 'pending');
+    }
 
     // ==================== RENDER ====================
-    function renderCategories() {
-        document.getElementById('categoriesScroll').innerHTML = categories.map(cat => 
-            `<div class="cat-chip ${currentCategory===cat?'active':''}" onclick="filterCategory('${cat}')">${catNames[cat]}</div>`
-        ).join('');
+    function renderPage() {
+        const container = document.getElementById('mainScroll');
+        switch(page) {
+            case 'home': container.innerHTML = renderHome(); break;
+            case 'large': container.innerHTML = renderLargeItems(); break;
+            case 'sell': container.innerHTML = renderSellPage(); break;
+            case 'services': container.innerHTML = renderServices(); break;
+            case 'profile': container.innerHTML = renderProfile(); break;
+        }
+        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+        document.querySelector(`.nav-item[data-page="${page}"]`).classList.add('active');
+        updateCartDot();
+        updateUserBadge();
     }
 
-    function renderProducts(filteredItems = null) {
-        const grid = document.getElementById('productsGrid');
-        let displayItems = filteredItems || items;
+    function navigateTo(p) { page = p; renderPage(); document.getElementById('mainScroll').scrollTop = 0; }
+
+    function renderHome() {
+        let filtered = items.filter(i => !i.isLarge);
+        let searchTerm = document.getElementById('searchInput')?.value?.toLowerCase() || '';
+        if (searchTerm) filtered = filtered.filter(i => i.title.toLowerCase().includes(searchTerm) || i.desc.toLowerCase().includes(searchTerm));
         
-        if (currentPage === 'large') {
-            displayItems = displayItems.filter(i => i.isLarge);
-        } else if (currentPage === 'home') {
-            displayItems = displayItems.filter(i => !i.isLarge);
-        }
-        
-        if (currentCategory !== 'all' && currentPage !== 'large') {
-            displayItems = displayItems.filter(i => i.category === currentCategory);
-        }
-        
-        if (displayItems.length === 0) {
-            grid.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--text-secondary);"><p style="font-size:3rem;">📭</p><p>No items found</p></div>';
-            return;
-        }
-        
-        grid.innerHTML = displayItems.map(item => `
-            <div class="product-card" onclick="viewItem(${item.id})">
-                <div class="product-img" style="background-image:url('${item.img}');"></div>
-                <div class="product-info">
-                    <div class="product-title">${item.title}</div>
-                    <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-                    <div class="product-desc">${item.desc}</div>
-                    <div class="product-footer">
-                        <span>⭐ ${item.rating}</span>
-                        <span>${item.condition}</span>
+        return `
+        <div class="section-title">🔥 Trending Now</div>
+        <div class="products-grid">
+            ${filtered.map(item => `
+                <div class="product-card" onclick="viewItem(${item.id})">
+                    <div class="product-img" style="background-image:url('${item.img}');"></div>
+                    <div class="product-info">
+                        <div class="product-title">${item.title}</div>
+                        <div class="product-price">KSH ${item.price.toLocaleString()}</div>
+                        <div class="product-footer">
+                            <span>⭐ ${item.rating}</span>
+                            <span>${item.seller}</span>
+                        </div>
+                        <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">Add to cart</button>
                     </div>
-                    <button class="btn-add-cart" onclick="event.stopPropagation();addToCart(${item.id})">+ Add to Cart</button>
                 </div>
-            </div>
-        `).join('');
+            `).join('') || '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--text-secondary);">No items found</div>'}
+        </div>`;
     }
 
-    function filterCategory(cat) {
-        currentCategory = cat;
-        renderCategories();
-        renderProducts();
+    function renderLargeItems() {
+        let largeItems = items.filter(i => i.isLarge);
+        return `
+        <div class="section-title">🏠 Large Items</div>
+        <div class="products-grid">
+            ${largeItems.map(item => `
+                <div class="product-card" onclick="viewItem(${item.id})">
+                    <div class="product-img" style="background-image:url('${item.img}');height:180px;"></div>
+                    <div class="product-info">
+                        <div class="product-title">${item.title}</div>
+                        <div class="product-price">KSH ${item.price.toLocaleString()}</div>
+                        <div class="product-footer">
+                            <span>⭐ ${item.rating}</span>
+                            <span>${item.seller}</span>
+                        </div>
+                        <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">Add to cart</button>
+                    </div>
+                </div>
+            `).join('')}
+        </div>`;
     }
 
-    function searchItems() {
-        const term = document.getElementById('searchInput').value.toLowerCase();
-        const filtered = items.filter(i => i.title.toLowerCase().includes(term) || i.desc.toLowerCase().includes(term));
-        renderProducts(filtered);
-    }
-
-    function showPage(page) {
-        currentPage = page;
-        document.querySelectorAll('.nav-tab').forEach((tab, i) => {
-            tab.classList.toggle('active', i === ['home','large','sell','help','settings'].indexOf(page));
-        });
-        
-        if (page === 'home' || page === 'large') {
-            document.getElementById('searchBar')?.classList.remove('hidden');
-            document.getElementById('categoriesScroll').classList.remove('hidden');
-            renderProducts();
+    function renderSellPage() {
+        if (!currentUser) {
+            return `<div class="card" style="margin-top:20px;"><p>Please login to sell items.</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
         }
+        
+        // Check verification status
+        if (isPendingVerification()) {
+            return `
+            <div class="section-title">💼 Seller Status</div>
+            <div class="card">
+                <div class="verification-pending">
+                    <i class="fas fa-clock"></i>
+                    <h3>Payment Under Review</h3>
+                    <p style="font-size:0.85rem;color:var(--text-secondary);">Your KSH 350 registration payment has been submitted and is being reviewed by our admin team.</p>
+                    <p style="font-size:0.8rem;color:var(--warning);margin-top:8px;">⏳ You can continue browsing and buying, but selling is locked until admin approves your payment.</p>
+                    <button class="btn whatsapp-btn btn-block" onclick="contactAdmin()" style="margin-top:12px;">
+                        <i class="fab fa-whatsapp"></i> Contact Admin: ${WHATSAPP_NUMBER}
+                    </button>
+                </div>
+            </div>`;
+        }
+        
+        if (!hasPaidRegistration() && !isPendingVerification()) {
+            return `
+            <div class="section-title">💼 Become a Seller</div>
+            <div class="card card-gold">
+                <h3 style="color:var(--gold-dark);">Register as a Seller</h3>
+                <p style="font-size:0.85rem;margin:8px 0;">One-time fee: <strong>KSH 350</strong></p>
+                <p style="font-size:0.8rem;color:var(--text-secondary);">Send to <strong>${MASTER_MPESA}</strong> via M-Pesa</p>
+                <button class="btn btn-gold btn-block" onclick="showRegistrationPayment()">Pay KSH 350 Now</button>
+            </div>
+            <div class="card">
+                <h4>What you get:</h4>
+                <ul style="font-size:0.8rem;color:var(--text-secondary);padding-left:20px;margin-top:8px;">
+                    <li>List unlimited items</li>
+                    <li>3% commission (under KSH 10k)</li>
+                    <li>5% commission (KSH 10k+)</li>
+                    <li>Admin-reviewed listings</li>
+                    <li>Seller dashboard</li>
+                </ul>
+            </div>`;
+        }
+        
+        // Verified seller
+        let myItems = items.filter(i => i.seller === currentUser.name || i.sellerId === currentUser.id);
+        return `
+        <div class="section-title">💼 My Seller Dashboard</div>
+        <div class="card">
+            <span class="status-badge status-approved">✅ Verified Seller</span>
+            <p style="margin-top:8px;">Welcome back, ${currentUser.name}!</p>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">You can list and sell items.</p>
+            <button class="btn btn-gold btn-block" onclick="showListForm()">+ List New Item</button>
+        </div>
+        <div class="section-title">📦 My Listings (${myItems.length})</div>
+        ${myItems.map(item => `
+            <div class="card" style="display:flex;gap:10px;align-items:center;">
+                <div style="width:50px;height:50px;background-image:url('${item.img}');background-size:cover;border-radius:8px;flex-shrink:0;"></div>
+                <div style="flex:1;"><strong>${item.title}</strong><br><span style="color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</span></div>
+            </div>
+        `).join('') || '<div class="card"><p style="color:var(--text-secondary);">No listings yet</p></div>'}`;
     }
+
+    function renderServices() {
+        return `
+        <div class="section-title">🛎️ Services</div>
+        <div class="card"><h4>📸 Pro Photography</h4><p style="font-size:0.8rem;">Get professional photos for your listing. KSH 500.</p><button class="btn btn-outline btn-sm" onclick="bookService('photo')">Book</button></div>
+        <div class="card"><h4>🔍 Item Inspection</h4><p style="font-size:0.8rem;">Certified check for big items. KSH 1,000.</p><button class="btn btn-outline btn-sm" onclick="bookService('inspect')">Schedule</button></div>
+        <div class="card"><h4>🛡️ Transit Insurance</h4><p style="font-size:0.8rem;">Cover your delivery. From KSH 200.</p><button class="btn btn-outline btn-sm" onclick="bookService('insurance')">Add</button></div>
+        <div class="card"><h4>🚚 Delivery Partners</h4><p style="font-size:0.8rem;">Sendy, Fargo, G4S available.</p><button class="btn btn-outline btn-sm" onclick="showDeliveryOptions()">Calculate</button></div>
+        <div class="card"><h4>📊 Market Reports</h4><p style="font-size:0.8rem;">Pricing trends. KSH 2,000/report.</p><button class="btn btn-outline btn-sm" onclick="purchaseReport()">Buy</button></div>`;
+    }
+
+    function renderProfile() {
+        if (!currentUser) {
+            return `<div class="card" style="margin-top:20px;"><p>Please login to see your profile.</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
+        }
+        let verified = isVerifiedSeller();
+        let pending = isPendingVerification();
+        return `
+        <div class="section-title">👤 Profile</div>
+        <div class="card">
+            <p><strong>${currentUser.name}</strong></p>
+            <p style="font-size:0.8rem;color:var(--text-secondary);">Phone: ${currentUser.phone || 'Not set'}</p>
+            <p>Seller Status: ${verified ? '<span class="status-badge status-approved">✅ Verified</span>' : pending ? '<span class="status-badge status-pending">⏳ Pending</span>' : '<span class="status-badge status-rejected">Not Registered</span>'}</p>
+        </div>
+        <div class="card">
+            <div class="toggle-row">
+                <span>🌙 Dark Mode</span>
+                <label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="toggle-row">
+                <span>🔔 Notifications</span>
+                <label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;saveAll()"><span class="toggle-slider"></span></label>
+            </div>
+            <div class="toggle-row">
+                <span>💬 Help (WhatsApp)</span>
+                <button class="btn whatsapp-btn btn-sm" onclick="contactSupport()">Chat: ${WHATSAPP_NUMBER}</button>
+            </div>
+            <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
+        </div>
+        <div class="card">
+            <h4>📦 My Orders (${orders.filter(o=>o.buyer===currentUser?.name).length})</h4>
+            ${orders.filter(o=>o.buyer===currentUser?.name).slice(0,3).map(o=>`
+                <div style="font-size:0.8rem;padding:8px 0;border-bottom:1px solid var(--border);">
+                    <strong>#${o.id}</strong> - ${o.items.join(', ')}<br>
+                    KSH ${o.total.toLocaleString()} • ${new Date(o.date).toLocaleDateString()}
+                </div>
+            `).join('') || '<p style="font-size:0.8rem;color:var(--text-secondary);">No orders yet</p>'}
+        </div>`;
+    }
+
+    // ==================== SELLER REGISTRATION ====================
+    function showRegistrationPayment() {
+        const html = `
+        <div class="modal-overlay open" id="regModal" onclick="if(event.target===this)closeModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <h2>📱 Register as Seller</h2>
+                <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;margin-bottom:16px;">
+                    <p style="font-size:0.9rem;">Send <strong>KSH 350</strong> via M-Pesa to:</p>
+                    <p style="font-size:1.5rem;font-weight:800;letter-spacing:2px;">${MASTER_MPESA}</p>
+                    <p style="font-size:0.8rem;">SECONDCHANCE MARKET</p>
+                </div>
+                <p style="font-size:0.8rem;color:var(--text-secondary);text-align:center;margin-bottom:12px;">
+                    ⚠️ After sending, enter your M-Pesa confirmation code below.<br>
+                    Your account will be verified by admin before you can sell.
+                </p>
+                <div class="form-group">
+                    <label>M-Pesa Transaction Code</label>
+                    <input type="text" class="form-input" id="mpesaCode" placeholder="e.g., QWE1234567">
+                </div>
+                <button class="btn btn-gold btn-block" onclick="submitRegistration()">Submit for Verification</button>
+                <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function submitRegistration() {
+        const code = document.getElementById('mpesaCode').value.trim();
+        if (!code) return alert('Please enter your M-Pesa transaction code');
+        
+        // Add to pending payments
+        const payment = {
+            id: Date.now(),
+            userId: currentUser.id,
+            userName: currentUser.name,
+            phone: currentUser.phone,
+            amount: 350,
+            method: 'mpesa',
+            code: code,
+            status: 'pending',
+            date: new Date().toISOString()
+        };
+        adminData.payments.push(payment);
+        saveAll();
+        
+        closeModal();
+        showToast('Payment submitted! Awaiting admin verification ⏳');
+        
+        // Show verification pending message
+        setTimeout(() => {
+            page = 'sell';
+            renderPage();
+        }, 500);
+    }
+
+    // ==================== ADMIN VERIFICATION SIMULATION ====================
+    function contactAdmin() {
+        window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20submitted%20my%20seller%20registration%20payment.%20Please%20verify%20my%20account.`, '_blank');
+    }
+
+    function contactSupport() {
+        window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20need%20help%20with%20SecondChance%20app.`, '_blank');
+    }
+
+    // Admin verification (for testing - in production this would be in the admin panel)
+    window.verifySeller = function(userId) {
+        const payment = adminData.payments.find(p => p.userId === userId && p.status === 'pending');
+        if (payment) {
+            payment.status = 'completed';
+            if (!adminData.approvedSellers.includes(userId)) {
+                adminData.approvedSellers.push(userId);
+            }
+            saveAll();
+            return 'Verified!';
+        }
+        return 'No pending payment found';
+    };
+
+    window.verifyAllPending = function() {
+        adminData.payments.forEach(p => {
+            if (p.status === 'pending') {
+                p.status = 'completed';
+                if (!adminData.approvedSellers.includes(p.userId)) {
+                    adminData.approvedSellers.push(p.userId);
+                }
+            }
+        });
+        saveAll();
+        return 'All pending payments verified!';
+    };
 
     // ==================== CART ====================
     function addToCart(id) {
         const item = items.find(i => i.id === id);
         if (!item) return;
-        cart.push({...item, cartId: Date.now()});
-        localStorage.setItem('sc_cart', JSON.stringify(cart));
+        cart.push({ ...item, cartId: Date.now() });
+        saveAll();
         updateCartDot();
-        // Haptic-like feedback
-        if (navigator.vibrate) navigator.vibrate(50);
-        showToast(`${item.title} added!`);
+        showToast(`${item.title} added! 🛒`);
     }
 
     function removeFromCart(cartId) {
         cart = cart.filter(i => i.cartId !== cartId);
-        localStorage.setItem('sc_cart', JSON.stringify(cart));
+        saveAll();
         updateCartDot();
-        renderCart();
+        openCart();
     }
 
     function openCart() {
-        document.getElementById('cartOverlay').classList.add('open');
-        renderCart();
-    }
-
-    function closeCart() {
-        document.getElementById('cartOverlay').classList.remove('open');
-    }
-
-    function renderCart() {
-        const itemsContainer = document.getElementById('cartItems');
-        const footer = document.getElementById('cartFooter');
-        
-        if (cart.length === 0) {
-            itemsContainer.innerHTML = `
-                <div class="cart-empty">
-                    <i class="fas fa-shopping-bag"></i>
-                    <h3>Your cart is empty</h3>
-                    <p>Tap the + button on items to add them here</p>
-                </div>`;
-            footer.innerHTML = '';
-            return;
-        }
-        
-        const total = cart.reduce((s,i) => s + i.price, 0);
+        const total = cart.reduce((s, i) => s + i.price, 0);
         const commission = total >= 10000 ? total * 0.05 : total * 0.03;
         
-        itemsContainer.innerHTML = cart.map(item => `
-            <div class="cart-item">
-                <div class="cart-item-img" style="background-image:url('${item.img}');"></div>
-                <div class="cart-item-info">
-                    <div class="cart-item-title">${item.title}</div>
-                    <div class="cart-item-price">KSH ${item.price.toLocaleString()}</div>
-                </div>
-                <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})">🗑️</button>
+        const html = `
+        <div class="modal-overlay open" id="cartModal" onclick="if(event.target===this)closeModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <h2>🛒 Your Cart</h2>
+                ${cart.length === 0 ? `
+                    <div style="text-align:center;padding:40px;">
+                        <p style="font-size:3rem;">🛍️</p>
+                        <h3>Your cart is empty</h3>
+                        <p style="color:var(--text-secondary);">Tap + on items to add them here</p>
+                    </div>
+                ` : `
+                    ${cart.map(item => `
+                        <div style="display:flex;gap:12px;align-items:center;padding:12px;background:var(--bg);border-radius:10px;margin-bottom:8px;">
+                            <div style="width:50px;height:50px;background-image:url('${item.img}');background-size:cover;border-radius:8px;flex-shrink:0;"></div>
+                            <div style="flex:1;min-width:0;">
+                                <div style="font-weight:600;font-size:0.85rem;">${item.title}</div>
+                                <div style="color:var(--gold-dark);font-weight:700;">KSH ${item.price.toLocaleString()}</div>
+                            </div>
+                            <button onclick="removeFromCart(${item.cartId})" style="background:none;border:none;cursor:pointer;font-size:1.1rem;">🗑️</button>
+                        </div>
+                    `).join('')}
+                    <hr style="margin:12px 0;">
+                    <div style="display:flex;justify-content:space-between;font-weight:700;">
+                        <span>Subtotal</span><span>KSH ${total.toLocaleString()}</span>
+                    </div>
+                    <p style="color:var(--gold);font-size:0.8rem;text-align:center;">Commission (${total>=10000?'5%':'3%'}): KSH ${commission.toFixed(2)}</p>
+                    <p style="text-align:center;font-size:0.8rem;">Seller receives: <strong>KSH ${(total-commission).toFixed(2)}</strong></p>
+                    <button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>
+                `}
+                <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
             </div>
-        `).join('');
-        
-        footer.innerHTML = `
-            <div class="cart-total">
-                <span>Total (${cart.length} items)</span>
-                <span>KSH ${total.toLocaleString()}</span>
-            </div>
-            <div class="cart-commission">
-                Commission (${total>=10000?'5%':'3%'}): KSH ${commission.toFixed(2)} • Seller gets KSH ${(total-commission).toFixed(2)}
-            </div>
-            <button class="btn-checkout" onclick="checkout()">Place Order • KSH ${total.toLocaleString()}</button>
-        `;
+        </div>`;
+        document.getElementById('modalContainer').innerHTML = html;
     }
 
     function checkout() {
         if (!currentUser) {
-            alert('Please create an account first');
-            closeCart();
-            openAuthModal();
+            closeModal();
+            showLogin();
             return;
         }
         if (cart.length === 0) return;
         
-        const total = cart.reduce((s,i) => s + i.price, 0);
+        const total = cart.reduce((s, i) => s + i.price, 0);
+        const commission = total >= 10000 ? total * 0.05 : total * 0.03;
+        
         const order = {
             id: Date.now(),
             buyer: currentUser.name,
-            seller: cart[0]?.seller || 'Various',
+            buyerId: currentUser.id,
+            sellerId: cart[0]?.sellerId || 'various',
             items: cart.map(i => i.title),
             total: total,
-            date: new Date().toLocaleDateString()
+            commission: commission,
+            date: new Date().toISOString()
         };
         orders.push(order);
-        localStorage.setItem('sc_orders', JSON.stringify(orders));
         cart = [];
-        localStorage.setItem('sc_cart', '[]');
-        updateCartDot();
-        closeCart();
+        saveAll();
+        closeModal();
         showToast('Order placed! ✅');
+        updateCartDot();
     }
 
     function updateCartDot() {
-        const dot = document.getElementById('cartDot');
-        if (cart.length > 0) dot.classList.add('show');
-        else dot.classList.remove('show');
+        document.getElementById('cartDot').classList.toggle('show', cart.length > 0);
     }
 
-    // ==================== TOAST ====================
-    function showToast(msg) {
-        const existing = document.querySelector('.toast-msg');
-        if (existing) existing.remove();
-        
-        const toast = document.createElement('div');
-        toast.className = 'toast-msg';
-        toast.style.cssText = `
-            position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
-            background:var(--surface);color:var(--text);padding:10px 20px;
-            border-radius:25px;box-shadow:var(--shadow-lg);z-index:400;
-            font-weight:600;font-size:0.85rem;animation:toastIn 0.3s ease;
-            border:1px solid var(--border);
-        `;
-        toast.textContent = msg;
-        document.body.appendChild(toast);
-        setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2000);
-    }
-
-    // ==================== SELLER ====================
-    function switchMode(mode) {
-        if (mode === 'seller') {
-            if (!currentUser) { openAuthModal(); return; }
-            if (!currentUser.paid) { showSellerAgreement(); return; }
-        }
-        userMode = mode;
-        document.getElementById('buyerPill').classList.toggle('active', mode==='buyer');
-        document.getElementById('sellerPill').classList.toggle('active', mode==='seller');
-    }
-
-    function showSellerAgreement() {
-        const html = `
-            <div class="modal-overlay open" id="agreementModal" onclick="if(event.target===this)this.remove()">
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <h2>Seller Agreement</h2>
-                    <div class="agreement-box">
-                        <strong>SECONDCHANCE SELLER TERMS</strong><br><br>
-                        1. <strong>Fee:</strong> KSH 350 non-refundable to ${MASTER_MPESA}<br>
-                        2. <strong>Commission:</strong> 3% (under KSH 10k) / 5% (KSH 10k+)<br>
-                        3. <strong>Images:</strong> Must be clear. Blurry photos rejected.<br>
-                        4. <strong>Review:</strong> All listings reviewed within 24hrs<br>
-                        5. <strong>Payment:</strong> Net settled within 5 business days<br>
-                        6. <strong>Prohibited:</strong> No counterfeits or illegal items<br>
-                        7. <strong>Suspension:</strong> Violation = immediate ban<br><br>
-                        <strong>Master Account: ${MASTER_MPESA}</strong>
-                    </div>
-                    <label style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:0.85rem;">
-                        <input type="checkbox" id="agreeTerms"> I accept all terms
-                    </label>
-                    <button class="btn-full btn-full-gold" id="payAgreeBtn" disabled onclick="showMpesaPayment()">Pay KSH 350 via M-Pesa</button>
-                    <button class="btn-full btn-full-outline" onclick="document.getElementById('agreementModal').remove()">Cancel</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-        document.getElementById('agreeTerms').addEventListener('change', function() {
-            document.getElementById('payAgreeBtn').disabled = !this.checked;
-        });
-    }
-
-    function showMpesaPayment() {
-        document.getElementById('agreementModal').remove();
-        const html = `
-            <div class="modal-overlay open" id="mpesaModal" onclick="if(event.target===this)this.remove()">
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <h2>📱 M-Pesa Payment</h2>
-                    <div class="mpesa-highlight">
-                        <p>Send <strong>KSH 350</strong> to:</p>
-                        <p style="font-size:1.3rem;">${MASTER_MPESA}</p>
-                        <p>SECONDCHANCE MARKET</p>
-                    </div>
-                    <div class="form-group">
-                        <label>M-Pesa Confirmation Code</label>
-                        <input type="text" class="form-input" id="mpesaCode" placeholder="e.g., QWE1234567">
-                    </div>
-                    <button class="btn-full btn-full-gold" onclick="confirmMpesa()">Confirm Payment</button>
-                    <button class="btn-full btn-full-outline" onclick="document.getElementById('mpesaModal').remove()">Cancel</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function confirmMpesa() {
-        const code = document.getElementById('mpesaCode').value.trim();
-        if (!code) return alert('Enter the M-Pesa code');
-        
-        if (currentUser) {
-            currentUser.paid = true;
-            localStorage.setItem('sc_user', JSON.stringify(currentUser));
-        }
-        
-        // Sync to admin
-        const adminData = JSON.parse(localStorage.getItem('secondchance_admin_data') || '{}');
-        if (!adminData.payments) adminData.payments = [];
-        adminData.payments.push({
-            id: Date.now(), userName: currentUser?.name || 'User',
-            amount: 350, method: 'mpesa', code: code,
-            status: 'pending', phone: currentUser?.phone
-        });
-        localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
-        
-        document.getElementById('mpesaModal').remove();
-        showToast('Payment submitted! Awaiting verification ✅');
-    }
-
-    function openSellModal() {
-        if (!currentUser) { openAuthModal(); return; }
-        if (!currentUser.paid) { showSellerAgreement(); return; }
-        
-        const html = `
-            <div class="modal-overlay open" id="sellModal" onclick="if(event.target===this)this.remove()">
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <h2>List New Item</h2>
-                    <div class="form-group"><label>Title</label><input class="form-input" id="sTitle" placeholder="What are you selling?"></div>
-                    <div class="form-group"><label>Category</label><select class="form-select" id="sCategory">${categories.filter(c=>c!=='all').map(c=>`<option>${c}</option>`).join('')}</select></div>
-                    <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice" placeholder="0"></div>
-                    <div class="form-group"><label>Condition</label><select class="form-select" id="sCondition"><option>new</option><option>like-new</option><option>good</option><option>fair</option></select></div>
-                    <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc" placeholder="Describe your item..."></textarea></div>
-                    <div class="form-group">
-                        <label>Photo</label>
-                        <input type="file" class="form-input" id="sImage" accept="image/*" onchange="previewSellImage(event)">
-                        <img id="sPreview" style="width:100%;max-height:150px;object-fit:cover;margin-top:8px;border-radius:8px;display:none;">
-                    </div>
-                    <button class="btn-full btn-full-gold" onclick="submitSellItem()">Submit for Review</button>
-                    <button class="btn-full btn-full-outline" onclick="document.getElementById('sellModal').remove()">Cancel</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function previewSellImage(e) {
-        const file = e.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = (ev) => {
-            document.getElementById('sPreview').src = ev.target.result;
-            document.getElementById('sPreview').style.display = 'block';
-        };
-        reader.readAsDataURL(file);
-    }
-
-    function submitSellItem() {
-        const title = document.getElementById('sTitle').value;
-        const category = document.getElementById('sCategory').value;
-        const price = Number(document.getElementById('sPrice').value);
-        const desc = document.getElementById('sDesc').value;
-        
-        if (!title || !price) return alert('Fill all required fields');
-        
-        const newItem = {
-            id: Date.now(),
-            title, category, price, desc,
-            condition: document.getElementById('sCondition').value,
-            seller: currentUser.name,
-            rating: 5.0,
-            img: document.getElementById('sPreview').src || productImages[category+'_fridge'] || 'https://via.placeholder.com/300',
-            status: 'pending',
-            isLarge: false
-        };
-        
-        items.unshift(newItem);
-        document.getElementById('sellModal').remove();
-        renderProducts();
-        showToast('Item submitted! Pending review ✅');
-    }
-
-    // ==================== HELP ====================
-    function openHelp() {
-        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%20would%20like%20your%20help%20in%20BuyNSell`, '_blank');
-    }
-
-    // ==================== SETTINGS ====================
-    function openSettings() {
-        const html = `
-            <div class="modal-overlay open" id="settingsModal" onclick="if(event.target===this)this.remove()">
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <h2>⚙️ Settings</h2>
-                    <div class="toggle-row">
-                        <span>🌙 Dark Mode</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleSetting('darkMode',this.checked)">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-row">
-                        <span>🔔 Notifications</span>
-                        <label class="toggle-switch">
-                            <input type="checkbox" ${settings.notifications?'checked':''} onchange="toggleSetting('notifications',this.checked)">
-                            <span class="toggle-slider"></span>
-                        </label>
-                    </div>
-                    <div class="toggle-row">
-                        <span>👤 Account</span>
-                        <span style="color:var(--text-secondary);font-size:0.85rem;">${currentUser?.name||'Guest'}</span>
-                    </div>
-                    <div class="toggle-row">
-                        <span>💳 Seller Status</span>
-                        <span style="color:${currentUser?.paid?'var(--success)':'var(--danger)'};font-weight:600;font-size:0.85rem;">${currentUser?.paid?'Active':'Not Paid'}</span>
-                    </div>
-                    <div class="toggle-row">
-                        <span>📱 App Version</span>
-                        <span style="color:var(--text-secondary);font-size:0.85rem;">2.0.0</span>
-                    </div>
-                    <button class="btn-full btn-full-outline" onclick="document.getElementById('settingsModal').remove()">Close</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function toggleSetting(key, value) {
-        settings[key] = value;
-        localStorage.setItem('sc_settings', JSON.stringify(settings));
-        if (key === 'darkMode') {
-            document.body.classList.toggle('dark-mode', value);
+    function updateUserBadge() {
+        const badge = document.getElementById('userStatusBadge');
+        if (currentUser && isVerifiedSeller()) {
+            badge.className = 'status-badge status-approved';
+            badge.textContent = '✅ Verified';
+            badge.classList.remove('hidden');
+        } else if (currentUser && isPendingVerification()) {
+            badge.className = 'status-badge status-pending';
+            badge.textContent = '⏳ Pending';
+            badge.classList.remove('hidden');
+        } else {
+            badge.classList.add('hidden');
         }
     }
 
-    // ==================== AUTH ====================
-    function openAuthModal() {
+    // ==================== LOGIN ====================
+    function showLogin() {
         const html = `
-            <div class="modal-overlay open" id="authModal" onclick="if(event.target===this)this.remove()">
-                <div class="modal-sheet">
-                    <div class="modal-handle"></div>
-                    <h2>Create Account</h2>
-                    <div class="form-group"><label>Full Name</label><input class="form-input" id="aName" placeholder="John Doe"></div>
-                    <div class="form-group"><label>Phone (M-Pesa)</label><input class="form-input" id="aPhone" placeholder="07XXXXXXXX"></div>
-                    <div class="form-group"><label>Email</label><input class="form-input" id="aEmail" placeholder="john@email.com"></div>
-                    <button class="btn-full btn-full-gold" onclick="registerUser()">Continue</button>
-                    <button class="btn-full btn-full-outline" onclick="document.getElementById('authModal').remove()">Cancel</button>
-                </div>
-            </div>`;
+        <div class="modal-overlay open" id="loginModal" onclick="if(event.target===this)closeModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <h2>Create Account</h2>
+                <div class="form-group"><label>Full Name</label><input class="form-input" id="loginName" placeholder="John Doe"></div>
+                <div class="form-group"><label>Phone Number</label><input class="form-input" id="loginPhone" placeholder="0712345678"></div>
+                <button class="btn btn-gold btn-block" onclick="registerUser()">Register</button>
+                <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>`;
         document.getElementById('modalContainer').innerHTML = html;
     }
 
     function registerUser() {
-        const name = document.getElementById('aName').value;
-        const phone = document.getElementById('aPhone').value;
-        if (!name) return alert('Enter your name');
+        const name = document.getElementById('loginName').value.trim();
+        const phone = document.getElementById('loginPhone').value.trim();
+        if (!name) return alert('Please enter your name');
         
-        currentUser = { id: Date.now(), name, phone, paid: false };
-        localStorage.setItem('sc_user', JSON.stringify(currentUser));
-        document.getElementById('authModal').remove();
+        currentUser = {
+            id: Date.now(),
+            name: name,
+            phone: phone,
+            registeredAt: new Date().toISOString()
+        };
+        saveAll();
+        closeModal();
         showToast(`Welcome, ${name}! 👋`);
+        updateUserBadge();
     }
 
-    // ==================== INIT ====================
-    function init() {
-        if (settings.darkMode) document.body.classList.add('dark-mode');
-        
-        renderCategories();
-        renderProducts();
+    function logout() {
+        currentUser = null;
+        localStorage.removeItem('sc_user');
+        cart = [];
+        saveAll();
+        page = 'home';
+        renderPage();
         updateCartDot();
-        
-        document.getElementById('searchInput').addEventListener('input', searchItems);
-        
-        // Show install banner for PWA
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            window.installPrompt = e;
-            document.getElementById('installBanner').style.display = 'block';
-        });
+        showToast('Logged out');
     }
+
+    // ==================== MISC ====================
+    function showListForm() {
+        alert('List form would open here. In production, you upload photos, set price, and submit for admin review.');
+    }
+
+    function viewItem(id) {
+        const item = items.find(i => i.id === id);
+        if (!item) return;
+        const html = `
+        <div class="modal-overlay open" onclick="if(event.target===this)closeModal()">
+            <div class="modal-sheet">
+                <div class="modal-handle"></div>
+                <img src="${item.img}" style="width:100%;border-radius:12px;aspect-ratio:1/1;object-fit:cover;">
+                <h2 style="margin-top:16px;">${item.title}</h2>
+                <p style="font-size:1.4rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
+                <p>${item.desc}</p>
+                <p style="color:var(--text-secondary);">Seller: ${item.seller} • ⭐ ${item.rating}</p>
+                <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
+                <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
+            </div>
+        </div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function bookService(type) { alert(`Service "${type}" booked! (simulated) We'll contact you via WhatsApp: ${WHATSAPP_NUMBER}`); }
+    function showDeliveryOptions() { alert('Delivery options: Sendy, Fargo, G4S. Choose at checkout.'); }
+    function purchaseReport() { alert(`Market report purchase simulated. Pay KSH 2,000 to ${MASTER_MPESA}`); }
+    function toggleDark(val) { settings.darkMode = val; document.body.classList.toggle('dark-mode', val); saveAll(); }
+    function searchItems() { if (page === 'home' || page === 'large') renderPage(); }
+    function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
+
+    // ==================== PWA INSTALL ====================
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installPrompt').classList.remove('hidden');
+    });
 
     function installApp() {
-        if (window.installPrompt) {
-            window.installPrompt.prompt();
-            window.installPrompt.userChoice.then(() => {
-                document.getElementById('installBanner').style.display = 'none';
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then(() => {
+                document.getElementById('installPrompt').classList.add('hidden');
             });
         } else {
-            alert('To install: tap Share → Add to Home Screen');
+            alert('To install: open in Chrome/Safari → tap Share → Add to Home Screen');
         }
-        document.getElementById('installBanner').style.display = 'none';
     }
 
-    document.addEventListener('DOMContentLoaded', init);
+    window.addEventListener('appinstalled', () => {
+        document.getElementById('installPrompt').classList.add('hidden');
+    });
 
-    // Service Worker Registration for PWA
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('/sw.js').catch(() => {});
+    // ==================== INIT ====================
+    document.querySelectorAll('.nav-item').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            page = e.currentTarget.dataset.page;
+            renderPage();
         });
-    }
+    });
+
+    if (settings.darkMode) document.body.classList.add('dark-mode');
+    renderPage();
+    updateCartDot();
+    updateUserBadge();
+
+    console.log('💰 SecondChance App Ready');
+    console.log('📱 WhatsApp Help:', WHATSAPP_NUMBER);
+    console.log('💳 M-Pesa Master:', MASTER_MPESA);
+    console.log('🔧 Admin commands: verifySeller(userId), verifyAllPending()');
 </script>
 </body>
     </html>
