@@ -2,304 +2,434 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>SecondChance Admin • Master Control Panel</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="SecondChance Admin">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
-    <meta name="theme-color" content="#0a0a0a">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>👑</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Buy & Sell Second-Hand Items – Kenya's Premium Marketplace">
+    <title>SecondChance • Buy & Sell</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --black: #0a0a0a; --black-light: #1a1a1a; --black-surface: #141414;
-            --gold: #c9a84c; --gold-light: #d4b96a; --gold-dark: #a68a3e;
-            --brown: #8b6914; --grey: #6b7280; --grey-light: #9ca3af;
-            --white: #e5e7eb; --white-bright: #f9fafb;
-            --success: #10b981; --warning: #f59e0b; --danger: #ef4444;
-            --border: #2d2d2d; --shadow: 0 8px 32px rgba(0,0,0,0.4);
-            --radius: 12px; --transition: all 0.3s ease;
+            --bg: #fafafa; --surface: #fff; --text: #1a1a2e; --text-secondary: #6b7280;
+            --primary: #1e2a4a; --gold: #c9a84c; --gold-dark: #a68a3e;
+            --border: #e5e7eb; --success: #059669; --danger: #dc2626; --warning: #d97706;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --radius: 14px; --transition: all 0.2s ease;
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
-        * { margin:0; padding:0; box-sizing:border-box; }
-        body { font-family:'Inter',sans-serif; background:var(--black); color:var(--white); min-height:100vh; }
-        .admin-container { display:flex; min-height:100vh; }
-        .sidebar { width:280px; background:var(--black-surface); border-right:1px solid rgba(201,168,76,0.2); padding:28px 0; position:fixed; top:0; left:0; bottom:0; overflow-y:auto; z-index:100; }
-        .sidebar-logo { padding:0 24px 28px; border-bottom:1px solid rgba(201,168,76,0.3); margin-bottom:28px; }
-        .sidebar-logo h1 { font-family:'Playfair Display',serif; font-size:1.8rem; font-weight:900; background:linear-gradient(135deg,var(--gold),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .master-account { margin:0 16px 20px; padding:16px; background:linear-gradient(135deg,rgba(201,168,76,0.1),rgba(139,105,20,0.1)); border:1px solid rgba(201,168,76,0.3); border-radius:var(--radius); }
-        .master-account-label { font-size:0.7rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--gold); }
-        .master-account-number { font-size:1.1rem; font-weight:700; color:var(--white-bright); font-family:'Courier New',monospace; }
-        .master-account-balance { font-size:1.4rem; font-weight:800; color:var(--gold); margin-top:6px; }
-        .nav-item { display:flex; align-items:center; gap:14px; padding:12px 16px; border-radius:10px; cursor:pointer; color:var(--grey-light); font-size:0.9rem; margin-bottom:4px; }
-        .nav-item:hover { background:rgba(201,168,76,0.08); color:var(--gold-light); }
-        .nav-item.active { background:linear-gradient(135deg,rgba(201,168,76,0.15),rgba(139,105,20,0.1)); color:var(--gold); border-left:3px solid var(--gold); }
-        .nav-badge { background:var(--gold); color:var(--black); border-radius:12px; padding:2px 8px; font-size:0.7rem; font-weight:700; margin-left:auto; }
-        .main-content { flex:1; margin-left:280px; padding:36px; }
-        .top-bar { display:flex; justify-content:space-between; align-items:center; margin-bottom:36px; }
-        .top-bar h2 { font-family:'Playfair Display',serif; font-size:2rem; background:linear-gradient(135deg,var(--white-bright),var(--gold-light)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; }
-        .stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(240px,1fr)); gap:20px; margin-bottom:36px; }
-        .stat-card { background:var(--black-surface); border-radius:var(--radius); padding:24px; border:1px solid rgba(201,168,76,0.15); }
-        .stat-card:hover { border-color:var(--gold); }
-        .stat-value { font-size:2.2rem; font-weight:800; color:var(--gold); font-family:'Playfair Display',serif; }
-        .table-container { background:var(--black-surface); border-radius:var(--radius); border:1px solid rgba(201,168,76,0.15); overflow:hidden; margin-bottom:28px; }
-        .table-header { display:flex; justify-content:space-between; align-items:center; padding:20px 24px; border-bottom:1px solid rgba(201,168,76,0.2); background:rgba(201,168,76,0.03); }
-        .table-header h3 { color:var(--gold-light); }
-        table { width:100%; border-collapse:collapse; }
-        th { text-align:left; padding:14px 24px; font-size:0.75rem; text-transform:uppercase; letter-spacing:1.5px; color:var(--grey); }
-        td { padding:16px 24px; border-bottom:1px solid rgba(201,168,76,0.1); font-size:0.9rem; }
-        .btn { padding:10px 18px; border-radius:8px; border:none; cursor:pointer; font-weight:600; font-size:0.85rem; display:inline-flex; align-items:center; gap:6px; }
-        .btn-primary { background:linear-gradient(135deg,var(--gold-dark),var(--gold)); color:var(--black); }
-        .btn-success { background:var(--success); color:white; }
-        .btn-danger { background:var(--danger); color:white; }
-        .btn-outline { border:1px solid rgba(201,168,76,0.4); background:transparent; color:var(--gold-light); }
-        .status-badge { padding:5px 12px; border-radius:20px; font-size:0.75rem; font-weight:700; }
-        .status-pending { background:rgba(245,158,11,0.2); color:var(--warning); }
-        .status-approved { background:rgba(16,185,129,0.2); color:var(--success); }
-        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.85); backdrop-filter:blur(8px); z-index:1000; display:flex; align-items:center; justify-content:center; }
-        .modal { background:var(--black-surface); border-radius:var(--radius); padding:32px; max-width:560px; width:90%; max-height:85vh; overflow-y:auto; border:1px solid rgba(201,168,76,0.3); }
-        .form-group { margin-bottom:18px; }
-        .form-group label { display:block; margin-bottom:8px; font-weight:600; font-size:0.9rem; color:var(--grey-light); }
-        .form-input { width:100%; padding:12px 16px; border:1px solid rgba(201,168,76,0.3); border-radius:8px; background:var(--black-light); color:var(--white); }
-        @media (max-width:768px) {
-            .sidebar { width:100%; height:auto; position:relative; }
-            .main-content { margin-left:0; padding:20px; }
+        .dark-mode {
+            --bg: #0a0a0f; --surface: #14141f; --text: #e5e7eb; --text-secondary: #9ca3af;
+            --primary: #4a5b8c; --gold: #d4b96a; --gold-dark: #c9a84c; --border: #1f2937;
         }
+        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+        html,body { width:100%; height:100%; overflow:hidden; position:fixed; top:0; left:0; }
+        body {
+            font-family:'Inter',sans-serif; background:var(--bg); color:var(--text);
+            transition:var(--transition); display:flex; flex-direction:column;
+            height:100vh; height:-webkit-fill-available;
+        }
+        .app-container { display:flex; flex-direction:column; height:100%; max-width:480px; margin:0 auto; width:100%; background:var(--bg); }
+        .top-header {
+            background:var(--surface); padding:10px 16px; display:flex; align-items:center;
+            justify-content:space-between; border-bottom:1px solid var(--border); flex-shrink:0;
+        }
+        .logo { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:900; color:var(--primary); }
+        .logo span { color:var(--gold); }
+        .header-actions { display:flex; gap:6px; align-items:center; }
+        .icon-btn {
+            width:36px; height:36px; border-radius:50%; border:none; background:transparent;
+            cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center;
+            color:var(--text); position:relative;
+        }
+        .icon-btn:active { transform:scale(0.9); }
+        .cart-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%; background:var(--danger); display:none; }
+        .cart-dot.show { display:block; }
+        .status-badge { padding:4px 10px; border-radius:12px; font-size:0.65rem; font-weight:700; }
+        .status-pending { background:rgba(217,119,6,0.2); color:var(--warning); }
+        .status-approved { background:rgba(5,150,105,0.2); color:var(--success); }
+        .search-bar { padding:8px 16px; flex-shrink:0; background:var(--bg); }
+        .search-input-wrap {
+            display:flex; align-items:center; background:var(--surface);
+            border:1px solid var(--border); border-radius:24px; overflow:hidden;
+        }
+        .search-input-wrap input {
+            border:none; padding:10px 14px; flex:1; background:transparent;
+            color:var(--text); outline:none; font-size:0.85rem; font-family:inherit;
+        }
+        .search-input-wrap button { background:none; border:none; padding:10px 14px; cursor:pointer; color:var(--text-secondary); }
+        .main-scroll { flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; padding-bottom:8px; }
+        .bottom-nav {
+            background:var(--surface); border-top:1px solid var(--border);
+            display:flex; justify-content:space-around; padding:6px 4px calc(6px + var(--safe-bottom));
+            flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.04);
+        }
+        .nav-item {
+            display:flex; flex-direction:column; align-items:center; gap:2px;
+            background:none; border:none; color:var(--text-secondary); font-size:0.6rem;
+            font-weight:500; cursor:pointer; padding:6px 4px; border-radius:10px;
+            font-family:inherit; min-width:48px;
+        }
+        .nav-item.active { color:var(--gold); font-weight:700; }
+        .nav-item i { font-size:1.1rem; }
+        .section-title { padding:16px 16px 8px; font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; }
+        .card {
+            background:var(--surface); border-radius:var(--radius); padding:16px;
+            margin:0 16px 12px; box-shadow:var(--shadow-sm); border:1px solid var(--border);
+        }
+        .card-gold { border:2px solid var(--gold); }
+        .btn {
+            padding:10px 18px; border-radius:25px; border:none; font-weight:600;
+            font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center;
+            gap:6px; justify-content:center; font-family:inherit;
+        }
+        .btn:active { transform:scale(0.95); }
+        .btn-gold { background:var(--gold); color:#1a1a1a; }
+        .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
+        .btn-block { width:100%; }
+        .btn-sm { padding:6px 12px; font-size:0.7rem; }
+        .products-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 16px 16px; }
+        .product-card {
+            background:var(--surface); border-radius:var(--radius); overflow:hidden;
+            box-shadow:var(--shadow-sm); border:1px solid var(--border); cursor:pointer;
+        }
+        .product-card:active { transform:scale(0.97); }
+        .product-img { width:100%; aspect-ratio:1/1; background-size:cover; background-position:center; background-color:#e5e7eb; }
+        .product-info { padding:10px; }
+        .product-title { font-weight:600; font-size:0.8rem; margin-bottom:4px; }
+        .product-price { font-weight:800; font-size:0.95rem; color:var(--gold-dark); margin-bottom:6px; }
+        .product-footer { display:flex; justify-content:space-between; font-size:0.65rem; color:var(--text-secondary); margin-bottom:6px; }
+        .modal-overlay {
+            position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200;
+            display:flex; align-items:flex-end; justify-content:center;
+            opacity:0; pointer-events:none; transition:opacity 0.3s;
+        }
+        .modal-overlay.open { opacity:1; pointer-events:auto; }
+        .modal-sheet {
+            background:var(--surface); border-radius:20px 20px 0 0;
+            width:100%; max-width:480px; max-height:85vh; overflow-y:auto;
+            padding:20px; transform:translateY(100%); transition:transform 0.3s;
+        }
+        .modal-overlay.open .modal-sheet { transform:translateY(0); }
+        .modal-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 16px; }
+        .form-group { margin-bottom:14px; }
+        .form-group label { display:block; margin-bottom:5px; font-weight:600; font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase; }
+        .form-input,.form-select,.form-textarea {
+            width:100%; padding:10px 14px; border:1px solid var(--border);
+            border-radius:10px; background:var(--bg); color:var(--text);
+            font-family:inherit; font-size:0.9rem;
+        }
+        .toggle-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
+        .toggle-switch { position:relative; width:44px; height:24px; }
+        .toggle-switch input { opacity:0; width:0; height:0; }
+        .toggle-slider { position:absolute; cursor:pointer; inset:0; background:#ccc; border-radius:24px; transition:.3s; }
+        .toggle-slider:before { content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px; background:white; border-radius:50%; transition:.3s; }
+        input:checked + .toggle-slider { background:var(--gold); }
+        input:checked + .toggle-slider:before { transform:translateX(20px); }
+        .hidden { display:none!important; }
+        .toast-msg {
+            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
+            background:var(--surface); color:var(--text); padding:10px 20px;
+            border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:400;
+            font-weight:600; font-size:0.85rem; white-space:nowrap; border:1px solid var(--border);
+        }
+        .download-section { text-align:center; padding:20px 16px; }
+        .btn-install { background:linear-gradient(135deg,#1a1a2e,#3d2c5e); color:white; border:2px solid var(--gold); }
     </style>
 </head>
 <body>
+<div class="app-container" id="appContainer">
+    <!-- Install Banner -->
+    <div class="install-banner hidden" id="installBanner" onclick="installApp()" style="background:linear-gradient(135deg,var(--primary),#2a3f6e);color:white;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;flex-shrink:0;">
+        <div style="width:44px;height:44px;border-radius:12px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">📲</div>
+        <div style="flex:1;"><strong>Install SecondChance App</strong><br><span style="font-size:0.75rem;opacity:0.85;">Add to your home screen</span></div>
+        <div style="font-size:1.2rem;">›</div>
+    </div>
 
-<!-- Password Gate - No hint, no default password shown -->
-<div class="modal-overlay" id="authOverlay" style="display:flex;">
-    <div class="modal">
-        <h2 style="color:var(--gold);">🔐 Admin Login</h2>
-        <div class="form-group">
-            <label>Enter Admin Password</label>
-            <input type="password" class="form-input" id="authPassword" placeholder="••••••••" autocomplete="off">
+    <div class="top-header">
+        <div class="logo">Second<span>Chance</span></div>
+        <div class="header-actions">
+            <span id="userStatusBadge" class="hidden"></span>
+            <button class="icon-btn" onclick="openCart()">🛒<span class="cart-dot" id="cartDot"></span></button>
+            <button class="icon-btn" onclick="navigateTo('profile')">👤</button>
         </div>
-        <button class="btn btn-primary" onclick="authenticate()">Unlock</button>
+    </div>
+    <div class="search-bar">
+        <div class="search-input-wrap">
+            <input type="text" id="searchInput" placeholder="Search anything..." oninput="applySearch()">
+            <button onclick="applySearch()">🔍</button>
+        </div>
+    </div>
+    <div class="main-scroll" id="mainScroll"></div>
+    <div class="bottom-nav">
+        <button class="nav-item active" data-page="home"><i class="fas fa-home"></i>Home</button>
+        <button class="nav-item" data-page="large"><i class="fas fa-couch"></i>Large</button>
+        <button class="nav-item" data-page="sell"><i class="fas fa-store"></i>Sell</button>
+        <button class="nav-item" data-page="help"><i class="fab fa-whatsapp"></i>Help</button>
+        <button class="nav-item" data-page="profile"><i class="fas fa-user"></i>Profile</button>
     </div>
 </div>
-
-<div class="admin-container" id="adminContainer" style="display:none;">
-    <aside class="sidebar">
-        <div class="sidebar-logo">
-            <h1>SecondChance</h1>
-            <span style="color:var(--grey-light);font-size:0.75rem;">Master Control Panel</span>
-        </div>
-        <div class="master-account">
-            <div class="master-account-label">👑 Master Account</div>
-            <div class="master-account-number" id="masterPhoneDisplay">0792091769</div>
-            <div class="master-account-balance" id="masterBalance">KSH 0</div>
-        </div>
-        <div class="nav-item active" onclick="navigateTo('dashboard')"><i class="fas fa-th-large"></i> Dashboard</div>
-        <div class="nav-item" onclick="navigateTo('payments')"><i class="fas fa-money-bill-wave"></i> Payments <span class="nav-badge" id="pendingPaymentsBadge">0</span></div>
-        <div class="nav-item" onclick="navigateTo('products')"><i class="fas fa-box"></i> Products <span class="nav-badge" id="pendingProductsBadge">0</span></div>
-        <div class="nav-item" onclick="navigateTo('users')"><i class="fas fa-users"></i> Users</div>
-        <div class="nav-item" onclick="navigateTo('commissions')"><i class="fas fa-percent"></i> Commissions</div>
-        <div class="nav-item" onclick="navigateTo('settings')"><i class="fas fa-cog"></i> Settings</div>
-    </aside>
-    <main class="main-content" id="mainContent"></main>
-</div>
-
-<!-- Price Adjustment Modal -->
-<div class="modal-overlay" id="priceModal" style="display:none;">
-    <div class="modal">
-        <h2 style="color:var(--gold);">💰 Adjust Price</h2>
-        <div class="form-group"><label>Current Price</label><input type="text" class="form-input" id="currentPriceDisplay" disabled></div>
-        <div class="form-group"><label>New Price (KSH)</label><input type="number" class="form-input" id="newPrice" min="0"></div>
-        <button class="btn btn-primary" onclick="savePriceAdjustment()">Save</button>
-        <button class="btn btn-outline" onclick="closePriceModal()">Cancel</button>
-    </div>
-</div>
+<div id="modalContainer"></div>
 
 <script>
-const DEFAULT_PASSWORD = 'benja2005';
+// ============ CONFIG ============
+const MASTER_MPESA = '0792091769';
+const WHATSAPP_NUMBER = '+254753711672';
+const WHATSAPP_LINK = 'https://wa.me/254753711672';
 
-let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || {
-    payments: [], approvedSellers: [], products: [], users: [], orders: [], activityLog: [],
-    settings: { registrationFee:350, lowCommission:3, highCommission:5, masterAccount:'0792091769', adminPassword:DEFAULT_PASSWORD, passwordVersion:1 }
+// ============ STATE ============
+let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
+let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
+let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
+let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: false, notifications: true };
+let page = 'home';
+let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || { payments: [], approvedSellers: [] };
+
+// Product images (real photos)
+const productImages = {
+    fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
+    pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
+    phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
+    sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
+    dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
+    rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
+    treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
+    books: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
+    stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
+    drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
+    car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
+    bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
+    table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
+    kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop',
+    shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop'
 };
-if (!adminData.settings.adminPassword) adminData.settings.adminPassword = DEFAULT_PASSWORD;
-if (!adminData.settings.passwordVersion) adminData.settings.passwordVersion = 1;
 
-let currentView = 'dashboard';
-let priceEditId = null;
+const items = [
+    { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2yrs', seller:'Jane', rating:4.5, img:productImages.fridge, isLarge:true },
+    { id:2, title:'Non-stick Pan Set', category:'kitchen', price:2500, desc:'Like new', seller:'Mike', rating:4.8, img:productImages.pans, isLarge:false },
+    { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, box', seller:'TechKe', rating:4.3, img:productImages.phone, isLarge:false },
+    { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown', seller:'HomeDecor', rating:4.0, img:productImages.sofa, isLarge:true },
+    { id:5, title:'Evening Gown', category:'fashion', price:8000, desc:'Size M', seller:'Glam', rating:4.7, img:productImages.dress, isLarge:false },
+    { id:6, title:'Alloy Rims 17"', category:'automotive', price:28000, desc:'Set of 4', seller:'CarParts', rating:4.2, img:productImages.rims, isLarge:false },
+    { id:7, title:'Treadmill', category:'sports', price:35000, desc:'Electric', seller:'Fitness', rating:4.6, img:productImages.treadmill, isLarge:true },
+    { id:8, title:'Harry Potter Set', category:'books', price:5000, desc:'Hardcover', seller:'Books', rating:4.9, img:productImages.books, isLarge:false },
+    { id:9, title:'Baby Stroller', category:'baby', price:12000, desc:'Travel', seller:'Parent', rating:4.4, img:productImages.stroller, isLarge:false },
+    { id:10, title:'Power Drill', category:'tools', price:6500, desc:'18V', seller:'DIY', rating:4.5, img:productImages.drill, isLarge:false },
+    { id:11, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage', seller:'Auto', rating:4.0, img:productImages.car, isLarge:true },
+    { id:12, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden', seller:'Furniture', rating:4.3, img:productImages.bed, isLarge:true }
+];
 
-function save() { localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData)); updateUI(); }
-function updateUI() {
-    document.getElementById('masterBalance').textContent = 'KSH ' + (adminData.payments.filter(p=>p.status==='completed').reduce((s,p)=>s+p.amount,0) + adminData.orders.reduce((s,o)=>s+o.commission,0)).toLocaleString();
-    document.getElementById('masterPhoneDisplay').textContent = adminData.settings.masterAccount;
-    document.getElementById('pendingPaymentsBadge').textContent = adminData.payments.filter(p=>p.status==='pending').length;
-    document.getElementById('pendingProductsBadge').textContent = adminData.products.filter(p=>p.status==='pending').length;
+// ============ HELPERS ============
+function saveAll() {
+    localStorage.setItem('sc_cart', JSON.stringify(cart));
+    localStorage.setItem('sc_orders', JSON.stringify(orders));
+    localStorage.setItem('sc_settings', JSON.stringify(settings));
+    if (currentUser) localStorage.setItem('sc_user', JSON.stringify(currentUser));
+    localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
 }
+function toast(msg) {
+    let t = document.createElement('div'); t.className='toast-msg'; t.textContent=msg;
+    document.body.appendChild(t);
+    setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); },2000);
+}
+function isVerified() { return currentUser && adminData.approvedSellers.includes(currentUser.id); }
+function hasPaid() { return currentUser && adminData.payments.some(p=>p.userId===currentUser.id && p.status==='completed'); }
+function isPending() { return currentUser && adminData.payments.some(p=>p.userId===currentUser.id && p.status==='pending'); }
+function updateCartDot() { document.getElementById('cartDot').classList.toggle('show', cart.length>0); }
 
-function checkSession() {
-    const storedVersion = localStorage.getItem('sc_admin_session');
-    if (storedVersion && parseInt(storedVersion) === adminData.settings.passwordVersion) {
-        document.getElementById('authOverlay').style.display = 'none';
-        document.getElementById('adminContainer').style.display = 'flex';
-        loadView('dashboard');
-        return true;
+// ============ NAVIGATION ============
+function navigateTo(p) { page = p; renderPage(); document.getElementById('mainScroll').scrollTop = 0; }
+function renderPage() {
+    const c = document.getElementById('mainScroll');
+    switch(page) {
+        case 'home': c.innerHTML = renderHome(); break;
+        case 'large': c.innerHTML = renderLarge(); break;
+        case 'sell': c.innerHTML = renderSell(); break;
+        case 'help': c.innerHTML = renderHelp(); break;
+        case 'profile': c.innerHTML = renderProfile(); break;
     }
-    document.getElementById('authOverlay').style.display = 'flex';
-    document.getElementById('adminContainer').style.display = 'none';
-    return false;
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    const active = document.querySelector(`.nav-item[data-page="${page}"]`);
+    if (active) active.classList.add('active');
+    updateCartDot();
 }
 
-function authenticate() {
-    if (document.getElementById('authPassword').value === adminData.settings.adminPassword) {
-        localStorage.setItem('sc_admin_session', adminData.settings.passwordVersion);
-        document.getElementById('authOverlay').style.display = 'none';
-        document.getElementById('adminContainer').style.display = 'flex';
-        loadView('dashboard');
-    } else alert('Wrong password');
+function productCard(item) {
+    return `<div class="product-card" onclick="viewItem(${item.id})">
+        <div class="product-img" style="background-image:url('${item.img}');"></div>
+        <div class="product-info">
+            <div class="product-title">${item.title}</div>
+            <div class="product-price">KSH ${item.price.toLocaleString()}</div>
+            <div class="product-footer"><span>⭐${item.rating}</span><span>${item.seller}</span></div>
+            <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">+ Add</button>
+        </div></div>`;
 }
 
-function navigateTo(view) {
-    currentView = view;
-    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-    event.target.closest('.nav-item').classList.add('active');
-    loadView(view);
+function renderHome() {
+    let f = items.filter(i=>!i.isLarge);
+    const term = (document.getElementById('searchInput')?.value||'').toLowerCase();
+    if (term) f = f.filter(i=>i.title.toLowerCase().includes(term)||i.desc.toLowerCase().includes(term));
+    return `<div class="download-section">
+        <h3>📲 Get the App</h3>
+        <p>Install SecondChance on your phone</p>
+        <button class="btn btn-install btn-block" onclick="installApp()"><i class="fas fa-download"></i> Download / Install App</button>
+    </div>
+    <div class="section-title">🔥 Trending</div>
+    <div class="products-grid">${f.map(productCard).join('')}</div>`;
+}
+function renderLarge() {
+    return `<div class="section-title">🏠 Large Items</div><div class="products-grid">${items.filter(i=>i.isLarge).map(productCard).join('')}</div>`;
 }
 
-function loadView(view) {
-    const c = document.getElementById('mainContent');
-    switch(view) {
-        case 'dashboard': c.innerHTML = dashboardHTML(); break;
-        case 'payments': c.innerHTML = paymentsHTML(); break;
-        case 'products': c.innerHTML = productsHTML(); break;
-        case 'users': c.innerHTML = usersHTML(); break;
-        case 'commissions': c.innerHTML = commissionsHTML(); break;
-        case 'settings': c.innerHTML = settingsHTML(); break;
+function renderSell() {
+    if (!currentUser) return `<div class="card"><p>Login to sell</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
+    if (isPending()) return `<div class="card"><h3>⏳ Verification Pending</h3><p>Admin is reviewing your KSH 350 payment.</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Please verify my seller registration','_blank')">Contact Admin: ${WHATSAPP_NUMBER}</button></div>`;
+    if (!hasPaid()) return `<div class="card card-gold"><h3>💰 Register as Seller</h3><p>Send KSH 350 to <strong>${MASTER_MPESA}</strong></p><button class="btn btn-gold btn-block" onclick="showRegPayment()">Pay KSH 350</button></div>`;
+    let myItems = items.filter(i=>i.seller===currentUser.name);
+    return `<div class="card"><span class="status-badge status-approved">✅ Verified</span><p>Welcome, ${currentUser.name}!</p><button class="btn btn-gold btn-block" onclick="showListForm()">+ List Item</button></div>
+    <div class="section-title">My Listings (${myItems.length})</div>${myItems.map(i=>`<div class="card">${i.title} - KSH ${i.price}</div>`).join('')}`;
+}
+
+function renderHelp() {
+    return `<div class="card" style="text-align:center;"><h3>💬 WhatsApp Help</h3><p>${WHATSAPP_NUMBER}</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Hello, I need help with SecondChance','_blank')">Chat Now</button></div>
+    <div class="card"><p>📧 support@secondchance.co.ke</p><p>💳 Pay to: ${MASTER_MPESA}</p></div>`;
+}
+
+function renderProfile() {
+    if (!currentUser) return `<div class="card"><p>Login to see profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
+    return `<div class="card"><h3>👤 ${currentUser.name}</h3><p>Phone: ${currentUser.phone||'--'}</p>
+    <p>Status: ${isVerified()?'<span class="status-badge status-approved">Verified</span>':isPending()?'<span class="status-badge status-pending">Pending</span>':'Not registered'}</p></div>
+    <div class="card">
+        <div class="toggle-row"><span>🌙 Dark Mode</span><label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;saveAll()"><span class="toggle-slider"></span></label></div>
+        <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
+    </div>
+    <div class="card"><h4>📦 Orders</h4>${orders.filter(o=>o.buyer===currentUser.name).slice(0,3).map(o=>`<div>#${o.id} - ${o.items.join(',')} - KSH ${o.total}</div>`).join('')||'None'}</div>`;
+}
+
+// ============ MODALS ============
+function showLogin() {
+    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>Create Account</h2>
+    <div class="form-group"><label>Name</label><input class="form-input" id="loginName"></div>
+    <div class="form-group"><label>Phone</label><input class="form-input" id="loginPhone"></div>
+    <button class="btn btn-gold btn-block" onclick="doLogin()">Register</button>
+    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML = h;
+}
+function doLogin() {
+    const n = document.getElementById('loginName').value.trim();
+    if (!n) return alert('Enter name');
+    currentUser = { id:Date.now(), name:n, phone:document.getElementById('loginPhone').value };
+    saveAll(); closeModal(); toast(`Welcome, ${n}!`);
+}
+function showRegPayment() {
+    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>M-Pesa Payment</h2>
+    <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;">
+        <p>Send <strong>KSH 350</strong> to:</p><p style="font-size:1.5rem;font-weight:800;">${MASTER_MPESA}</p></div>
+    <div class="form-group"><label>M-Pesa Code</label><input class="form-input" id="mpesaCode" placeholder="QWE1234567"></div>
+    <button class="btn btn-gold btn-block" onclick="submitReg()">Submit</button>
+    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML = h;
+}
+function submitReg() {
+    const code = document.getElementById('mpesaCode').value.trim();
+    if (!code) return alert('Enter code');
+    adminData.payments.push({ id:'pm_'+Date.now(), userId:currentUser.id, userName:currentUser.name, phone:currentUser.phone, amount:350, method:'mpesa', code, status:'pending', date:new Date().toISOString() });
+    saveAll(); closeModal(); toast('Submitted! Awaiting verification.');
+}
+function showListForm() {
+    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>List Item</h2>
+    <div class="form-group"><label>Title</label><input class="form-input" id="sTitle"></div>
+    <div class="form-group"><label>Category</label><select class="form-select" id="sCategory"><option>kitchen</option><option>electronics</option><option>furniture</option><option>fashion</option><option>automotive</option></select></div>
+    <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice"></div>
+    <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc"></textarea></div>
+    <button class="btn btn-gold btn-block" onclick="submitListing()">Submit</button>
+    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML = h;
+}
+function submitListing() {
+    const t = document.getElementById('sTitle').value;
+    const p = parseInt(document.getElementById('sPrice').value);
+    if (!t||!p) return alert('Fill required fields');
+    const newItem = { id:Date.now(), title:t, category:document.getElementById('sCategory').value, price:p, desc:document.getElementById('sDesc').value, seller:currentUser.name, rating:5, img:productImages.fridge, status:'pending', isLarge:false };
+    items.unshift(newItem);
+    adminData.products = adminData.products || [];
+    adminData.products.push(newItem);
+    saveAll(); closeModal(); toast('Listed! Pending review.');
+}
+
+function viewItem(id) {
+    const item = items.find(i=>i.id===id); if(!item) return;
+    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><img src="${item.img}" style="width:100%;border-radius:12px;">
+    <h2>${item.title}</h2><p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
+    <p>${item.desc}</p><p>Seller: ${item.seller} • ⭐${item.rating}</p>
+    <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
+    <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML = h;
+}
+
+// ============ CART ============
+function openCart() {
+    const total = cart.reduce((s,i)=>s+i.price,0);
+    const comm = total>=10000?total*0.05:total*0.03;
+    let h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>🛒 Cart</h2>`;
+    if (cart.length===0) h += `<div style="text-align:center;padding:40px;"><p style="font-size:3rem;">🛍️</p><p>Cart is empty</p></div>`;
+    else {
+        cart.forEach(item => { h += `<div style="display:flex;gap:10px;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px;"><div style="width:40px;height:40px;background-image:url(${item.img});background-size:cover;border-radius:6px;"></div><div style="flex:1;"><strong>${item.title}</strong><br>KSH ${item.price}</div><button onclick="removeFromCart(${item.cartId})">🗑</button></div>`; });
+        h += `<hr><p>Subtotal: KSH ${total}</p><p style="color:var(--gold);">Commission (${total>=10000?'5%':'3%'}): KSH ${comm}</p><p>Seller gets: KSH ${(total-comm).toFixed(2)}</p><button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>`;
     }
-    updateUI();
+    h += `<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML = h;
 }
+function addToCart(id) { const item=items.find(i=>i.id===id); if(!item)return; cart.push({...item,cartId:Date.now()}); saveAll(); updateCartDot(); toast('Added!'); }
+function removeFromCart(cid) { cart=cart.filter(i=>i.cartId!==cid); saveAll(); updateCartDot(); openCart(); }
+function checkout() {
+    if (!currentUser) { closeModal(); showLogin(); return; }
+    if (cart.length===0) return;
+    const total = cart.reduce((s,i)=>s+i.price,0);
+    const comm = total>=10000?total*0.05:total*0.03;
+    orders.push({ id:Date.now(), buyer:currentUser.name, items:cart.map(i=>i.title), total, commission:comm, date:new Date().toISOString() });
+    adminData.orders = orders;
+    cart = []; saveAll(); closeModal(); updateCartDot(); toast('Order placed!');
+}
+function logout() { currentUser=null; localStorage.removeItem('sc_user'); cart=[]; saveAll(); updateCartDot(); page='home'; renderPage(); toast('Logged out'); }
+function toggleDark(v) { settings.darkMode=v; document.body.classList.toggle('dark-mode',v); saveAll(); }
+function applySearch() { if (page==='home'||page==='large') renderPage(); }
+function closeModal() { document.getElementById('modalContainer').innerHTML=''; }
 
-function dashboardHTML() {
-    const rev = adminData.payments.filter(p=>p.status==='completed').reduce((s,p)=>s+p.amount,0) + adminData.orders.reduce((s,o)=>s+o.commission,0);
-    return `<div class="top-bar"><h2>📊 Dashboard</h2></div>
-    <div class="stats-grid">
-        <div class="stat-card"><div class="stat-value">${adminData.payments.length}</div><div>Payments</div></div>
-        <div class="stat-card"><div class="stat-value">${adminData.products.length}</div><div>Products</div></div>
-        <div class="stat-card"><div class="stat-value">KSH ${rev.toLocaleString()}</div><div>Revenue</div></div>
-        <div class="stat-card"><div class="stat-value">${adminData.approvedSellers.length}</div><div>Sellers</div></div>
-    </div>`;
-}
-
-function paymentsHTML() {
-    let rows = adminData.payments.map(p => `
-        <tr>
-            <td>${p.userName}</td><td>KSH ${p.amount}</td><td>${p.code}</td>
-            <td><span class="status-badge status-${p.status}">${p.status}</span></td>
-            <td>${p.status==='pending' ? `<button class="btn btn-success" onclick="verifyPayment('${p.id}')">Verify</button>` : ''}</td>
-        </tr>`).join('');
-    return `<div class="top-bar"><h2>💳 Payments</h2></div>
-    <div class="table-container"><table><tr><th>User</th><th>Amount</th><th>Code</th><th>Status</th><th>Action</th></tr>${rows}</table></div>`;
-}
-
-function verifyPayment(id) {
-    const p = adminData.payments.find(p => p.id == id);
-    if (p) {
-        p.status = 'completed';
-        if (!adminData.approvedSellers.includes(p.userId)) adminData.approvedSellers.push(p.userId);
-        save();
-        loadView('payments');
-    }
-}
-
-function productsHTML() {
-    let rows = adminData.products.map(p => `
-        <tr>
-            <td>${p.title}</td><td>KSH ${p.price}</td><td>${p.seller}</td>
-            <td><span class="status-badge status-${p.status}">${p.status}</span></td>
-            <td>
-                ${p.status==='pending' ? `<button class="btn btn-success" onclick="approveProduct(${p.id})">Approve</button>` : ''}
-                <button class="btn btn-outline" onclick="openPriceModal(${p.id},${p.price})">💰</button>
-            </td>
-        </tr>`).join('');
-    return `<div class="top-bar"><h2>📦 Products</h2></div>
-    <div class="table-container"><table><tr><th>Title</th><th>Price</th><th>Seller</th><th>Status</th><th>Actions</th></tr>${rows}</table></div>`;
-}
-
-function approveProduct(id) {
-    const p = adminData.products.find(p => p.id == id);
-    if (p) { p.status = 'approved'; save(); loadView('products'); }
-}
-
-function openPriceModal(id, price) {
-    priceEditId = id;
-    document.getElementById('currentPriceDisplay').value = 'KSH ' + price.toLocaleString();
-    document.getElementById('newPrice').value = price;
-    document.getElementById('priceModal').style.display = 'flex';
-}
-function closePriceModal() { document.getElementById('priceModal').style.display = 'none'; }
-function savePriceAdjustment() {
-    const newPrice = parseInt(document.getElementById('newPrice').value);
-    if (!newPrice) return;
-    const p = adminData.products.find(p => p.id == priceEditId);
-    if (p) { p.price = newPrice; save(); loadView('products'); closePriceModal(); }
-}
-
-function usersHTML() {
-    let rows = adminData.users.map(u => `<tr><td>${u.name}</td><td>${u.phone}</td><td>${u.sellerStatus}</td></tr>`).join('');
-    return `<div class="top-bar"><h2>👥 Users</h2></div><div class="table-container"><table><tr><th>Name</th><th>Phone</th><th>Status</th></tr>${rows}</table></div>`;
-}
-
-function commissionsHTML() {
-    return `<div class="top-bar"><h2>💰 Commissions</h2></div>
-    <div class="table-container" style="padding:24px;">
-        <div class="form-group"><label>Below 10K (%)</label><input type="number" class="form-input" id="lowComm" value="${adminData.settings.lowCommission}"></div>
-        <div class="form-group"><label>10K+ (%)</label><input type="number" class="form-input" id="highComm" value="${adminData.settings.highCommission}"></div>
-        <button class="btn btn-primary" onclick="saveCommission()">Save</button>
-    </div>`;
-}
-function saveCommission() {
-    adminData.settings.lowCommission = parseFloat(document.getElementById('lowComm').value);
-    adminData.settings.highCommission = parseFloat(document.getElementById('highComm').value);
-    save();
-    alert('Commissions updated!');
-}
-
-function settingsHTML() {
-    return `<div class="top-bar"><h2>⚙️ Settings</h2></div>
-    <div class="table-container" style="padding:24px;">
-        <div class="form-group"><label>Registration Fee (KSH)</label><input type="number" class="form-input" id="regFee" value="${adminData.settings.registrationFee}"></div>
-        <div class="form-group"><label>New Admin Password</label><input type="password" class="form-input" id="newPassword" placeholder="Enter new password"></div>
-        <div class="form-group"><label>Confirm New Password</label><input type="password" class="form-input" id="confirmPassword" placeholder="Confirm new password"></div>
-        <button class="btn btn-primary" onclick="saveSettings()">Save Settings</button>
-    </div>`;
-}
-function saveSettings() {
-    const newPass = document.getElementById('newPassword').value;
-    const confirmPass = document.getElementById('confirmPassword').value;
-    if (newPass) {
-        if (newPass !== confirmPass) return alert('Passwords do not match');
-        adminData.settings.adminPassword = newPass;
-        adminData.settings.passwordVersion = (adminData.settings.passwordVersion || 1) + 1;
-        localStorage.removeItem('sc_admin_session');
-        save();
-        alert('Settings saved! All other admin sessions have been revoked.');
-        document.getElementById('adminContainer').style.display = 'none';
-        document.getElementById('authOverlay').style.display = 'flex';
-        document.getElementById('authPassword').value = '';
-    } else {
-        adminData.settings.registrationFee = parseInt(document.getElementById('regFee').value);
-        save();
-        alert('Settings saved!');
-    }
-}
-
-window.addEventListener('storage', (e) => {
-    if (e.key === 'secondchance_admin_data') {
-        adminData = JSON.parse(localStorage.getItem('secondchance_admin_data'));
-        loadView(currentView);
-    }
+// ============ PWA INSTALL ============
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+    e.preventDefault();
+    deferredPrompt = e;
+    document.getElementById('installBanner').classList.remove('hidden');
 });
+function installApp() {
+    if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((r) => {
+            if (r.outcome==='accepted') toast('App installed! 🎉');
+            deferredPrompt = null;
+            document.getElementById('installBanner').classList.add('hidden');
+        });
+    } else {
+        const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
+        if (isIOS) alert('To install: tap Share → Add to Home Screen');
+        else if (window.matchMedia('(display-mode: standalone)').matches) toast('Already installed!');
+        else alert('To install: open Chrome menu → Install app');
+    }
+}
 
-checkSession();
-updateUI();
+// ============ INIT ============
+document.querySelectorAll('.nav-item').forEach(b=>{ b.addEventListener('click',e=>{ page=e.currentTarget.dataset.page; renderPage(); }); });
+if (settings.darkMode) document.body.classList.add('dark-mode');
+renderPage();
+updateCartDot();
 </script>
 </body>
-    </html>
+</html>
