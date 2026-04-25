@@ -2,590 +2,875 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SecondChance • Buy & Sell Premium</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>SecondChance • Buy & Sell</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛒</text></svg>">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:wght@400;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #ffffff;
-            --surface: #f8f9fa;
+            --bg: #fafafa;
+            --surface: #ffffff;
             --text: #1a1a2e;
-            --text-secondary: #4a4a6a;
+            --text-secondary: #6b7280;
             --primary: #1e2a4a;
             --secondary: #3d2c5e;
             --accent: #8b7355;
             --gold: #c9a84c;
-            --border: #d1d5db;
-            --success: #2e7d32;
-            --danger: #c62828;
-            --shadow: 0 8px 20px rgba(0,0,0,0.08);
-            --radius: 16px;
-            --transition: all 0.3s ease;
+            --gold-dark: #a68a3e;
+            --border: #e5e7eb;
+            --success: #059669;
+            --danger: #dc2626;
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
+            --shadow: 0 4px 12px rgba(0,0,0,0.08);
+            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
+            --radius-sm: 10px;
+            --radius: 14px;
+            --radius-lg: 20px;
+            --transition: all 0.25s cubic-bezier(0.4,0,0.2,1);
+            --safe-bottom: env(safe-area-inset-bottom, 0px);
         }
 
         .dark-mode {
-            --bg: #0f0f1a;
-            --surface: #1a1a2e;
+            --bg: #0a0a0f;
+            --surface: #14141f;
             --text: #e5e7eb;
             --text-secondary: #9ca3af;
             --primary: #4a5b8c;
             --secondary: #5b4a7a;
             --accent: #a08464;
             --gold: #d4b96a;
-            --border: #2d3748;
+            --gold-dark: #c9a84c;
+            --border: #1f2937;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            -webkit-user-select: none;
+            user-select: none;
+        }
+
+        html, body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            position: fixed;
+            top: 0;
+            left: 0;
+        }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
             transition: var(--transition);
-            min-height: 100vh;
-            padding-bottom: 80px;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            height: -webkit-fill-available;
+            max-width: 100vw;
+            overflow-x: hidden;
         }
 
-        /* Header */
-        .app-header {
-            padding: 12px 24px;
+        /* App Container */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 481px) {
+            .app-container {
+                border-left: 1px solid var(--border);
+                border-right: 1px solid var(--border);
+                box-shadow: 0 0 60px rgba(0,0,0,0.1);
+            }
+        }
+
+        /* Top Header - Fixed */
+        .top-header {
+            background: var(--surface);
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--border);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            background: var(--surface);
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            gap: 10px;
+            flex-shrink: 0;
+            z-index: 50;
         }
 
         .logo {
             font-family: 'Playfair Display', serif;
-            font-size: 1.6rem;
+            font-size: 1.3rem;
             font-weight: 900;
             color: var(--primary);
+            letter-spacing: -1px;
+            white-space: nowrap;
         }
         .logo span { color: var(--gold); }
 
-        .user-switch {
+        .user-pill {
             display: flex;
-            gap: 4px;
+            gap: 2px;
             background: var(--bg);
-            border-radius: 30px;
-            padding: 4px;
+            border-radius: 22px;
+            padding: 3px;
             border: 1px solid var(--border);
+            flex-shrink: 0;
         }
 
-        .switch-btn {
-            padding: 8px 16px;
-            border-radius: 26px;
+        .pill-btn {
+            padding: 6px 12px;
+            border-radius: 20px;
             border: none;
             cursor: pointer;
             font-weight: 600;
-            font-size: 0.8rem;
+            font-size: 0.7rem;
             transition: var(--transition);
             background: transparent;
-            color: var(--text);
+            color: var(--text-secondary);
+            white-space: nowrap;
+            letter-spacing: 0.3px;
         }
 
-        .switch-btn.active {
+        .pill-btn.active {
             background: var(--gold);
-            color: white;
+            color: #1a1a1a;
         }
 
-        .nav-actions {
+        .header-icons {
             display: flex;
-            gap: 8px;
-            align-items: center;
-        }
-
-        .btn {
-            padding: 8px 16px;
-            border-radius: 25px;
-            border: none;
-            font-weight: 600;
-            font-size: 0.8rem;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            align-items: center;
             gap: 4px;
-            font-family: inherit;
+            align-items: center;
+            flex-shrink: 0;
         }
 
-        .btn-primary { background: var(--secondary); color: white; }
-        .btn-gold { background: var(--gold); color: #1a1a1a; font-weight: 700; }
-        .btn-outline { border: 1px solid var(--border); background: transparent; color: var(--text); }
-
-        .cart-badge {
-            background: var(--danger);
-            color: white;
+        .icon-btn {
+            width: 34px;
+            height: 34px;
             border-radius: 50%;
-            width: 20px;
-            height: 20px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.7rem;
-            font-weight: 700;
+            transition: var(--transition);
+            color: var(--text);
+            position: relative;
         }
 
-        /* Search */
-        .search-row {
-            padding: 12px 24px;
-            display: flex;
-            gap: 12px;
+        .icon-btn:active { transform: scale(0.9); }
+
+        .cart-dot {
+            position: absolute;
+            top: 4px;
+            right: 4px;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--danger);
+            display: none;
+        }
+        .cart-dot.show { display: block; }
+
+        /* Search Bar - Fixed */
+        .search-bar {
+            padding: 8px 16px;
+            flex-shrink: 0;
+            background: var(--bg);
         }
 
-        .search-box {
-            flex: 1;
+        .search-input-wrap {
             display: flex;
             align-items: center;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 30px;
+            border-radius: 24px;
             overflow: hidden;
+            transition: var(--transition);
         }
 
-        .search-box input {
+        .search-input-wrap:focus-within {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 3px rgba(201,168,76,0.1);
+        }
+
+        .search-input-wrap input {
             border: none;
-            padding: 10px 16px;
+            padding: 10px 14px;
             flex: 1;
             background: transparent;
             color: var(--text);
             outline: none;
+            font-size: 0.85rem;
+            font-family: inherit;
         }
 
-        .search-box button {
-            background: var(--gold);
+        .search-input-wrap button {
+            background: none;
             border: none;
-            color: #1a1a1a;
-            padding: 10px 20px;
+            padding: 10px 14px;
             cursor: pointer;
-            font-weight: 700;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        /* Categories */
-        .categories {
+        /* Categories - Scrollable */
+        .categories-scroll {
             display: flex;
             gap: 6px;
-            padding: 8px 24px;
+            padding: 8px 16px;
             overflow-x: auto;
-            flex-wrap: wrap;
+            flex-shrink: 0;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none;
         }
+        .categories-scroll::-webkit-scrollbar { display: none; }
 
         .cat-chip {
             padding: 6px 14px;
-            border-radius: 20px;
+            border-radius: 18px;
             background: var(--surface);
             border: 1px solid var(--border);
             white-space: nowrap;
             cursor: pointer;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
+            font-weight: 500;
             transition: var(--transition);
+            flex-shrink: 0;
         }
 
+        .cat-chip:active { transform: scale(0.95); }
         .cat-chip.active {
             background: var(--gold);
             color: #1a1a1a;
             border-color: transparent;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        /* Products Grid */
+        /* Main Content - Scrollable */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+            padding-bottom: 8px;
+        }
+
+        /* Products Grid - 2 per row, compact */
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            padding: 16px 24px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        @media (max-width: 768px) {
-            .products-grid { grid-template-columns: 1fr; }
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            padding: 10px 16px;
         }
 
         .product-card {
             background: var(--surface);
             border-radius: var(--radius);
             overflow: hidden;
-            box-shadow: var(--shadow);
+            box-shadow: var(--shadow-sm);
             transition: var(--transition);
             border: 1px solid var(--border);
+            cursor: pointer;
         }
 
-        .product-card:hover { transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,0,0,0.15); }
+        .product-card:active { transform: scale(0.97); }
 
         .product-img {
-            height: 180px;
+            width: 100%;
+            aspect-ratio: 1/1;
             background-size: cover;
             background-position: center;
             background-color: #e5e7eb;
         }
 
         .product-info {
-            padding: 14px;
+            padding: 10px;
         }
 
-        .product-title { font-weight: 600; font-size: 1rem; margin-bottom: 6px; }
-        .product-price { font-weight: 800; font-size: 1.2rem; color: var(--gold); }
-        .product-desc { color: var(--text-secondary); font-size: 0.8rem; margin: 6px 0; }
-        .product-meta { display: flex; justify-content: space-between; font-size: 0.75rem; color: var(--text-secondary); }
-        .buy-btn { width: 100%; margin-top: 10px; padding: 10px; }
+        .product-title {
+            font-weight: 600;
+            font-size: 0.8rem;
+            margin-bottom: 4px;
+            line-height: 1.3;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
 
-        /* Bottom Navigation */
+        .product-price {
+            font-weight: 800;
+            font-size: 0.95rem;
+            color: var(--gold-dark);
+            margin-bottom: 4px;
+        }
+
+        .product-desc {
+            color: var(--text-secondary);
+            font-size: 0.7rem;
+            margin-bottom: 6px;
+            display: -webkit-box;
+            -webkit-line-clamp: 1;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .product-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+
+        .btn-add-cart {
+            width: 100%;
+            padding: 8px;
+            background: var(--gold);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 6px;
+            font-family: inherit;
+            letter-spacing: 0.3px;
+        }
+
+        .btn-add-cart:active { transform: scale(0.95); opacity: 0.8; }
+
+        /* Bottom Navigation - Fixed */
         .bottom-nav {
-            position: fixed;
+            position: sticky;
             bottom: 0;
-            left: 0;
-            right: 0;
             background: var(--surface);
             border-top: 1px solid var(--border);
             display: flex;
             justify-content: space-around;
-            padding: 8px 0;
-            z-index: 100;
+            align-items: center;
+            padding: 6px 8px calc(6px + var(--safe-bottom));
+            z-index: 50;
+            flex-shrink: 0;
             box-shadow: 0 -2px 10px rgba(0,0,0,0.05);
         }
 
-        .nav-item-bottom {
+        .nav-tab {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 2px;
+            gap: 3px;
             cursor: pointer;
             color: var(--text-secondary);
-            font-size: 0.7rem;
+            font-size: 0.6rem;
+            font-weight: 500;
             transition: var(--transition);
-            padding: 4px 8px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            min-width: 50px;
+            border: none;
+            background: none;
+            font-family: inherit;
+        }
+
+        .nav-tab:active { transform: scale(0.9); }
+        .nav-tab.active { color: var(--gold); font-weight: 700; }
+        .nav-tab i { font-size: 1.2rem; }
+
+        /* Cart Sidebar */
+        .cart-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 200;
+            display: flex;
+            justify-content: flex-end;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
+        }
+        .cart-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .cart-panel {
+            width: 100%;
+            max-width: 380px;
+            background: var(--surface);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            transform: translateX(100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .cart-overlay.open .cart-panel { transform: translateX(0); }
+
+        .cart-header {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .cart-items {
+            flex: 1;
+            overflow-y: auto;
+            padding: 12px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 12px;
+            padding: 12px;
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            margin-bottom: 8px;
+            align-items: center;
+        }
+
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
             border-radius: 8px;
+            background-size: cover;
+            background-position: center;
+            flex-shrink: 0;
         }
 
-        .nav-item-bottom.active {
-            color: var(--gold);
-            font-weight: 600;
+        .cart-item-info { flex: 1; min-width: 0; }
+        .cart-item-title { font-weight: 600; font-size: 0.85rem; margin-bottom: 4px; }
+        .cart-item-price { font-weight: 700; color: var(--gold-dark); font-size: 0.9rem; }
+
+        .cart-item-remove {
+            background: none;
+            border: none;
+            color: var(--danger);
+            cursor: pointer;
+            font-size: 1rem;
+            padding: 4px;
         }
 
-        .nav-item-bottom i { font-size: 1.2rem; }
+        .cart-footer {
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            margin-bottom: 8px;
+            font-size: 1rem;
+        }
+
+        .cart-commission {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .btn-checkout {
+            width: 100%;
+            padding: 14px;
+            background: var(--gold);
+            color: #1a1a1a;
+            border: none;
+            border-radius: 25px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-checkout:active { transform: scale(0.95); }
+
+        .cart-empty {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: var(--text-secondary);
+            text-align: center;
+            padding: 40px;
+        }
+
+        .cart-empty i { font-size: 4rem; margin-bottom: 16px; opacity: 0.3; }
+        .cart-empty h3 { font-family: 'Playfair Display', serif; margin-bottom: 8px; }
+        .cart-empty p { font-size: 0.85rem; }
 
         /* Modals */
         .modal-overlay {
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.7);
-            backdrop-filter: blur(4px);
-            z-index: 2000;
+            background: rgba(0,0,0,0.6);
+            z-index: 300;
             display: flex;
-            align-items: center;
+            align-items: flex-end;
             justify-content: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.3s;
         }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
 
-        .modal {
+        .modal-sheet {
             background: var(--surface);
-            border-radius: var(--radius);
-            padding: 24px;
-            max-width: 500px;
-            width: 90%;
+            border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+            width: 100%;
+            max-width: 480px;
             max-height: 85vh;
             overflow-y: auto;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
-            animation: modalIn 0.2s ease;
+            padding: 20px;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+        }
+        .modal-overlay.open .modal-sheet { transform: translateY(0); }
+
+        .modal-handle {
+            width: 36px;
+            height: 4px;
+            background: var(--border);
+            border-radius: 2px;
+            margin: 0 auto 16px;
         }
 
-        @keyframes modalIn { from { opacity: 0; transform: scale(0.95); } }
-
-        .modal h2 { font-size: 1.3rem; margin-bottom: 16px; }
+        .modal-sheet h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 16px;
+            font-weight: 700;
+        }
 
         .form-group { margin-bottom: 14px; }
-        .form-group label { display: block; margin-bottom: 4px; font-weight: 500; font-size: 0.85rem; }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
         .form-input, .form-select, .form-textarea {
             width: 100%;
-            padding: 10px 12px;
+            padding: 10px 14px;
             border: 1px solid var(--border);
-            border-radius: 8px;
+            border-radius: 10px;
             background: var(--bg);
             color: var(--text);
             font-family: inherit;
+            font-size: 0.9rem;
+            transition: var(--transition);
         }
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+        .form-textarea { resize: vertical; min-height: 80px; }
+
+        .btn-full {
+            width: 100%;
+            padding: 12px;
+            border-radius: 25px;
+            border: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            cursor: pointer;
+            font-family: inherit;
+            transition: var(--transition);
+            letter-spacing: 0.3px;
+        }
+        .btn-full-gold { background: var(--gold); color: #1a1a1a; }
+        .btn-full-outline { background: transparent; border: 1px solid var(--border); color: var(--text); margin-top: 8px; }
 
         .agreement-box {
             border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 14px;
-            height: 140px;
-            overflow-y: scroll;
+            border-radius: 10px;
+            padding: 12px;
+            height: 120px;
+            overflow-y: auto;
             background: var(--bg);
-            font-size: 0.8rem;
-            margin: 10px 0;
-            line-height: 1.5;
+            font-size: 0.75rem;
             color: var(--text-secondary);
+            line-height: 1.5;
+            margin: 10px 0;
         }
+
+        .toggle-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .toggle-row span { font-weight: 500; font-size: 0.9rem; }
+
+        .toggle-switch {
+            position: relative;
+            width: 44px;
+            height: 24px;
+            flex-shrink: 0;
+        }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background: #ccc;
+            border-radius: 24px;
+            transition: .3s;
+        }
+        .toggle-slider:before {
+            content: "";
+            position: absolute;
+            height: 18px;
+            width: 18px;
+            left: 3px;
+            bottom: 3px;
+            background: white;
+            border-radius: 50%;
+            transition: .3s;
+        }
+        input:checked + .toggle-slider { background: var(--gold); }
+        input:checked + .toggle-slider:before { transform: translateX(20px); }
 
         .hidden { display: none !important; }
-        .flex-between { display: flex; justify-content: space-between; align-items: center; }
 
-        .mpesa-prompt {
+        .mpesa-highlight {
             background: #1a1a1a;
             color: #4caf50;
-            padding: 16px;
-            border-radius: 12px;
+            padding: 12px;
+            border-radius: 10px;
             text-align: center;
             font-weight: 700;
-            font-size: 1.1rem;
             letter-spacing: 1px;
+            margin: 8px 0;
         }
 
-        .image-quality-warning {
-            background: #fff3cd;
-            color: #856404;
-            padding: 8px 12px;
-            border-radius: 8px;
+        /* Install Banner */
+        .install-banner {
+            background: var(--gold);
+            color: #1a1a1a;
+            padding: 10px 16px;
+            text-align: center;
+            font-weight: 600;
             font-size: 0.8rem;
-            margin-top: 6px;
+            cursor: pointer;
             display: none;
         }
     </style>
 </head>
 <body>
 
-<!-- Header -->
-<div class="app-header">
-    <div class="logo">Second<span>Chance</span></div>
-    <div class="user-switch">
-        <button class="switch-btn active" id="buyerSwitch" onclick="switchToBuyer()">🛍️ Buyer</button>
-        <button class="switch-btn" id="sellerSwitch" onclick="switchToSeller()">💼 Seller</button>
+<div class="app-container">
+    <!-- Install Banner -->
+    <div class="install-banner" id="installBanner" onclick="installApp()">
+        📲 Tap to install this app on your home screen
     </div>
-    <div class="nav-actions">
-        <button class="btn btn-outline" onclick="viewCart()">🛒 <span class="cart-badge" id="cartCount">0</span></button>
-        <button class="btn btn-primary" id="loginBtn" onclick="openAuthModal()">👤 Login</button>
-        <span id="loggedInUser" class="hidden" style="font-weight:600;color:var(--gold);"></span>
+
+    <!-- Top Header -->
+    <div class="top-header">
+        <div class="logo">Second<span>Chance</span></div>
+        <div class="user-pill">
+            <button class="pill-btn active" id="buyerPill" onclick="switchMode('buyer')">Buyer</button>
+            <button class="pill-btn" id="sellerPill" onclick="switchMode('seller')">Seller</button>
+        </div>
+        <div class="header-icons">
+            <button class="icon-btn" onclick="openCart()">
+                🛒<span class="cart-dot" id="cartDot"></span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Search -->
+    <div class="search-bar">
+        <div class="search-input-wrap">
+            <input type="text" id="searchInput" placeholder="Search items...">
+            <button onclick="searchItems()">🔍</button>
+        </div>
+    </div>
+
+    <!-- Categories -->
+    <div class="categories-scroll" id="categoriesScroll"></div>
+
+    <!-- Main Content -->
+    <div class="main-content" id="mainContent">
+        <div class="products-grid" id="productsGrid"></div>
+    </div>
+
+    <!-- Bottom Navigation -->
+    <div class="bottom-nav">
+        <button class="nav-tab active" onclick="showPage('home')">
+            <i class="fas fa-home"></i> Home
+        </button>
+        <button class="nav-tab" onclick="showPage('large')">
+            <i class="fas fa-couch"></i> Large
+        </button>
+        <button class="nav-tab" onclick="openSellModal()">
+            <i class="fas fa-plus-circle"></i> Sell
+        </button>
+        <button class="nav-tab" onclick="openHelp()">
+            <i class="fab fa-whatsapp"></i> Help
+        </button>
+        <button class="nav-tab" onclick="openSettings()">
+            <i class="fas fa-cog"></i> Settings
+        </button>
     </div>
 </div>
 
-<!-- Search -->
-<div class="search-row">
-    <div class="search-box">
-        <input type="text" id="searchInput" placeholder="Search products...">
-        <button onclick="searchItems()">🔍</button>
-    </div>
-</div>
-
-<!-- Categories -->
-<div class="categories" id="categoriesRow"></div>
-
-<!-- Products Grid -->
-<div class="products-grid" id="productsGrid"></div>
-
-<!-- Large Items Page -->
-<div id="largeItemsPage" class="hidden">
-    <div style="padding:24px;">
-        <h2 style="font-family:'Playfair Display',serif;margin-bottom:20px;">🏠 Large Items</h2>
-        <div class="products-grid" id="largeItemsGrid"></div>
-    </div>
-</div>
-
-<!-- Bottom Navigation -->
-<div class="bottom-nav">
-    <div class="nav-item-bottom active" onclick="showPage('home')">
-        <i class="fas fa-home"></i> Home
-    </div>
-    <div class="nav-item-bottom" onclick="showPage('large')">
-        <i class="fas fa-couch"></i> Large Items
-    </div>
-    <div class="nav-item-bottom" onclick="openSellModal()">
-        <i class="fas fa-plus-circle"></i> Sell
-    </div>
-    <div class="nav-item-bottom" onclick="openHelp()">
-        <i class="fab fa-whatsapp"></i> Help
-    </div>
-    <div class="nav-item-bottom" onclick="openSettings()">
-        <i class="fas fa-cog"></i> Settings
+<!-- Cart Overlay -->
+<div class="cart-overlay" id="cartOverlay" onclick="if(event.target===this)closeCart()">
+    <div class="cart-panel">
+        <div class="cart-header">
+            <h2>Your Cart</h2>
+            <button class="icon-btn" onclick="closeCart()">✕</button>
+        </div>
+        <div class="cart-items" id="cartItems"></div>
+        <div class="cart-footer" id="cartFooter"></div>
     </div>
 </div>
 
 <!-- Modal Container -->
 <div id="modalContainer"></div>
 
-<script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script>
-    // ==================== DATA ====================
+    // ==================== CONSTANTS ====================
     const MASTER_MPESA = '0792091769';
-    const WHATSAPP_HELP = '0753711672';
+    const WHATSAPP_NUMBER = '0753711672';
     
-    let currentUser = JSON.parse(localStorage.getItem('currentUser'));
-    let userMode = 'buyer'; // buyer or seller
-    let cart = JSON.parse(localStorage.getItem('cart')) || [];
-    let orders = JSON.parse(localStorage.getItem('orders')) || [];
+    // ==================== STATE ====================
+    let currentUser = JSON.parse(localStorage.getItem('sc_user'));
+    let userMode = 'buyer';
+    let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
+    let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
     let currentCategory = 'all';
     let currentPage = 'home';
-
-    // Product images - matched to actual products
-    const productImages = {
-        kitchen: {
-            fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=400&h=300&fit=crop',
-            pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=400&h=300&fit=crop',
-            cooker: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop',
-            utensils: 'https://images.unsplash.com/photo-1556909172-54557c7e4fb7?w=400&h=300&fit=crop'
-        },
-        electronics: {
-            phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&h=300&fit=crop',
-            laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop',
-            tv: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=400&h=300&fit=crop'
-        },
-        furniture: {
-            sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400&h=300&fit=crop',
-            bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=400&h=300&fit=crop',
-            table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400&h=300&fit=crop',
-            chair: 'https://images.unsplash.com/photo-1506439773649-6e0eb8cfb237?w=400&h=300&fit=crop'
-        },
-        fashion: {
-            dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=400&h=300&fit=crop',
-            shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=400&h=300&fit=crop',
-            bag: 'https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=300&fit=crop'
-        },
-        automotive: {
-            car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=400&h=300&fit=crop',
-            parts: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400&h=300&fit=crop',
-            rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=400&h=300&fit=crop'
-        },
-        sports: {
-            treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=400&h=300&fit=crop',
-            bike: 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=400&h=300&fit=crop',
-            weights: 'https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=400&h=300&fit=crop'
-        },
-        books: {
-            textbooks: 'https://images.unsplash.com/photo-1497633762265-9d179a990aa6?w=400&h=300&fit=crop',
-            novels: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=400&h=300&fit=crop'
-        },
-        garden: {
-            tools: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&h=300&fit=crop',
-            plants: 'https://images.unsplash.com/photo-1463320898484-cdee8141c787?w=400&h=300&fit=crop'
-        },
-        baby: {
-            stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=400&h=300&fit=crop',
-            clothes: 'https://images.unsplash.com/photo-1522771930-78848d9293e8?w=400&h=300&fit=crop'
-        },
-        pets: {
-            kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&h=300&fit=crop',
-            food: 'https://images.unsplash.com/photo-1583511655826-05700d52f4d5?w=400&h=300&fit=crop'
-        },
-        tools: {
-            drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=400&h=300&fit=crop',
-            saw: 'https://images.unsplash.com/photo-1572981779307-38b8cabb2407?w=400&h=300&fit=crop'
-        }
+    let settings = JSON.parse(localStorage.getItem('sc_settings')) || {
+        darkMode: false,
+        notifications: true,
+        currency: 'KSH',
+        language: 'en'
     };
 
-    // Real products with matched images
+    // ==================== PRODUCT DATA ====================
+    const productImages = {
+        kitchen_fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
+        kitchen_pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
+        kitchen_cooker: 'https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=300&h=300&fit=crop',
+        electronics_phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
+        electronics_laptop: 'https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=300&h=300&fit=crop',
+        electronics_tv: 'https://images.unsplash.com/photo-1593359677879-a4bb92f829d1?w=300&h=300&fit=crop',
+        furniture_sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
+        furniture_bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
+        furniture_table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
+        fashion_dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
+        fashion_shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop',
+        automotive_car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
+        automotive_rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
+        sports_treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
+        books_novels: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
+        garden_tools: 'https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=300&h=300&fit=crop',
+        baby_stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
+        pets_kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop',
+        tools_drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop'
+    };
+
     const items = [
-        { id:1, title:'Samsung Double Door Fridge', category:'kitchen', price:45000, desc:'Excellent condition, 2 years old, silver', condition:'good', seller:'Jane', rating:4.5, img:productImages.kitchen.fridge, isLarge:true },
-        { id:2, title:'Non-stick Pan Set 5pcs', category:'kitchen', price:2500, desc:'Like new, used twice only', condition:'like-new', seller:'Mike', rating:4.8, img:productImages.kitchen.pans, isLarge:false },
-        { id:3, title:'iPhone 13 Pro Max 256GB', category:'electronics', price:85000, desc:'Graphite, with box and charger', condition:'good', seller:'TechGuy', rating:4.3, img:productImages.electronics.phone, isLarge:false },
-        { id:4, title:'Italian Leather Sofa Set', category:'furniture', price:65000, desc:'3+2 seater, brown genuine leather', condition:'fair', seller:'HomeDecor', rating:4.0, img:productImages.furniture.sofa, isLarge:true },
-        { id:5, title:'Evening Gown Designer', category:'fashion', price:8000, desc:'Size M, worn once at wedding', condition:'like-new', seller:'Fashionista', rating:4.7, img:productImages.fashion.dress, isLarge:false },
-        { id:6, title:'Alloy Rims 17" Set of 4', category:'automotive', price:28000, desc:'Fits Toyota, minor scratches', condition:'good', seller:'CarParts', rating:4.2, img:productImages.automotive.rims, isLarge:false },
-        { id:7, title:'Electric Treadmill Machine', category:'sports', price:35000, desc:'12 programs, foldable', condition:'good', seller:'Fitness', rating:4.6, img:productImages.sports.treadmill, isLarge:true },
-        { id:8, title:'Harry Potter Complete Set', category:'books', price:5000, desc:'Hardcover, all 7 books', condition:'good', seller:'Bookworm', rating:4.9, img:productImages.books.novels, isLarge:false },
-        { id:9, title:'Garden Tool Set 7pcs', category:'garden', price:3000, desc:'Rake, shovel, hoe included', condition:'good', seller:'Green', rating:4.1, img:productImages.garden.tools, isLarge:false },
-        { id:10, title:'Baby Stroller Travel System', category:'baby', price:12000, desc:'6 months old, like new', condition:'like-new', seller:'Parent', rating:4.4, img:productImages.baby.stroller, isLarge:false },
-        { id:11, title:'Large Dog Kennel', category:'pets', price:4500, desc:'Wooden, suitable for large breeds', condition:'good', seller:'PetLover', rating:4.3, img:productImages.pets.kennel, isLarge:false },
-        { id:12, title:'Cordless Power Drill', category:'tools', price:6500, desc:'18V, with battery and bits', condition:'good', seller:'DIY', rating:4.5, img:productImages.tools.drill, isLarge:false },
-        { id:13, title:'2019 Toyota Vitz', category:'automotive', price:850000, desc:'Low mileage, clean title', condition:'good', seller:'AutoDealer', rating:4.0, img:productImages.automotive.car, isLarge:true },
-        { id:14, title:'Queen Size Bed Frame', category:'furniture', price:18000, desc:'Wooden, with storage drawers', condition:'good', seller:'FurnitureHub', rating:4.3, img:productImages.furniture.bed, isLarge:true },
-        { id:15, title:'Dining Table 6 Seater', category:'furniture', price:22000, desc:'Solid mango wood', condition:'good', seller:'WoodCraft', rating:4.4, img:productImages.furniture.table, isLarge:true }
+        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years old', condition:'good', seller:'Jane', rating:4.5, img:productImages.kitchen_fridge, isLarge:true },
+        { id:2, title:'Non-stick Pan Set 5pcs', category:'kitchen', price:2500, desc:'Like new', condition:'like-new', seller:'Mike', rating:4.8, img:productImages.kitchen_pans, isLarge:false },
+        { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, box included', condition:'good', seller:'TechGuy', rating:4.3, img:productImages.electronics_phone, isLarge:false },
+        { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown leather', condition:'fair', seller:'HomeDecor', rating:4.0, img:productImages.furniture_sofa, isLarge:true },
+        { id:5, title:'Designer Evening Gown', category:'fashion', price:8000, desc:'Size M, worn once', condition:'like-new', seller:'Fashionista', rating:4.7, img:productImages.fashion_dress, isLarge:false },
+        { id:6, title:'Alloy Rims 17" Set', category:'automotive', price:28000, desc:'Set of 4', condition:'good', seller:'CarParts', rating:4.2, img:productImages.automotive_rims, isLarge:false },
+        { id:7, title:'Electric Treadmill', category:'sports', price:35000, desc:'12 programs', condition:'good', seller:'Fitness', rating:4.6, img:productImages.sports_treadmill, isLarge:true },
+        { id:8, title:'Harry Potter Book Set', category:'books', price:5000, desc:'All 7 hardcover', condition:'good', seller:'Bookworm', rating:4.9, img:productImages.books_novels, isLarge:false },
+        { id:9, title:'Garden Tool Set 7pcs', category:'garden', price:3000, desc:'Complete set', condition:'good', seller:'Green', rating:4.1, img:productImages.garden_tools, isLarge:false },
+        { id:10, title:'Baby Stroller', category:'baby', price:12000, desc:'Travel system', condition:'like-new', seller:'Parent', rating:4.4, img:productImages.baby_stroller, isLarge:false },
+        { id:11, title:'Large Dog Kennel', category:'pets', price:4500, desc:'Wooden, large breed', condition:'good', seller:'PetLover', rating:4.3, img:productImages.pets_kennel, isLarge:false },
+        { id:12, title:'Cordless Power Drill', category:'tools', price:6500, desc:'18V with bits', condition:'good', seller:'DIY', rating:4.5, img:productImages.tools_drill, isLarge:false },
+        { id:13, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage', condition:'good', seller:'AutoDealer', rating:4.0, img:productImages.automotive_car, isLarge:true },
+        { id:14, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden, storage', condition:'good', seller:'FurnitureHub', rating:4.3, img:productImages.furniture_bed, isLarge:true },
+        { id:15, title:'Dining Table 6-Seater', category:'furniture', price:22000, desc:'Solid wood', condition:'good', seller:'WoodCraft', rating:4.4, img:productImages.furniture_table, isLarge:true }
     ];
 
     const categories = ['all','kitchen','electronics','furniture','fashion','automotive','sports','books','garden','baby','pets','tools'];
+    const catNames = {all:'🌟 All',kitchen:'🍳 Kitchen',electronics:'📱 Electronics',furniture:'🛋️ Furniture',fashion:'👗 Fashion',automotive:'🚗 Automotive',sports:'⚽ Sports',books:'📚 Books',garden:'🌿 Garden',baby:'👶 Baby',pets:'🐾 Pets',tools:'🔧 Tools'};
 
     // ==================== RENDER ====================
     function renderCategories() {
-        document.getElementById('categoriesRow').innerHTML = categories.map(cat => `
-            <div class="cat-chip ${currentCategory===cat?'active':''}" onclick="filterCategory('${cat}')">${cat==='all'?'🌟 All':getCatName(cat)}</div>
-        `).join('');
+        document.getElementById('categoriesScroll').innerHTML = categories.map(cat => 
+            `<div class="cat-chip ${currentCategory===cat?'active':''}" onclick="filterCategory('${cat}')">${catNames[cat]}</div>`
+        ).join('');
     }
 
-    function getCatName(cat) {
-        const names = {kitchen:'🍳 Kitchen',electronics:'📱 Electronics',furniture:'🛋️ Furniture',fashion:'👗 Fashion',automotive:'🚗 Automotive',sports:'⚽ Sports',books:'📚 Books',garden:'🌿 Garden',baby:'👶 Baby',pets:'🐾 Pets',tools:'🔧 Tools'};
-        return names[cat] || cat;
-    }
-
-    function renderProducts(filteredItems = items) {
+    function renderProducts(filteredItems = null) {
         const grid = document.getElementById('productsGrid');
-        const nonLarge = filteredItems.filter(i => !i.isLarge);
+        let displayItems = filteredItems || items;
         
-        if (nonLarge.length === 0) {
-            grid.innerHTML = '<p style="grid-column:span 2;text-align:center;padding:40px;">No products found</p>';
+        if (currentPage === 'large') {
+            displayItems = displayItems.filter(i => i.isLarge);
+        } else if (currentPage === 'home') {
+            displayItems = displayItems.filter(i => !i.isLarge);
+        }
+        
+        if (currentCategory !== 'all' && currentPage !== 'large') {
+            displayItems = displayItems.filter(i => i.category === currentCategory);
+        }
+        
+        if (displayItems.length === 0) {
+            grid.innerHTML = '<div style="grid-column:span 2;text-align:center;padding:40px;color:var(--text-secondary);"><p style="font-size:3rem;">📭</p><p>No items found</p></div>';
             return;
         }
         
-        grid.innerHTML = nonLarge.map(item => `
-            <div class="product-card">
+        grid.innerHTML = displayItems.map(item => `
+            <div class="product-card" onclick="viewItem(${item.id})">
                 <div class="product-img" style="background-image:url('${item.img}');"></div>
                 <div class="product-info">
                     <div class="product-title">${item.title}</div>
                     <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-                    <div class="product-desc">${item.desc.substring(0,60)}...</div>
-                    <div class="product-meta">
-                        <span>⭐ ${item.rating}</span>
-                        <span>${item.condition}</span>
-                    </div>
-                    <button class="btn btn-gold buy-btn" onclick="addToCart(${item.id})">Add to Cart</button>
-                </div>
-            </div>
-        `).join('');
-    }
-
-    function renderLargeItems() {
-        const grid = document.getElementById('largeItemsGrid');
-        const largeItems = items.filter(i => i.isLarge);
-        
-        grid.innerHTML = largeItems.map(item => `
-            <div class="product-card">
-                <div class="product-img" style="background-image:url('${item.img}');height:220px;"></div>
-                <div class="product-info">
-                    <div class="product-title">${item.title}</div>
-                    <div class="product-price">KSH ${item.price.toLocaleString()}</div>
                     <div class="product-desc">${item.desc}</div>
-                    <div class="product-meta">
+                    <div class="product-footer">
                         <span>⭐ ${item.rating}</span>
                         <span>${item.condition}</span>
                     </div>
-                    <button class="btn btn-gold buy-btn" onclick="addToCart(${item.id})">Add to Cart</button>
+                    <button class="btn-add-cart" onclick="event.stopPropagation();addToCart(${item.id})">+ Add to Cart</button>
                 </div>
             </div>
         `).join('');
-    }
-
-    // ==================== PAGE NAVIGATION ====================
-    function showPage(page) {
-        currentPage = page;
-        document.querySelectorAll('.bottom-nav .nav-item-bottom').forEach(el => el.classList.remove('active'));
-        
-        if (page === 'home') {
-            document.getElementById('productsGrid').classList.remove('hidden');
-            document.getElementById('largeItemsPage').classList.add('hidden');
-            document.getElementById('categoriesRow').classList.remove('hidden');
-            document.querySelector('.search-row').classList.remove('hidden');
-            document.querySelector('.bottom-nav .nav-item-bottom:nth-child(1)').classList.add('active');
-            renderProducts();
-        } else if (page === 'large') {
-            document.getElementById('productsGrid').classList.add('hidden');
-            document.getElementById('largeItemsPage').classList.remove('hidden');
-            document.getElementById('categoriesRow').classList.add('hidden');
-            document.querySelector('.search-row').classList.add('hidden');
-            document.querySelector('.bottom-nav .nav-item-bottom:nth-child(2)').classList.add('active');
-            renderLargeItems();
-        }
     }
 
     function filterCategory(cat) {
         currentCategory = cat;
         renderCategories();
-        const filtered = cat === 'all' ? items : items.filter(i => i.category === cat);
-        renderProducts(filtered);
+        renderProducts();
     }
 
     function searchItems() {
@@ -594,463 +879,407 @@
         renderProducts(filtered);
     }
 
-    // ==================== USER MODE SWITCH ====================
-    function switchToBuyer() {
-        userMode = 'buyer';
-        document.getElementById('buyerSwitch').classList.add('active');
-        document.getElementById('sellerSwitch').classList.remove('active');
-        if (currentPage === 'large') showPage('home');
-        renderProducts();
-    }
-
-    function switchToSeller() {
-        if (!currentUser) {
-            alert('Please login first');
-            openAuthModal();
-            return;
+    function showPage(page) {
+        currentPage = page;
+        document.querySelectorAll('.nav-tab').forEach((tab, i) => {
+            tab.classList.toggle('active', i === ['home','large','sell','help','settings'].indexOf(page));
+        });
+        
+        if (page === 'home' || page === 'large') {
+            document.getElementById('searchBar')?.classList.remove('hidden');
+            document.getElementById('categoriesScroll').classList.remove('hidden');
+            renderProducts();
         }
-        if (!currentUser.registrationFeePaid && currentUser.role !== 'admin') {
-            alert('You need to pay the KSH 350 seller registration fee first.');
-            showSellerAgreement();
-            return;
-        }
-        userMode = 'seller';
-        document.getElementById('sellerSwitch').classList.add('active');
-        document.getElementById('buyerSwitch').classList.remove('active');
-        openSellerDashboard();
-    }
-
-    function openSellerDashboard() {
-        const myItems = items.filter(i => i.seller === currentUser?.fullName);
-        const html = `
-            <div class="modal-overlay" id="sellerDashboardOverlay">
-                <div class="modal">
-                    <h2>💼 Seller Dashboard</h2>
-                    <p>Welcome, ${currentUser.fullName}!</p>
-                    <h3>My Listed Items (${myItems.length})</h3>
-                    ${myItems.map(i => `<div class="flex-between"><span>${i.title}</span><span>KSH ${i.price}</span><span class="status-badge">${i.status||'approved'}</span></div>`).join('') || '<p>No items listed yet</p>'}
-                    <button class="btn btn-gold" onclick="openSellModal();document.getElementById('sellerDashboardOverlay').remove();">+ List New Item</button>
-                    <button class="btn btn-outline" onclick="document.getElementById('sellerDashboardOverlay').remove();">Close</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    // ==================== HELP - WHATSAPP ====================
-    function openHelp() {
-        const message = encodeURIComponent('Hello, I would like your help in BuyNSell');
-        window.open(`https://wa.me/${WHATSAPP_HELP}?text=${message}`, '_blank');
-    }
-
-    // ==================== SETTINGS ====================
-    function openSettings() {
-        const html = `
-            <div class="modal-overlay" id="settingsOverlay">
-                <div class="modal">
-                    <h2>⚙️ Settings</h2>
-                    <div class="form-group">
-                        <label>Dark Mode</label>
-                        <button class="btn btn-outline" onclick="toggleDarkMode()">🌙 Toggle Dark Mode</button>
-                    </div>
-                    <div class="form-group">
-                        <label>Logged in as</label>
-                        <p>${currentUser ? currentUser.fullName : 'Guest'}</p>
-                    </div>
-                    <button class="btn btn-outline" onclick="document.getElementById('settingsOverlay').remove();">Close</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        localStorage.setItem('darkMode', document.body.classList.contains('dark-mode'));
     }
 
     // ==================== CART ====================
     function addToCart(id) {
         const item = items.find(i => i.id === id);
         if (!item) return;
-        cart.push(item);
-        localStorage.setItem('cart', JSON.stringify(cart));
-        document.getElementById('cartCount').textContent = cart.length;
-        alert(`${item.title} added to cart!`);
+        cart.push({...item, cartId: Date.now()});
+        localStorage.setItem('sc_cart', JSON.stringify(cart));
+        updateCartDot();
+        // Haptic-like feedback
+        if (navigator.vibrate) navigator.vibrate(50);
+        showToast(`${item.title} added!`);
     }
 
-    function viewCart() {
-        if (cart.length === 0) return alert('Cart is empty');
+    function removeFromCart(cartId) {
+        cart = cart.filter(i => i.cartId !== cartId);
+        localStorage.setItem('sc_cart', JSON.stringify(cart));
+        updateCartDot();
+        renderCart();
+    }
+
+    function openCart() {
+        document.getElementById('cartOverlay').classList.add('open');
+        renderCart();
+    }
+
+    function closeCart() {
+        document.getElementById('cartOverlay').classList.remove('open');
+    }
+
+    function renderCart() {
+        const itemsContainer = document.getElementById('cartItems');
+        const footer = document.getElementById('cartFooter');
+        
+        if (cart.length === 0) {
+            itemsContainer.innerHTML = `
+                <div class="cart-empty">
+                    <i class="fas fa-shopping-bag"></i>
+                    <h3>Your cart is empty</h3>
+                    <p>Tap the + button on items to add them here</p>
+                </div>`;
+            footer.innerHTML = '';
+            return;
+        }
+        
         const total = cart.reduce((s,i) => s + i.price, 0);
         const commission = total >= 10000 ? total * 0.05 : total * 0.03;
-        const html = `
-            <div class="modal-overlay" id="cartOverlay">
-                <div class="modal">
-                    <h2>🛒 Your Cart</h2>
-                    ${cart.map((item,idx) => `<div class="flex-between"><span>${item.title}</span><span>KSH ${item.price.toLocaleString()}</span><button onclick="removeFromCart(${idx})">❌</button></div>`).join('')}
-                    <hr>
-                    <p>Subtotal: KSH ${total.toLocaleString()}</p>
-                    <p style="color:var(--gold);">Commission (${total>=10000?'5%':'3%'}): KSH ${commission.toFixed(2)}</p>
-                    <p><strong>Seller receives: KSH ${(total-commission).toFixed(2)}</strong></p>
-                    <button class="btn btn-gold" onclick="placeOrder()">Place Order</button>
-                    <button class="btn btn-outline" onclick="closeCartModal()">Close</button>
+        
+        itemsContainer.innerHTML = cart.map(item => `
+            <div class="cart-item">
+                <div class="cart-item-img" style="background-image:url('${item.img}');"></div>
+                <div class="cart-item-info">
+                    <div class="cart-item-title">${item.title}</div>
+                    <div class="cart-item-price">KSH ${item.price.toLocaleString()}</div>
                 </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
+                <button class="cart-item-remove" onclick="removeFromCart(${item.cartId})">🗑️</button>
+            </div>
+        `).join('');
+        
+        footer.innerHTML = `
+            <div class="cart-total">
+                <span>Total (${cart.length} items)</span>
+                <span>KSH ${total.toLocaleString()}</span>
+            </div>
+            <div class="cart-commission">
+                Commission (${total>=10000?'5%':'3%'}): KSH ${commission.toFixed(2)} • Seller gets KSH ${(total-commission).toFixed(2)}
+            </div>
+            <button class="btn-checkout" onclick="checkout()">Place Order • KSH ${total.toLocaleString()}</button>
+        `;
     }
 
-    function removeFromCart(idx) { cart.splice(idx,1); localStorage.setItem('cart',JSON.stringify(cart)); document.getElementById('cartCount').textContent = cart.length; viewCart(); }
-    function closeCartModal() { document.getElementById('modalContainer').innerHTML = ''; }
-
-    function placeOrder() {
-        if (!currentUser) { alert('Please login first'); return; }
+    function checkout() {
+        if (!currentUser) {
+            alert('Please create an account first');
+            closeCart();
+            openAuthModal();
+            return;
+        }
+        if (cart.length === 0) return;
+        
+        const total = cart.reduce((s,i) => s + i.price, 0);
         const order = {
             id: Date.now(),
-            buyer: currentUser.fullName,
+            buyer: currentUser.name,
             seller: cart[0]?.seller || 'Various',
             items: cart.map(i => i.title),
-            total: cart.reduce((s,i)=>s+i.price,0),
-            date: new Date().toLocaleString()
+            total: total,
+            date: new Date().toLocaleDateString()
         };
         orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
+        localStorage.setItem('sc_orders', JSON.stringify(orders));
         cart = [];
-        localStorage.setItem('cart','[]');
-        document.getElementById('cartCount').textContent = '0';
-        closeCartModal();
-        openOrdersModal();
+        localStorage.setItem('sc_cart', '[]');
+        updateCartDot();
+        closeCart();
+        showToast('Order placed! ✅');
     }
 
-    function openOrdersModal() {
-        const html = `
-            <div class="modal-overlay" id="ordersOverlay">
-                <div class="modal">
-                    <h2>📦 My Orders</h2>
-                    ${orders.length===0 ? '<p>No orders yet</p>' : orders.map(o => `
-                        <div style="background:var(--bg);border-radius:8px;padding:10px;margin:8px 0;">
-                            <strong>Order #${o.id}</strong><br>
-                            Buyer: ${o.buyer} | Seller: ${o.seller}<br>
-                            Items: ${o.items.join(', ')}<br>
-                            Total: KSH ${o.total.toLocaleString()}<br>
-                            <small>${o.date}</small>
-                        </div>`).join('')}
-                    <button class="btn btn-outline" onclick="document.getElementById('ordersOverlay').remove();">Close</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
+    function updateCartDot() {
+        const dot = document.getElementById('cartDot');
+        if (cart.length > 0) dot.classList.add('show');
+        else dot.classList.remove('show');
     }
 
-    // ==================== SELLER REGISTRATION ====================
+    // ==================== TOAST ====================
+    function showToast(msg) {
+        const existing = document.querySelector('.toast-msg');
+        if (existing) existing.remove();
+        
+        const toast = document.createElement('div');
+        toast.className = 'toast-msg';
+        toast.style.cssText = `
+            position:fixed;bottom:100px;left:50%;transform:translateX(-50%);
+            background:var(--surface);color:var(--text);padding:10px 20px;
+            border-radius:25px;box-shadow:var(--shadow-lg);z-index:400;
+            font-weight:600;font-size:0.85rem;animation:toastIn 0.3s ease;
+            border:1px solid var(--border);
+        `;
+        toast.textContent = msg;
+        document.body.appendChild(toast);
+        setTimeout(() => { toast.style.opacity='0'; toast.style.transition='opacity 0.3s'; setTimeout(()=>toast.remove(),300); }, 2000);
+    }
+
+    // ==================== SELLER ====================
+    function switchMode(mode) {
+        if (mode === 'seller') {
+            if (!currentUser) { openAuthModal(); return; }
+            if (!currentUser.paid) { showSellerAgreement(); return; }
+        }
+        userMode = mode;
+        document.getElementById('buyerPill').classList.toggle('active', mode==='buyer');
+        document.getElementById('sellerPill').classList.toggle('active', mode==='seller');
+    }
+
     function showSellerAgreement() {
         const html = `
-            <div class="modal-overlay" id="agreementOverlay">
-                <div class="modal">
+            <div class="modal-overlay open" id="agreementModal" onclick="if(event.target===this)this.remove()">
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
                     <h2>Seller Agreement</h2>
                     <div class="agreement-box">
-                        <strong>SECONDCHANCE MARKETPLACE SELLER TERMS</strong><br><br>
-                        By registering as a seller on SecondChance, you agree to these terms:<br><br>
-                        1. <strong>Registration Fee:</strong> Non-refundable KSH 350 paid to 0792091769 via M-Pesa.<br>
-                        2. <strong>Commission:</strong> 3% for items below KSH 10,000; 5% for KSH 10,000 and above.<br>
-                        3. <strong>Image Quality:</strong> Upload clear, real photos. Blurry/fake images will be rejected.<br>
-                        4. <strong>Admin Review:</strong> All listings subject to approval within 24 hours.<br>
-                        5. <strong>Prohibited:</strong> Counterfeit, illegal, or dangerous items strictly forbidden.<br>
-                        6. <strong>Payment:</strong> Net amount settled within 5 business days after successful sale.<br>
-                        7. <strong>Account:</strong> Violation leads to immediate suspension.<br><br>
-                        By proceeding, you accept these terms in full.
+                        <strong>SECONDCHANCE SELLER TERMS</strong><br><br>
+                        1. <strong>Fee:</strong> KSH 350 non-refundable to ${MASTER_MPESA}<br>
+                        2. <strong>Commission:</strong> 3% (under KSH 10k) / 5% (KSH 10k+)<br>
+                        3. <strong>Images:</strong> Must be clear. Blurry photos rejected.<br>
+                        4. <strong>Review:</strong> All listings reviewed within 24hrs<br>
+                        5. <strong>Payment:</strong> Net settled within 5 business days<br>
+                        6. <strong>Prohibited:</strong> No counterfeits or illegal items<br>
+                        7. <strong>Suspension:</strong> Violation = immediate ban<br><br>
+                        <strong>Master Account: ${MASTER_MPESA}</strong>
                     </div>
-                    <div class="checkbox-row">
-                        <input type="checkbox" id="agreeCheck"> <label for="agreeCheck">I agree to the Seller Agreement</label>
-                    </div>
-                    <button class="btn btn-gold" id="payBtn" disabled onclick="initiateMpesaPayment()">💳 Pay KSH 350 via M-Pesa</button>
-                    <button class="btn btn-outline" onclick="document.getElementById('agreementOverlay').remove();">Cancel</button>
+                    <label style="display:flex;align-items:center;gap:8px;margin:10px 0;font-size:0.85rem;">
+                        <input type="checkbox" id="agreeTerms"> I accept all terms
+                    </label>
+                    <button class="btn-full btn-full-gold" id="payAgreeBtn" disabled onclick="showMpesaPayment()">Pay KSH 350 via M-Pesa</button>
+                    <button class="btn-full btn-full-outline" onclick="document.getElementById('agreementModal').remove()">Cancel</button>
                 </div>
             </div>`;
         document.getElementById('modalContainer').innerHTML = html;
-        document.getElementById('agreeCheck').addEventListener('change', function() {
-            document.getElementById('payBtn').disabled = !this.checked;
+        document.getElementById('agreeTerms').addEventListener('change', function() {
+            document.getElementById('payAgreeBtn').disabled = !this.checked;
         });
     }
 
-    function initiateMpesaPayment() {
-        // Simulate M-Pesa STK push - in production, this would call Safaricom API
+    function showMpesaPayment() {
+        document.getElementById('agreementModal').remove();
         const html = `
-            <div class="modal-overlay" id="mpesaOverlay">
-                <div class="modal">
+            <div class="modal-overlay open" id="mpesaModal" onclick="if(event.target===this)this.remove()">
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
                     <h2>📱 M-Pesa Payment</h2>
-                    <div class="mpesa-prompt">
-                        <p>Pay <strong>KSH 350</strong> to:</p>
-                        <p style="font-size:1.5rem;letter-spacing:2px;">${MASTER_MPESA}</p>
-                        <p style="margin-top:12px;">Name: SECONDCHANCE MARKET</p>
+                    <div class="mpesa-highlight">
+                        <p>Send <strong>KSH 350</strong> to:</p>
+                        <p style="font-size:1.3rem;">${MASTER_MPESA}</p>
+                        <p>SECONDCHANCE MARKET</p>
                     </div>
-                    <p style="text-align:center;margin:12px 0;">Enter your M-Pesa PIN on your phone when prompted</p>
                     <div class="form-group">
-                        <label>M-Pesa Transaction Code</label>
+                        <label>M-Pesa Confirmation Code</label>
                         <input type="text" class="form-input" id="mpesaCode" placeholder="e.g., QWE1234567">
                     </div>
-                    <button class="btn btn-gold" onclick="confirmMpesaPayment()">Confirm Payment</button>
-                    <button class="btn btn-outline" onclick="document.getElementById('mpesaOverlay').remove();document.getElementById('agreementOverlay').remove();">Cancel</button>
+                    <button class="btn-full btn-full-gold" onclick="confirmMpesa()">Confirm Payment</button>
+                    <button class="btn-full btn-full-outline" onclick="document.getElementById('mpesaModal').remove()">Cancel</button>
                 </div>
             </div>`;
         document.getElementById('modalContainer').innerHTML = html;
     }
 
-    function confirmMpesaPayment() {
+    function confirmMpesa() {
         const code = document.getElementById('mpesaCode').value.trim();
-        if (!code) return alert('Enter M-Pesa transaction code');
+        if (!code) return alert('Enter the M-Pesa code');
         
-        // Store payment for admin verification
-        const payments = JSON.parse(localStorage.getItem('pendingPayments') || '[]');
-        payments.push({
-            userId: currentUser?.id || Date.now(),
-            userName: currentUser?.fullName || 'User',
-            phone: MASTER_MPESA,
-            code: code,
-            amount: 350,
-            date: new Date().toISOString()
-        });
-        localStorage.setItem('pendingPayments', JSON.stringify(payments));
+        if (currentUser) {
+            currentUser.paid = true;
+            localStorage.setItem('sc_user', JSON.stringify(currentUser));
+        }
         
-        // Also sync to admin data
+        // Sync to admin
         const adminData = JSON.parse(localStorage.getItem('secondchance_admin_data') || '{}');
         if (!adminData.payments) adminData.payments = [];
         adminData.payments.push({
-            id: Date.now(),
-            userId: currentUser?.id,
-            userName: currentUser?.fullName,
-            amount: 350,
-            method: 'mpesa',
-            code: code,
-            status: 'pending',
-            phone: currentUser?.phone
+            id: Date.now(), userName: currentUser?.name || 'User',
+            amount: 350, method: 'mpesa', code: code,
+            status: 'pending', phone: currentUser?.phone
         });
         localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
         
-        alert('✅ Payment submitted!\n\nTransaction Code: ' + code + '\nAmount: KSH 350\nPaid to: ' + MASTER_MPESA + '\n\nAdmin will verify and activate your seller account.');
-        document.getElementById('mpesaOverlay').remove();
-        document.getElementById('agreementOverlay').remove();
+        document.getElementById('mpesaModal').remove();
+        showToast('Payment submitted! Awaiting verification ✅');
     }
 
-    // ==================== SELL ITEM ====================
     function openSellModal() {
-        if (!currentUser) { alert('Please login first'); openAuthModal(); return; }
-        if (!currentUser.registrationFeePaid && currentUser.role !== 'admin') {
-            showSellerAgreement();
-            return;
-        }
-        showSellForm();
-    }
-
-    function showSellForm() {
+        if (!currentUser) { openAuthModal(); return; }
+        if (!currentUser.paid) { showSellerAgreement(); return; }
+        
         const html = `
-            <div class="modal-overlay" id="sellFormOverlay">
-                <div class="modal">
-                    <h2>📸 List New Item</h2>
-                    <div class="form-group"><label>Product Title *</label><input class="form-input" id="itemTitle" placeholder="e.g., Samsung Fridge 200L"></div>
-                    <div class="form-group"><label>Category *</label><select class="form-select" id="itemCategory">${categories.filter(c=>c!=='all').map(c=>`<option value="${c}">${getCatName(c)}</option>`).join('')}</select></div>
-                    <div class="form-group"><label>Price (KSH) *</label><input class="form-input" type="number" id="itemPrice" placeholder="0"></div>
-                    <div class="form-group"><label>Condition *</label><select class="form-select" id="itemCondition"><option>new</option><option>like-new</option><option>good</option><option>fair</option></select></div>
-                    <div class="form-group"><label>Description *</label><textarea class="form-textarea" id="itemDesc" rows="3" placeholder="Describe your item..."></textarea></div>
+            <div class="modal-overlay open" id="sellModal" onclick="if(event.target===this)this.remove()">
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
+                    <h2>List New Item</h2>
+                    <div class="form-group"><label>Title</label><input class="form-input" id="sTitle" placeholder="What are you selling?"></div>
+                    <div class="form-group"><label>Category</label><select class="form-select" id="sCategory">${categories.filter(c=>c!=='all').map(c=>`<option>${c}</option>`).join('')}</select></div>
+                    <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice" placeholder="0"></div>
+                    <div class="form-group"><label>Condition</label><select class="form-select" id="sCondition"><option>new</option><option>like-new</option><option>good</option><option>fair</option></select></div>
+                    <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc" placeholder="Describe your item..."></textarea></div>
                     <div class="form-group">
-                        <label>Product Image *</label>
-                        <input type="file" class="form-input" id="itemImage" accept="image/*" onchange="checkImageQuality(event)">
-                        <div class="image-quality-warning" id="imageWarning">⚠️ Image is blurry or unclear. Please upload a clearer photo.</div>
-                        <img id="imagePreview" style="width:100%;max-height:200px;object-fit:cover;margin-top:8px;border-radius:8px;display:none;">
+                        <label>Photo</label>
+                        <input type="file" class="form-input" id="sImage" accept="image/*" onchange="previewSellImage(event)">
+                        <img id="sPreview" style="width:100%;max-height:150px;object-fit:cover;margin-top:8px;border-radius:8px;display:none;">
                     </div>
-                    <div class="form-group">
-                        <label>Is this a large item? (Furniture, car, etc.)</label>
-                        <select class="form-select" id="itemIsLarge"><option value="false">No</option><option value="true">Yes</option></select>
-                    </div>
-                    <p style="font-size:0.75rem;color:var(--text-secondary);">* Image must be clear. Blurry or fake images will be rejected.</p>
-                    <button class="btn btn-gold" onclick="submitItem()">Submit for Review</button>
-                    <button class="btn btn-outline" onclick="document.getElementById('sellFormOverlay').remove();">Cancel</button>
+                    <button class="btn-full btn-full-gold" onclick="submitSellItem()">Submit for Review</button>
+                    <button class="btn-full btn-full-outline" onclick="document.getElementById('sellModal').remove()">Cancel</button>
                 </div>
             </div>`;
         document.getElementById('modalContainer').innerHTML = html;
     }
 
-    function checkImageQuality(event) {
-        const file = event.target.files[0];
-        const warning = document.getElementById('imageWarning');
-        const preview = document.getElementById('imagePreview');
-        
+    function previewSellImage(e) {
+        const file = e.target.files[0];
         if (!file) return;
-        
-        // Check file size (must be > 50KB for reasonable quality)
-        if (file.size < 50000) {
-            warning.style.display = 'block';
-            warning.textContent = '⚠️ Image file is too small. Please upload a higher quality photo (min 50KB).';
-            return;
-        }
-        
-        // Check dimensions
         const reader = new FileReader();
-        reader.onload = function(e) {
-            const img = new Image();
-            img.onload = function() {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-                
-                if (img.width < 400 || img.height < 300) {
-                    warning.style.display = 'block';
-                    warning.textContent = '⚠️ Image resolution is too low (' + img.width + 'x' + img.height + '). Minimum 400x300 required.';
-                } else {
-                    warning.style.display = 'none';
-                }
-            };
-            img.src = e.target.result;
+        reader.onload = (ev) => {
+            document.getElementById('sPreview').src = ev.target.result;
+            document.getElementById('sPreview').style.display = 'block';
         };
         reader.readAsDataURL(file);
     }
 
-    function submitItem() {
-        const fileInput = document.getElementById('itemImage');
-        const warning = document.getElementById('imageWarning');
+    function submitSellItem() {
+        const title = document.getElementById('sTitle').value;
+        const category = document.getElementById('sCategory').value;
+        const price = Number(document.getElementById('sPrice').value);
+        const desc = document.getElementById('sDesc').value;
         
-        // Check if warning is visible (image quality issue)
-        if (warning.style.display === 'block') {
-            alert('⚠️ Your image quality is insufficient. Please upload a clearer photo. If you proceed, your item may be rejected by admin.');
-            if (!confirm('Submit anyway for admin review?')) return;
-        }
+        if (!title || !price) return alert('Fill all required fields');
         
         const newItem = {
             id: Date.now(),
-            title: document.getElementById('itemTitle').value,
-            category: document.getElementById('itemCategory').value,
-            price: Number(document.getElementById('itemPrice').value),
-            desc: document.getElementById('itemDesc').value,
-            condition: document.getElementById('itemCondition').value,
-            seller: currentUser.fullName,
+            title, category, price, desc,
+            condition: document.getElementById('sCondition').value,
+            seller: currentUser.name,
             rating: 5.0,
-            img: fileInput.files[0] ? URL.createObjectURL(fileInput.files[0]) : getDefaultImage(document.getElementById('itemCategory').value),
-            status: warning.style.display === 'block' ? 'needs_review' : 'pending',
-            isLarge: document.getElementById('itemIsLarge').value === 'true'
+            img: document.getElementById('sPreview').src || productImages[category+'_fridge'] || 'https://via.placeholder.com/300',
+            status: 'pending',
+            isLarge: false
         };
         
         items.unshift(newItem);
-        
-        // Sync to admin
-        const adminData = JSON.parse(localStorage.getItem('secondchance_admin_data') || '{}');
-        if (!adminData.products) adminData.products = [];
-        adminData.products.push(newItem);
-        localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
-        
-        document.getElementById('sellFormOverlay').remove();
+        document.getElementById('sellModal').remove();
         renderProducts();
-        renderCategories();
-        
-        if (newItem.status === 'needs_review') {
-            alert('⚠️ Item submitted but flagged for admin review due to image quality concerns.');
-        } else {
-            alert('✅ Item submitted! Pending admin approval.');
-        }
+        showToast('Item submitted! Pending review ✅');
     }
 
-    function getDefaultImage(category) {
-        const defaults = {
-            kitchen: productImages.kitchen.fridge,
-            electronics: productImages.electronics.phone,
-            furniture: productImages.furniture.sofa,
-            fashion: productImages.fashion.dress,
-            automotive: productImages.automotive.car,
-            sports: productImages.sports.treadmill,
-            books: productImages.books.textbooks,
-            garden: productImages.garden.tools,
-            baby: productImages.baby.stroller,
-            pets: productImages.pets.kennel,
-            tools: productImages.tools.drill
-        };
-        return defaults[category] || 'https://via.placeholder.com/400x300';
+    // ==================== HELP ====================
+    function openHelp() {
+        window.open(`https://wa.me/${WHATSAPP_NUMBER}?text=Hello%2C%20I%20would%20like%20your%20help%20in%20BuyNSell`, '_blank');
+    }
+
+    // ==================== SETTINGS ====================
+    function openSettings() {
+        const html = `
+            <div class="modal-overlay open" id="settingsModal" onclick="if(event.target===this)this.remove()">
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
+                    <h2>⚙️ Settings</h2>
+                    <div class="toggle-row">
+                        <span>🌙 Dark Mode</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleSetting('darkMode',this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span>🔔 Notifications</span>
+                        <label class="toggle-switch">
+                            <input type="checkbox" ${settings.notifications?'checked':''} onchange="toggleSetting('notifications',this.checked)">
+                            <span class="toggle-slider"></span>
+                        </label>
+                    </div>
+                    <div class="toggle-row">
+                        <span>👤 Account</span>
+                        <span style="color:var(--text-secondary);font-size:0.85rem;">${currentUser?.name||'Guest'}</span>
+                    </div>
+                    <div class="toggle-row">
+                        <span>💳 Seller Status</span>
+                        <span style="color:${currentUser?.paid?'var(--success)':'var(--danger)'};font-weight:600;font-size:0.85rem;">${currentUser?.paid?'Active':'Not Paid'}</span>
+                    </div>
+                    <div class="toggle-row">
+                        <span>📱 App Version</span>
+                        <span style="color:var(--text-secondary);font-size:0.85rem;">2.0.0</span>
+                    </div>
+                    <button class="btn-full btn-full-outline" onclick="document.getElementById('settingsModal').remove()">Close</button>
+                </div>
+            </div>`;
+        document.getElementById('modalContainer').innerHTML = html;
+    }
+
+    function toggleSetting(key, value) {
+        settings[key] = value;
+        localStorage.setItem('sc_settings', JSON.stringify(settings));
+        if (key === 'darkMode') {
+            document.body.classList.toggle('dark-mode', value);
+        }
     }
 
     // ==================== AUTH ====================
     function openAuthModal() {
         const html = `
-            <div class="modal-overlay" id="authOverlay">
-                <div class="modal">
-                    <h2>Login / Register</h2>
-                    <div class="form-group"><label>Full Name</label><input class="form-input" id="authName" placeholder="John Doe"></div>
-                    <div class="form-group"><label>Phone Number (M-Pesa)</label><input class="form-input" id="authPhone" placeholder="07XXXXXXXX"></div>
-                    <div class="form-group"><label>Email</label><input class="form-input" id="authEmail" placeholder="john@email.com"></div>
-                    <div class="form-group"><label>Password</label><input class="form-input" type="password" id="authPassword" placeholder="******"></div>
-                    <button class="btn btn-gold" onclick="handleAuth()">Continue</button>
-                    <button class="btn btn-outline" onclick="document.getElementById('authOverlay').remove();">Cancel</button>
+            <div class="modal-overlay open" id="authModal" onclick="if(event.target===this)this.remove()">
+                <div class="modal-sheet">
+                    <div class="modal-handle"></div>
+                    <h2>Create Account</h2>
+                    <div class="form-group"><label>Full Name</label><input class="form-input" id="aName" placeholder="John Doe"></div>
+                    <div class="form-group"><label>Phone (M-Pesa)</label><input class="form-input" id="aPhone" placeholder="07XXXXXXXX"></div>
+                    <div class="form-group"><label>Email</label><input class="form-input" id="aEmail" placeholder="john@email.com"></div>
+                    <button class="btn-full btn-full-gold" onclick="registerUser()">Continue</button>
+                    <button class="btn-full btn-full-outline" onclick="document.getElementById('authModal').remove()">Cancel</button>
                 </div>
             </div>`;
         document.getElementById('modalContainer').innerHTML = html;
     }
 
-    function handleAuth() {
-        const name = document.getElementById('authName').value;
-        const phone = document.getElementById('authPhone').value;
-        const email = document.getElementById('authEmail').value;
-        
+    function registerUser() {
+        const name = document.getElementById('aName').value;
+        const phone = document.getElementById('aPhone').value;
         if (!name) return alert('Enter your name');
         
-        currentUser = {
-            id: Date.now(),
-            fullName: name,
-            phone: phone,
-            email: email,
-            registrationFeePaid: false,
-            role: 'user'
-        };
-        
-        localStorage.setItem('currentUser', JSON.stringify(currentUser));
-        document.getElementById('authOverlay').remove();
-        document.getElementById('loginBtn').classList.add('hidden');
-        document.getElementById('loggedInUser').classList.remove('hidden');
-        document.getElementById('loggedInUser').textContent = '👤 ' + name;
-        
-        alert('Welcome, ' + name + '! You can now browse and buy. To sell, pay KSH 350 to ' + MASTER_MPESA);
-    }
-
-    // ==================== CHARTS ====================
-    function openCharts() {
-        const html = `
-            <div class="modal-overlay" id="chartOverlay">
-                <div class="modal">
-                    <h2>📊 Sales Overview</h2>
-                    <canvas id="salesChart" width="400" height="200"></canvas>
-                    <p>Total Orders: ${orders.length}</p>
-                    <button class="btn btn-outline" onclick="document.getElementById('chartOverlay').remove();">Close</button>
-                </div>
-            </div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-        
-        setTimeout(() => {
-            const ctx = document.getElementById('salesChart')?.getContext('2d');
-            if (ctx) {
-                new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: orders.map((_,i) => 'Order '+(i+1)),
-                        datasets: [{
-                            label: 'Amount (KSH)',
-                            data: orders.map(o => o.total),
-                            backgroundColor: '#c9a84c'
-                        }]
-                    }
-                });
-            }
-        }, 100);
+        currentUser = { id: Date.now(), name, phone, paid: false };
+        localStorage.setItem('sc_user', JSON.stringify(currentUser));
+        document.getElementById('authModal').remove();
+        showToast(`Welcome, ${name}! 👋`);
     }
 
     // ==================== INIT ====================
-    document.addEventListener('DOMContentLoaded', () => {
-        if (localStorage.getItem('darkMode') === 'true') {
-            document.body.classList.add('dark-mode');
-        }
+    function init() {
+        if (settings.darkMode) document.body.classList.add('dark-mode');
         
         renderCategories();
         renderProducts();
-        document.getElementById('cartCount').textContent = cart.length;
-        
-        if (currentUser) {
-            document.getElementById('loginBtn').classList.add('hidden');
-            document.getElementById('loggedInUser').classList.remove('hidden');
-            document.getElementById('loggedInUser').textContent = '👤 ' + currentUser.fullName;
-        }
+        updateCartDot();
         
         document.getElementById('searchInput').addEventListener('input', searchItems);
-    });
+        
+        // Show install banner for PWA
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            window.installPrompt = e;
+            document.getElementById('installBanner').style.display = 'block';
+        });
+    }
+
+    function installApp() {
+        if (window.installPrompt) {
+            window.installPrompt.prompt();
+            window.installPrompt.userChoice.then(() => {
+                document.getElementById('installBanner').style.display = 'none';
+            });
+        } else {
+            alert('To install: tap Share → Add to Home Screen');
+        }
+        document.getElementById('installBanner').style.display = 'none';
+    }
+
+    document.addEventListener('DOMContentLoaded', init);
+
+    // Service Worker Registration for PWA
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('/sw.js').catch(() => {});
+        });
+    }
 </script>
 </body>
     </html>
