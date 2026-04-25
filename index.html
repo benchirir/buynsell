@@ -8,9 +8,16 @@
     <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1a1a2e">
+    <meta name="description" content="Buy & Sell Second-Hand Items - Kenya's Premium Marketplace">
     <title>SecondChance • Buy & Sell Premium</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>💰</text></svg>">
+    
+    <!-- App Icons -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text><circle cx='70' cy='35' r='12' fill='%23c9a84c' opacity='0.3'/><circle cx='25' cy='75' r='8' fill='%23c9a84c' opacity='0.2'/></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='180' height='180' rx='40' fill='url(%23g)'/><text x='90' y='120' font-size='90' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text><circle cx='130' cy='65' r='22' fill='%23c9a84c' opacity='0.3'/><circle cx='45' cy='140' r='15' fill='%23c9a84c' opacity='0.2'/></svg>">
+    
+    <!-- Manifest for PWA -->
+    <link rel="manifest" id="appManifest">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -74,6 +81,35 @@
                 border-right: 1px solid var(--border);
                 box-shadow: 0 0 60px rgba(0,0,0,0.1);
             }
+        }
+        /* Install Banner */
+        .install-banner {
+            background: linear-gradient(135deg, var(--primary), #2a3f6e);
+            color: white;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            cursor: pointer;
+            flex-shrink: 0;
+            animation: slideDown 0.4s ease;
+            position: relative;
+            z-index: 20;
+        }
+        .install-banner.hidden { display: none; }
+        .install-banner:active { opacity: 0.9; }
+        .install-icon {
+            width: 44px; height: 44px; border-radius: 12px;
+            background: var(--gold); display: flex; align-items: center;
+            justify-content: center; font-size: 1.3rem; flex-shrink: 0;
+        }
+        .install-text { flex: 1; }
+        .install-text strong { font-size: 0.9rem; display: block; }
+        .install-text span { font-size: 0.75rem; opacity: 0.85; }
+        .install-arrow { font-size: 1.2rem; opacity: 0.7; }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
         .top-header {
             background: var(--surface);
@@ -159,6 +195,15 @@
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
         .btn-block { width: 100%; }
         .btn-sm { padding: 6px 12px; font-size: 0.7rem; }
+        .btn-install {
+            background: linear-gradient(135deg, #1a1a2e, #3d2c5e);
+            color: white; border: 2px solid var(--gold);
+            animation: pulse-btn 2s infinite;
+        }
+        @keyframes pulse-btn {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(201,168,76,0); }
+        }
         .products-grid {
             display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 16px;
         }
@@ -249,10 +294,29 @@
             font-weight: 600; font-size: 0.85rem; animation: toastIn 0.3s ease;
             white-space: nowrap; border: 1px solid var(--border);
         }
+        .download-section {
+            text-align: center; padding: 20px 16px;
+        }
+        .download-section h3 {
+            font-family: 'Playfair Display', serif; margin-bottom: 8px;
+        }
+        .download-section p {
+            color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;
+        }
     </style>
 </head>
 <body>
 <div class="app-container" id="appContainer">
+    <!-- Install Banner -->
+    <div class="install-banner hidden" id="installBanner" onclick="installApp()">
+        <div class="install-icon">📲</div>
+        <div class="install-text">
+            <strong>Install SecondChance App</strong>
+            <span>Add to your home screen for quick access</span>
+        </div>
+        <div class="install-arrow">›</div>
+    </div>
+
     <div class="top-header">
         <div class="logo">Second<span>Chance</span></div>
         <div class="header-actions">
@@ -279,6 +343,37 @@
 <div id="modalContainer"></div>
 
 <script>
+    // ============ MANIFEST SETUP ============
+    const manifestData = {
+        name: 'SecondChance Marketplace',
+        short_name: 'SecondChance',
+        description: 'Buy & Sell Second-Hand Items in Kenya',
+        start_url: '.',
+        display: 'standalone',
+        background_color: '#1a1a2e',
+        theme_color: '#c9a84c',
+        orientation: 'portrait',
+        icons: [
+            {
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='192' height='192' rx='42' fill='url(%23g)'/><text x='96' y='128' font-size='96' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>",
+                sizes: '192x192',
+                type: 'image/svg+xml',
+                purpose: 'any maskable'
+            },
+            {
+                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='512' height='512' rx='110' fill='url(%23g)'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>",
+                sizes: '512x512',
+                type: 'image/svg+xml',
+                purpose: 'any maskable'
+            }
+        ]
+    };
+
+    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+    const manifestUrl = URL.createObjectURL(manifestBlob);
+    document.getElementById('appManifest').href = manifestUrl;
+
+    // ============ DATA ============
     const MASTER_MPESA = '0792091769';
     const WHATSAPP_NUMBER = '+254753711672';
     const WHATSAPP_LINK = 'https://wa.me/254753711672';
@@ -386,7 +481,17 @@
         let filtered = items.filter(i => !i.isLarge);
         const term = (document.getElementById('searchInput')?.value || '').toLowerCase();
         if (term) filtered = filtered.filter(i => i.title.toLowerCase().includes(term) || i.desc.toLowerCase().includes(term));
-        let html = `<div class="section-title">🔥 Trending Items</div><div class="products-grid">`;
+        let html = '';
+        // Add download section at top of home page
+        html += `<div class="download-section">
+            <h3>📲 Get the App</h3>
+            <p>Install SecondChance on your phone for the best experience</p>
+            <button class="btn btn-install btn-block" onclick="installApp()">
+                <i class="fas fa-download"></i> Download / Install App
+            </button>
+            <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:6px;">Works on Android, iPhone, and desktop</p>
+        </div>`;
+        html += `<div class="section-title">🔥 Trending Items</div><div class="products-grid">`;
         filtered.forEach(item => { html += productCard(item); });
         html += `</div>`;
         if (filtered.length === 0) html = `<div class="section-title">📭 No items found</div><div class="card"><p style="text-align:center;color:var(--text-secondary);">Try a different search term</p></div>`;
@@ -515,10 +620,6 @@
                     <input type="checkbox" ${settings.notifications ? 'checked' : ''} onchange="settings.notifications=this.checked;saveAll()">
                     <span class="toggle-slider"></span>
                 </label>
-            </div>
-            <div class="toggle-row">
-                <span>💬 Help</span>
-                <button class="btn btn-outline btn-sm" onclick="contactSupport()">WhatsApp</button>
             </div>
             <button class="btn btn-outline btn-block" onclick="logout()" style="margin-top:8px;">🚪 Logout</button>
         </div>
@@ -694,6 +795,64 @@
     function updateCartDot() { document.getElementById('cartDot').classList.toggle('show', cart.length > 0); }
     function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
 
+    // ============ PWA INSTALL ============
+    let deferredPrompt;
+    
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        document.getElementById('installBanner').classList.remove('hidden');
+    });
+
+    function installApp() {
+        if (deferredPrompt) {
+            deferredPrompt.prompt();
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted install');
+                    showToast('App installed! 🎉');
+                }
+                deferredPrompt = null;
+                document.getElementById('installBanner').classList.add('hidden');
+            });
+        } else {
+            // Fallback for devices/browsers that don't support beforeinstallprompt
+            const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
+            if (isIOS) {
+                alert('To install: tap the Share button (📤) then "Add to Home Screen"');
+            } else if (window.matchMedia('(display-mode: standalone)').matches) {
+                showToast('App is already installed! ✅');
+            } else {
+                alert('To install: open Chrome menu (⋮) → "Install app" or "Add to Home Screen"');
+            }
+        }
+    }
+
+    window.addEventListener('appinstalled', () => {
+        document.getElementById('installBanner').classList.add('hidden');
+        deferredPrompt = null;
+        showToast('App installed successfully! 🎉');
+    });
+
+    // ============ SERVICE WORKER ============
+    if ('serviceWorker' in navigator) {
+        const swCode = `
+            self.addEventListener('install', (e) => {
+                self.skipWaiting();
+            });
+            self.addEventListener('activate', (e) => {
+                e.waitUntil(clients.claim());
+            });
+            self.addEventListener('fetch', (e) => {
+                e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
+            });
+        `;
+        const swBlob = new Blob([swCode], { type: 'application/javascript' });
+        const swUrl = URL.createObjectURL(swBlob);
+        navigator.serviceWorker.register(swUrl).catch(() => {});
+    }
+
+    // ============ ADMIN HELPERS ============
     window.verifySeller = function(userId) {
         const p = adminData.payments.find(p => p.userId === userId && p.status === 'pending');
         if (p) { p.status = 'completed'; if (!adminData.approvedSellers.includes(userId)) adminData.approvedSellers.push(userId); saveAll(); return 'Verified!'; }
@@ -704,6 +863,7 @@
         saveAll(); return 'All verified!';
     };
 
+    // ============ INIT ============
     document.querySelectorAll('.nav-item').forEach(btn => {
         btn.addEventListener('click', (e) => {
             page = e.currentTarget.dataset.page;
@@ -714,7 +874,14 @@
     if (settings.darkMode) document.body.classList.add('dark-mode');
     renderPage();
     updateCartDot();
+    
+    // Check if already installed
+    if (window.matchMedia('(display-mode: standalone)').matches) {
+        console.log('App running in standalone mode');
+    }
+
     console.log('✅ SecondChance App Ready');
+    console.log('📲 Install: Tap the Download button or banner');
     console.log('📱 WhatsApp:', WHATSAPP_NUMBER);
     console.log('💳 M-Pesa:', MASTER_MPESA);
     console.log('🔧 Admin: verifySeller(userId) or verifyAll()');
