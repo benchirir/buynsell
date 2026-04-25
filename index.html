@@ -8,331 +8,98 @@
     <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1a1a2e">
-    <meta name="description" content="Buy & Sell Second-Hand Items - Kenya's Premium Marketplace">
-    <title>SecondChance • Buy & Sell Premium</title>
-    
-    <!-- App Icons -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='100' height='100' rx='22' fill='url(%23g)'/><text x='50' y='68' font-size='50' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text><circle cx='70' cy='35' r='12' fill='%23c9a84c' opacity='0.3'/><circle cx='25' cy='75' r='8' fill='%23c9a84c' opacity='0.2'/></svg>">
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='180' height='180' rx='40' fill='url(%23g)'/><text x='90' y='120' font-size='90' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text><circle cx='130' cy='65' r='22' fill='%23c9a84c' opacity='0.3'/><circle cx='45' cy='140' r='15' fill='%23c9a84c' opacity='0.2'/></svg>">
-    
-    <!-- Manifest for PWA -->
-    <link rel="manifest" id="appManifest">
-    
+    <title>SecondChance • Buy & Sell Marketplace</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --bg: #fafafa;
-            --surface: #ffffff;
-            --text: #1a1a2e;
-            --text-secondary: #6b7280;
-            --primary: #1e2a4a;
-            --gold: #c9a84c;
-            --gold-dark: #a68a3e;
-            --border: #e5e7eb;
-            --success: #059669;
-            --danger: #dc2626;
-            --warning: #d97706;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
-            --shadow: 0 4px 12px rgba(0,0,0,0.08);
-            --shadow-lg: 0 10px 30px rgba(0,0,0,0.12);
-            --radius-sm: 10px;
-            --radius: 14px;
-            --radius-lg: 20px;
-            --transition: all 0.25s ease;
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
-            --font: 'Inter', -apple-system, sans-serif;
+            --bg: #fafafa; --surface: #fff; --text: #1a1a2e; --text-secondary: #6b7280;
+            --primary: #1e2a4a; --gold: #c9a84c; --gold-dark: #a68a3e;
+            --border: #e5e7eb; --success: #059669; --danger: #dc2626; --warning: #d97706;
+            --shadow: 0 4px 12px rgba(0,0,0,0.06); --radius: 14px;
+            --transition: all 0.2s ease; --safe-bottom: env(safe-area-inset-bottom,0px);
         }
         .dark-mode {
-            --bg: #0a0a0f;
-            --surface: #14141f;
-            --text: #e5e7eb;
-            --text-secondary: #9ca3af;
-            --primary: #4a5b8c;
-            --gold: #d4b96a;
-            --gold-dark: #c9a84c;
-            --border: #1f2937;
+            --bg: #0a0a0f; --surface: #14141f; --text: #e5e7eb; --text-secondary: #9ca3af;
+            --primary: #4a5b8c; --gold: #d4b96a; --gold-dark: #c9a84c; --border: #1f2937;
         }
-        * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
-        html, body { width:100%; height:100%; overflow:hidden; position:fixed; top:0; left:0; }
-        body {
-            font-family: var(--font);
-            background: var(--bg);
-            color: var(--text);
-            transition: var(--transition);
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-            height: -webkit-fill-available;
+        *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+        body{
+            font-family:'Inter',sans-serif;background:var(--bg);color:var(--text);
+            height:100vh;display:flex;flex-direction:column;overflow:hidden;transition:var(--transition);user-select:none;
         }
-        .app-container {
-            display: flex;
-            flex-direction: column;
-            height: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            width: 100%;
-            background: var(--bg);
-            position: relative;
-        }
-        @media (min-width: 481px) {
-            .app-container {
-                border-left: 1px solid var(--border);
-                border-right: 1px solid var(--border);
-                box-shadow: 0 0 60px rgba(0,0,0,0.1);
-            }
-        }
-        /* Install Banner */
-        .install-banner {
-            background: linear-gradient(135deg, var(--primary), #2a3f6e);
-            color: white;
-            padding: 12px 16px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            cursor: pointer;
-            flex-shrink: 0;
-            animation: slideDown 0.4s ease;
-            position: relative;
-            z-index: 20;
-        }
-        .install-banner.hidden { display: none; }
-        .install-banner:active { opacity: 0.9; }
-        .install-icon {
-            width: 44px; height: 44px; border-radius: 12px;
-            background: var(--gold); display: flex; align-items: center;
-            justify-content: center; font-size: 1.3rem; flex-shrink: 0;
-        }
-        .install-text { flex: 1; }
-        .install-text strong { font-size: 0.9rem; display: block; }
-        .install-text span { font-size: 0.75rem; opacity: 0.85; }
-        .install-arrow { font-size: 1.2rem; opacity: 0.7; }
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        .top-header {
-            background: var(--surface);
-            padding: 10px 16px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            border-bottom: 1px solid var(--border);
-            flex-shrink: 0;
-            z-index: 10;
-        }
-        .logo {
-            font-family: 'Playfair Display', serif;
-            font-size: 1.3rem;
-            font-weight: 900;
-            color: var(--primary);
-            letter-spacing: -1px;
-        }
-        .logo span { color: var(--gold); }
-        .header-actions { display: flex; gap: 6px; align-items: center; }
-        .icon-btn {
-            width: 36px; height: 36px; border-radius: 50%; border: none; background: transparent;
-            cursor: pointer; font-size: 1.1rem; display: flex; align-items: center; justify-content: center;
-            color: var(--text); position: relative; transition: var(--transition);
-        }
-        .icon-btn:active { transform: scale(0.9); }
-        .cart-dot {
-            position: absolute; top: 6px; right: 6px; width: 8px; height: 8px;
-            border-radius: 50%; background: var(--danger); display: none;
-        }
-        .cart-dot.show { display: block; }
-        .status-badge {
-            padding: 4px 10px; border-radius: 12px; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.5px;
-        }
-        .status-pending { background: rgba(217,119,6,0.2); color: var(--warning); }
-        .status-approved { background: rgba(5,150,105,0.2); color: var(--success); }
-        .search-bar { padding: 8px 16px; flex-shrink: 0; background: var(--bg); }
-        .search-input-wrap {
-            display: flex; align-items: center; background: var(--surface);
-            border: 1px solid var(--border); border-radius: 24px; overflow: hidden;
-        }
-        .search-input-wrap input {
-            border: none; padding: 10px 14px; flex: 1; background: transparent;
-            color: var(--text); outline: none; font-size: 0.85rem; font-family: inherit;
-        }
-        .search-input-wrap button {
-            background: none; border: none; padding: 10px 14px; cursor: pointer; color: var(--text-secondary);
-        }
-        .main-scroll {
-            flex: 1; overflow-y: auto; overflow-x: hidden;
-            -webkit-overflow-scrolling: touch; padding-bottom: 8px;
-        }
-        .bottom-nav {
-            background: var(--surface); border-top: 1px solid var(--border);
-            display: flex; justify-content: space-around; align-items: center;
-            padding: 6px 4px calc(6px + var(--safe-bottom)); flex-shrink: 0;
-            box-shadow: 0 -2px 8px rgba(0,0,0,0.04); z-index: 10;
-        }
-        .nav-item {
-            display: flex; flex-direction: column; align-items: center; gap: 2px;
-            background: none; border: none; color: var(--text-secondary); font-size: 0.6rem;
-            font-weight: 500; cursor: pointer; padding: 6px 4px; border-radius: 10px;
-            transition: var(--transition); font-family: inherit; min-width: 48px;
-        }
-        .nav-item.active { color: var(--gold); font-weight: 700; }
-        .nav-item i { font-size: 1.1rem; }
-        .section-title {
-            padding: 16px 16px 8px; font-family: 'Playfair Display', serif;
-            font-size: 1.1rem; font-weight: 700;
-        }
-        .card {
-            background: var(--surface); border-radius: var(--radius); padding: 16px;
-            margin: 0 16px 12px; box-shadow: var(--shadow-sm); border: 1px solid var(--border);
-        }
-        .card-gold { border: 2px solid var(--gold); background: linear-gradient(135deg, var(--surface), rgba(201,168,76,0.05)); }
-        .btn {
-            padding: 10px 18px; border-radius: 25px; border: none; font-weight: 600;
-            font-size: 0.85rem; cursor: pointer; transition: var(--transition); font-family: inherit;
-            display: inline-flex; align-items: center; gap: 6px; justify-content: center; letter-spacing: 0.3px;
-        }
-        .btn:active { transform: scale(0.95); }
-        .btn-gold { background: var(--gold); color: #1a1a1a; font-weight: 700; }
-        .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text); }
-        .btn-block { width: 100%; }
-        .btn-sm { padding: 6px 12px; font-size: 0.7rem; }
-        .btn-install {
-            background: linear-gradient(135deg, #1a1a2e, #3d2c5e);
-            color: white; border: 2px solid var(--gold);
-            animation: pulse-btn 2s infinite;
-        }
-        @keyframes pulse-btn {
-            0%, 100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
-            50% { box-shadow: 0 0 0 10px rgba(201,168,76,0); }
-        }
-        .products-grid {
-            display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding: 0 16px 16px;
-        }
-        .product-card {
-            background: var(--surface); border-radius: var(--radius); overflow: hidden;
-            box-shadow: var(--shadow-sm); border: 1px solid var(--border); cursor: pointer; transition: var(--transition);
-        }
-        .product-card:active { transform: scale(0.97); }
-        .product-img {
-            width: 100%; aspect-ratio: 1/1; background-size: cover;
-            background-position: center; background-color: #e5e7eb; position: relative;
-        }
-        .product-badge {
-            position: absolute; top: 6px; right: 6px; background: var(--gold);
-            color: #1a1a1a; padding: 2px 8px; border-radius: 10px; font-size: 0.6rem; font-weight: 700;
-        }
-        .product-info { padding: 10px; }
-        .product-title { font-weight: 600; font-size: 0.8rem; margin-bottom: 4px; line-height: 1.3; }
-        .product-price { font-weight: 800; font-size: 0.95rem; color: var(--gold-dark); margin-bottom: 6px; }
-        .product-footer {
-            display: flex; justify-content: space-between; font-size: 0.65rem;
-            color: var(--text-secondary); margin-bottom: 6px;
-        }
-        .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200;
-            display: flex; align-items: flex-end; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s;
-        }
-        .modal-overlay.open { opacity: 1; pointer-events: auto; }
-        .modal-sheet {
-            background: var(--surface); border-radius: 20px 20px 0 0;
-            width: 100%; max-width: 480px; max-height: 85vh; overflow-y: auto;
-            padding: 20px; transform: translateY(100%);
-            transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
-        }
-        .modal-overlay.open .modal-sheet { transform: translateY(0); }
-        .modal-handle {
-            width: 36px; height: 4px; background: var(--border); border-radius: 2px; margin: 0 auto 16px;
-        }
-        .modal-sheet h2 {
-            font-family: 'Playfair Display', serif; font-size: 1.3rem;
-            margin-bottom: 16px; font-weight: 700;
-        }
-        .form-group { margin-bottom: 14px; }
-        .form-group label {
-            display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.8rem;
-            color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.5px;
-        }
-        .form-input, .form-select, .form-textarea {
-            width: 100%; padding: 10px 14px; border: 1px solid var(--border);
-            border-radius: 10px; background: var(--bg); color: var(--text);
-            font-family: inherit; font-size: 0.9rem; transition: var(--transition);
-        }
-        .form-input:focus, .form-select:focus, .form-textarea:focus {
-            outline: none; border-color: var(--gold);
-        }
-        .toggle-row {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 12px 0; border-bottom: 1px solid var(--border);
-        }
-        .toggle-row span { font-weight: 500; font-size: 0.9rem; }
-        .toggle-switch { position: relative; width: 44px; height: 24px; }
-        .toggle-switch input { opacity: 0; width: 0; height: 0; }
-        .toggle-slider {
-            position: absolute; cursor: pointer; inset: 0; background: #ccc;
-            border-radius: 24px; transition: .3s;
-        }
-        .toggle-slider:before {
-            content: ""; position: absolute; height: 18px; width: 18px;
-            left: 3px; bottom: 3px; background: white; border-radius: 50%; transition: .3s;
-        }
-        input:checked + .toggle-slider { background: var(--gold); }
-        input:checked + .toggle-slider:before { transform: translateX(20px); }
-        .hidden { display: none !important; }
-        .verification-box {
-            background: rgba(217,119,6,0.1); border: 2px dashed var(--warning);
-            border-radius: var(--radius); padding: 16px; text-align: center; margin: 12px 0;
-        }
-        .verification-box i { font-size: 2rem; color: var(--warning); margin-bottom: 8px; }
-        @keyframes toastIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .toast-msg {
-            position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%);
-            background: var(--surface); color: var(--text); padding: 10px 20px;
-            border-radius: 25px; box-shadow: var(--shadow-lg); z-index: 400;
-            font-weight: 600; font-size: 0.85rem; animation: toastIn 0.3s ease;
-            white-space: nowrap; border: 1px solid var(--border);
-        }
-        .download-section {
-            text-align: center; padding: 20px 16px;
-        }
-        .download-section h3 {
-            font-family: 'Playfair Display', serif; margin-bottom: 8px;
-        }
-        .download-section p {
-            color: var(--text-secondary); font-size: 0.85rem; margin-bottom: 16px;
-        }
-    </style>
+        .app-container{display:flex;flex-direction:column;height:100%;max-width:480px;margin:0 auto;width:100%;background:var(--bg);}
+        .top-header{background:var(--surface);padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border);flex-shrink:0;}
+        .logo{font-family:'Playfair Display',serif;font-size:1.3rem;font-weight:900;color:var(--primary);}
+        .logo span{color:var(--gold);}
+        .header-actions{display:flex;gap:6px;align-items:center;}
+        .icon-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;cursor:pointer;font-size:1.1rem;display:flex;align-items:center;justify-content:center;color:var(--text);position:relative;}
+        .icon-btn:active{transform:scale(0.9);}
+        .cart-dot{position:absolute;top:6px;right:6px;width:8px;height:8px;border-radius:50%;background:var(--danger);display:none;}
+        .cart-dot.show{display:block;}
+        .admin-badge{background:var(--gold);color:#1a1a1a;padding:3px 8px;border-radius:10px;font-size:0.6rem;font-weight:700;}
+        .main-scroll{flex:1;overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding-bottom:8px;}
+        .bottom-nav{background:var(--surface);border-top:1px solid var(--border);display:flex;justify-content:space-around;padding:6px 4px calc(6px + var(--safe-bottom));flex-shrink:0;box-shadow:0 -2px 8px rgba(0,0,0,0.04);}
+        .nav-item{display:flex;flex-direction:column;align-items:center;gap:2px;background:none;border:none;color:var(--text-secondary);font-size:0.6rem;font-weight:500;cursor:pointer;padding:6px 4px;border-radius:10px;font-family:inherit;min-width:48px;}
+        .nav-item.active{color:var(--gold);font-weight:700;}
+        .nav-item i{font-size:1.1rem;}
+        .section-title{padding:16px 16px 8px;font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;}
+        .card{background:var(--surface);border-radius:var(--radius);padding:16px;margin:0 16px 12px;box-shadow:var(--shadow);border:1px solid var(--border);}
+        .btn{padding:10px 18px;border-radius:25px;border:none;font-weight:600;font-size:0.85rem;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:6px;justify-content:center;}
+        .btn:active{transform:scale(0.95);}
+        .btn-gold{background:var(--gold);color:#1a1a1a;}
+        .btn-outline{background:transparent;border:1px solid var(--border);color:var(--text);}
+        .btn-block{width:100%;}
+        .btn-sm{padding:6px 12px;font-size:0.7rem;}
+        .products-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 16px 16px;}
+        .product-card{background:var(--surface);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);cursor:pointer;}
+        .product-card:active{transform:scale(0.97);}
+        .product-img{width:100%;aspect-ratio:1/1;background-size:cover;background-position:center;background-color:#e5e7eb;}
+        .product-info{padding:10px;}
+        .product-title{font-weight:600;font-size:0.8rem;margin-bottom:4px;}
+        .product-price{font-weight:800;font-size:0.95rem;color:var(--gold-dark);margin-bottom:6px;}
+        .product-footer{display:flex;justify-content:space-between;font-size:0.65rem;color:var(--text-secondary);margin-bottom:6px;}
+        .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:200;display:flex;align-items:flex-end;justify-content:center;opacity:0;pointer-events:none;transition:opacity 0.3s;}
+        .modal-overlay.open{opacity:1;pointer-events:auto;}
+        .modal-sheet{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;padding:20px;transform:translateY(100%);transition:transform 0.3s;}
+        .modal-overlay.open .modal-sheet{transform:translateY(0);}
+        .modal-handle{width:36px;height:4px;background:var(--border);border-radius:2px;margin:0 auto 16px;}
+        .form-group{margin-bottom:14px;}
+        .form-group label{display:block;margin-bottom:5px;font-weight:600;font-size:0.8rem;color:var(--text-secondary);text-transform:uppercase;}
+        .form-input,.form-select,.form-textarea{width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--text);font-family:inherit;font-size:0.9rem;}
+        .form-input:focus,.form-select:focus,.form-textarea:focus{outline:none;border-color:var(--gold);}
+        .toggle-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border);}
+        .toggle-switch{position:relative;width:44px;height:24px;}
+        .toggle-switch input{opacity:0;width:0;height:0;}
+        .toggle-slider{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:24px;transition:.3s;}
+        .toggle-slider:before{content:"";position:absolute;height:18px;width:18px;left:3px;bottom:3px;background:white;border-radius:50%;transition:.3s;}
+        input:checked+.toggle-slider{background:var(--gold);}
+        input:checked+.toggle-slider:before{transform:translateX(20px);}
+        .hidden{display:none!important;}
+        .status-badge{padding:4px 10px;border-radius:12px;font-size:0.65rem;font-weight:700;}
+        .status-pending{background:rgba(217,119,6,0.2);color:var(--warning);}
+        .status-approved{background:rgba(5,150,105,0.2);color:var(--success);}
+        .toast-msg{position:fixed;bottom:90px;left:50%;transform:translateX(-50%);background:var(--surface);color:var(--text);padding:10px 20px;border-radius:25px;box-shadow:0 10px 30px rgba(0,0,0,0.2);z-index:400;font-weight:600;font-size:0.85rem;white-space:nowrap;border:1px solid var(--border);}
+        .admin-panel{background:var(--surface);}
+        .admin-panel table{width:100%;border-collapse:collapse;font-size:0.8rem;}
+        .admin-panel th{text-align:left;padding:8px 12px;background:var(--bg);font-size:0.7rem;text-transform:uppercase;}
+        .admin-panel td{padding:8px 12px;border-bottom:1px solid var(--border);}
+</style>
 </head>
 <body>
 <div class="app-container" id="appContainer">
-    <!-- Install Banner -->
-    <div class="install-banner hidden" id="installBanner" onclick="installApp()">
-        <div class="install-icon">📲</div>
-        <div class="install-text">
-            <strong>Install SecondChance App</strong>
-            <span>Add to your home screen for quick access</span>
-        </div>
-        <div class="install-arrow">›</div>
-    </div>
-
     <div class="top-header">
         <div class="logo">Second<span>Chance</span></div>
         <div class="header-actions">
-            <span id="userStatusBadge" class="hidden"></span>
+            <span id="adminBadge" class="admin-badge hidden" onclick="toggleAdminMode()">ADMIN</span>
             <button class="icon-btn" onclick="openCart()">🛒<span class="cart-dot" id="cartDot"></span></button>
-            <button class="icon-btn" onclick="navigateTo('profile')" id="profileIconBtn">👤</button>
-        </div>
-    </div>
-    <div class="search-bar">
-        <div class="search-input-wrap">
-            <input type="text" id="searchInput" placeholder="Search anything..." oninput="applySearch()">
-            <button onclick="applySearch()">🔍</button>
+            <button class="icon-btn" onclick="showPage('profile')">👤</button>
         </div>
     </div>
     <div class="main-scroll" id="mainScroll"></div>
-    <div class="bottom-nav">
+    <div class="bottom-nav" id="bottomNav">
         <button class="nav-item active" data-page="home"><i class="fas fa-home"></i>Home</button>
         <button class="nav-item" data-page="large"><i class="fas fa-couch"></i>Large</button>
         <button class="nav-item" data-page="sell"><i class="fas fa-store"></i>Sell</button>
@@ -343,548 +110,318 @@
 <div id="modalContainer"></div>
 
 <script>
-    // ============ MANIFEST SETUP ============
-    const manifestData = {
-        name: 'SecondChance Marketplace',
-        short_name: 'SecondChance',
-        description: 'Buy & Sell Second-Hand Items in Kenya',
-        start_url: '.',
-        display: 'standalone',
-        background_color: '#1a1a2e',
-        theme_color: '#c9a84c',
-        orientation: 'portrait',
-        icons: [
-            {
-                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='192' height='192' rx='42' fill='url(%23g)'/><text x='96' y='128' font-size='96' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>",
-                sizes: '192x192',
-                type: 'image/svg+xml',
-                purpose: 'any maskable'
-            },
-            {
-                src: "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='512' height='512' rx='110' fill='url(%23g)'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>",
-                sizes: '512x512',
-                type: 'image/svg+xml',
-                purpose: 'any maskable'
-            }
-        ]
-    };
+// ==================== COMPLETE COMBINED APP ====================
+const MASTER_MPESA = '0792091769';
+const WHATSAPP = '+254753711672';
+const WHATSAPP_LINK = 'https://wa.me/254753711672';
+const ADMIN_PASSWORD = 'admin123';
 
-    const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
-    const manifestUrl = URL.createObjectURL(manifestBlob);
-    document.getElementById('appManifest').href = manifestUrl;
+let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
+let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
+let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
+let settings = JSON.parse(localStorage.getItem('sc_settings')) || {darkMode:false,notifications:true};
+let currentPage = 'home';
+let isAdminMode = false;
+let adminData = JSON.parse(localStorage.getItem('sc_admin_data')) || {payments:[],approvedSellers:[],products:[],activityLog:[]};
 
-    // ============ DATA ============
-    const MASTER_MPESA = '0792091769';
-    const WHATSAPP_NUMBER = '+254753711672';
-    const WHATSAPP_LINK = 'https://wa.me/254753711672';
+const productImages = {
+    fridge:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
+    pans:'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
+    phone:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
+    sofa:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
+    dress:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
+    rims:'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
+    treadmill:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
+    books:'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
+    stroller:'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
+    drill:'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
+    car:'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
+    bed:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
+    table:'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
+    kennel:'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop',
+    shoes:'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop'
+};
 
-    let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
-    let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
-    let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
-    let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: false, notifications: true };
-    let page = 'home';
-    let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || { payments: [], approvedSellers: [] };
+const items = [
+    {id:1,title:'Samsung Fridge 200L',category:'kitchen',price:45000,desc:'Excellent,2yrs',seller:'Jane',rating:4.5,img:productImages.fridge,isLarge:true},
+    {id:2,title:'Non-stick Pan Set',category:'kitchen',price:2500,desc:'Like new',seller:'Mike',rating:4.8,img:productImages.pans,isLarge:false},
+    {id:3,title:'iPhone 13 Pro Max',category:'electronics',price:85000,desc:'256GB,box',seller:'TechKe',rating:4.3,img:productImages.phone,isLarge:false},
+    {id:4,title:'Leather Sofa Set',category:'furniture',price:65000,desc:'3+2,brown',seller:'HomeDecor',rating:4.0,img:productImages.sofa,isLarge:true},
+    {id:5,title:'Evening Gown',category:'fashion',price:8000,desc:'Size M',seller:'Glam',rating:4.7,img:productImages.dress,isLarge:false},
+    {id:6,title:'Alloy Rims 17"',category:'automotive',price:28000,desc:'Set of 4',seller:'CarParts',rating:4.2,img:productImages.rims,isLarge:false},
+    {id:7,title:'Treadmill',category:'sports',price:35000,desc:'Electric',seller:'Fitness',rating:4.6,img:productImages.treadmill,isLarge:true},
+    {id:8,title:'Harry Potter Set',category:'books',price:5000,desc:'Hardcover',seller:'Books',rating:4.9,img:productImages.books,isLarge:false},
+    {id:9,title:'Baby Stroller',category:'baby',price:12000,desc:'Travel',seller:'Parent',rating:4.4,img:productImages.stroller,isLarge:false},
+    {id:10,title:'Power Drill',category:'tools',price:6500,desc:'18V',seller:'DIY',rating:4.5,img:productImages.drill,isLarge:false},
+    {id:11,title:'Toyota Vitz 2019',category:'automotive',price:850000,desc:'Low mileage',seller:'Auto',rating:4.0,img:productImages.car,isLarge:true},
+    {id:12,title:'Queen Bed Frame',category:'furniture',price:18000,desc:'Wooden',seller:'Furniture',rating:4.3,img:productImages.bed,isLarge:true}
+];
 
-    const productImages = {
-        fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
-        pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
-        phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
-        sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
-        dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
-        shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop',
-        rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
-        treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
-        books: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
-        stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
-        drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
-        car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
-        bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
-        table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
-        kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop'
-    };
+function saveAll(){
+    localStorage.setItem('sc_cart',JSON.stringify(cart));
+    localStorage.setItem('sc_orders',JSON.stringify(orders));
+    localStorage.setItem('sc_settings',JSON.stringify(settings));
+    if(currentUser)localStorage.setItem('sc_user',JSON.stringify(currentUser));
+    localStorage.setItem('sc_admin_data',JSON.stringify(adminData));
+}
+function toast(m){let t=document.createElement('div');t.className='toast-msg';t.textContent=m;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2000);}
+function isVerified(){return currentUser&&adminData.approvedSellers.includes(currentUser.id);}
+function hasPaid(){return currentUser&&adminData.payments.some(p=>p.userId===currentUser.id&&p.status==='completed');}
+function isPending(){return currentUser&&adminData.payments.some(p=>p.userId===currentUser.id&&p.status==='pending');}
+function updateCartDot(){document.getElementById('cartDot').classList.toggle('show',cart.length>0);}
 
-    const items = [
-        { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2 years old, silver', condition:'good', seller:'Jane Home', rating:4.5, img:productImages.fridge, isLarge:true },
-        { id:2, title:'Non-stick Pan Set 5pcs', category:'kitchen', price:2500, desc:'Like new, used twice', condition:'like-new', seller:'Mike Chef', rating:4.8, img:productImages.pans, isLarge:false },
-        { id:3, title:'iPhone 13 Pro Max 256GB', category:'electronics', price:85000, desc:'Graphite, with box & charger', condition:'good', seller:'TechKe', rating:4.3, img:productImages.phone, isLarge:false },
-        { id:4, title:'Italian Leather Sofa Set', category:'furniture', price:65000, desc:'3+2 seater, brown leather', condition:'fair', seller:'HomeDecor', rating:4.0, img:productImages.sofa, isLarge:true },
-        { id:5, title:'Designer Evening Gown', category:'fashion', price:8000, desc:'Size M, worn once at wedding', condition:'like-new', seller:'GlamCloset', rating:4.7, img:productImages.dress, isLarge:false },
-        { id:6, title:'Alloy Rims 17" Set of 4', category:'automotive', price:28000, desc:'Fits Toyota, minor scratches', condition:'good', seller:'CarParts', rating:4.2, img:productImages.rims, isLarge:false },
-        { id:7, title:'Electric Treadmill Machine', category:'sports', price:35000, desc:'12 programs, foldable', condition:'good', seller:'FitnessKe', rating:4.6, img:productImages.treadmill, isLarge:true },
-        { id:8, title:'Harry Potter Complete Set', category:'books', price:5000, desc:'Hardcover, all 7 books', condition:'good', seller:'Bookworm', rating:4.9, img:productImages.books, isLarge:false },
-        { id:9, title:'Baby Stroller Travel System', category:'baby', price:12000, desc:'6 months old, like new', condition:'like-new', seller:'NewParent', rating:4.4, img:productImages.stroller, isLarge:false },
-        { id:10, title:'Cordless Power Drill 18V', category:'tools', price:6500, desc:'With battery and bits set', condition:'good', seller:'DIYMaster', rating:4.5, img:productImages.drill, isLarge:false },
-        { id:11, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage, clean title', condition:'good', seller:'AutoDealer', rating:4.0, img:productImages.car, isLarge:true },
-        { id:12, title:'Queen Size Bed Frame', category:'furniture', price:18000, desc:'Wooden with storage drawers', condition:'good', seller:'FurnitureHub', rating:4.3, img:productImages.bed, isLarge:true },
-        { id:13, title:'Dining Table 6-Seater', category:'furniture', price:22000, desc:'Solid mango wood', condition:'good', seller:'WoodCraft', rating:4.4, img:productImages.table, isLarge:true },
-        { id:14, title:'Large Dog Kennel Wooden', category:'pets', price:4500, desc:'Suitable for large breeds', condition:'good', seller:'PetLover', rating:4.3, img:productImages.kennel, isLarge:false },
-        { id:15, title:'Nike Air Max 90', category:'fashion', price:4500, desc:'Size 42, worn once', condition:'like-new', seller:'SneakerHead', rating:4.7, img:productImages.shoes, isLarge:false }
-    ];
-
-    function saveAll() {
-        localStorage.setItem('sc_cart', JSON.stringify(cart));
-        localStorage.setItem('sc_orders', JSON.stringify(orders));
-        localStorage.setItem('sc_settings', JSON.stringify(settings));
-        if (currentUser) localStorage.setItem('sc_user', JSON.stringify(currentUser));
-        localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
-    }
-
-    function showToast(msg) {
-        const existing = document.querySelector('.toast-msg');
-        if (existing) existing.remove();
-        const toast = document.createElement('div');
-        toast.className = 'toast-msg';
-        toast.textContent = msg;
-        document.body.appendChild(toast);
-        setTimeout(() => {
-            toast.style.opacity = '0';
-            toast.style.transition = 'opacity 0.3s';
-            setTimeout(() => toast.remove(), 300);
-        }, 2200);
-    }
-
-    function isVerifiedSeller() {
-        if (!currentUser) return false;
-        return adminData.approvedSellers.includes(currentUser.id);
-    }
-    function hasPaidRegistration() {
-        if (!currentUser) return false;
-        return adminData.payments.some(p => p.userId === currentUser.id && p.status === 'completed');
-    }
-    function isPendingVerification() {
-        if (!currentUser) return false;
-        return adminData.payments.some(p => p.userId === currentUser.id && p.status === 'pending');
-    }
-
-    function navigateTo(p) {
-        page = p;
-        renderPage();
-        document.getElementById('mainScroll').scrollTop = 0;
-    }
-
-    function renderPage() {
-        const container = document.getElementById('mainScroll');
-        switch(page) {
-            case 'home': container.innerHTML = renderHome(); break;
-            case 'large': container.innerHTML = renderLargeItems(); break;
-            case 'sell': container.innerHTML = renderSellPage(); break;
-            case 'help': container.innerHTML = renderHelpPage(); break;
-            case 'profile': container.innerHTML = renderProfilePage(); break;
-        }
-        document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-        const activeNav = document.querySelector(`.nav-item[data-page="${page}"]`);
-        if (activeNav) activeNav.classList.add('active');
-        updateCartDot();
-    }
-
-    function renderHome() {
-        let filtered = items.filter(i => !i.isLarge);
-        const term = (document.getElementById('searchInput')?.value || '').toLowerCase();
-        if (term) filtered = filtered.filter(i => i.title.toLowerCase().includes(term) || i.desc.toLowerCase().includes(term));
-        let html = '';
-        // Add download section at top of home page
-        html += `<div class="download-section">
-            <h3>📲 Get the App</h3>
-            <p>Install SecondChance on your phone for the best experience</p>
-            <button class="btn btn-install btn-block" onclick="installApp()">
-                <i class="fas fa-download"></i> Download / Install App
-            </button>
-            <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:6px;">Works on Android, iPhone, and desktop</p>
-        </div>`;
-        html += `<div class="section-title">🔥 Trending Items</div><div class="products-grid">`;
-        filtered.forEach(item => { html += productCard(item); });
-        html += `</div>`;
-        if (filtered.length === 0) html = `<div class="section-title">📭 No items found</div><div class="card"><p style="text-align:center;color:var(--text-secondary);">Try a different search term</p></div>`;
-        return html;
-    }
-
-    function renderLargeItems() {
-        let large = items.filter(i => i.isLarge);
-        let html = `<div class="section-title">🏠 Large Items</div><div class="products-grid">`;
-        large.forEach(item => { html += productCard(item); });
-        html += `</div>`;
-        return html;
-    }
-
-    function productCard(item) {
-        return `<div class="product-card" onclick="viewItem(${item.id})">
-            <div class="product-img" style="background-image:url('${item.img}');">
-                ${item.isLarge ? '<div class="product-badge">LARGE</div>' : ''}
-            </div>
-            <div class="product-info">
-                <div class="product-title">${item.title}</div>
-                <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-                <div class="product-footer">
-                    <span>⭐ ${item.rating}</span>
-                    <span>${item.seller}</span>
-                </div>
-                <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">+ Add to Cart</button>
-            </div>
-        </div>`;
-    }
-
-    function renderSellPage() {
-        if (!currentUser) {
-            return `<div class="card" style="margin-top:20px;"><p style="text-align:center;">Please login to sell items</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
-        }
-        if (isPendingVerification()) {
-            return `<div class="section-title">⏳ Verification Pending</div>
-            <div class="card"><div class="verification-box">
-                <i class="fas fa-clock"></i>
-                <h3>Payment Under Review</h3>
-                <p style="color:var(--text-secondary);">Your KSH 350 registration has been submitted. Admin is reviewing it.</p>
-                <p style="color:var(--warning);">You can browse and buy, but selling is locked until approved.</p>
-                <button class="btn btn-gold btn-block" onclick="contactAdmin()" style="margin-top:12px;">
-                    <i class="fab fa-whatsapp"></i> Contact Admin: ${WHATSAPP_NUMBER}
-                </button>
-            </div></div>`;
-        }
-        if (!hasPaidRegistration()) {
-            return `<div class="section-title">💰 Become a Seller</div>
-            <div class="card card-gold">
-                <h3 style="color:var(--gold-dark);">Register as a Seller</h3>
-                <p style="font-size:1.2rem;font-weight:800;">KSH 350 one-time fee</p>
-                <p style="font-size:0.85rem;color:var(--text-secondary);">Send to <strong>${MASTER_MPESA}</strong> via M-Pesa</p>
-                <button class="btn btn-gold btn-block" onclick="showRegistrationModal()">💳 Pay KSH 350 Now</button>
-            </div>
-            <div class="card">
-                <h4>Benefits:</h4>
-                <ul style="font-size:0.85rem;padding-left:20px;margin-top:8px;">
-                    <li>List unlimited items</li>
-                    <li>3% commission (under KSH 10k)</li>
-                    <li>5% commission (KSH 10k+)</li>
-                    <li>Admin-reviewed listings</li>
-                </ul>
-            </div>`;
-        }
-        let myItems = items.filter(i => i.seller === currentUser.name);
-        return `<div class="section-title">💼 My Seller Dashboard</div>
-        <div class="card">
-            <span class="status-badge status-approved">✅ Verified Seller</span>
-            <p style="margin-top:8px;">Welcome, ${currentUser.name}!</p>
-            <button class="btn btn-gold btn-block" onclick="showListForm()">+ List New Item</button>
-        </div>
-        <div class="section-title">📦 My Listings (${myItems.length})</div>
-        ${myItems.map(item => `
-            <div class="card" style="display:flex;gap:10px;align-items:center;">
-                <div style="width:50px;height:50px;background-image:url('${item.img}');background-size:cover;border-radius:8px;flex-shrink:0;"></div>
-                <div style="flex:1;"><strong>${item.title}</strong><br><span style="color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</span></div>
-            </div>
-        `).join('') || '<div class="card"><p style="color:var(--text-secondary);">No listings yet</p></div>'}`;
-    }
-
-    function renderHelpPage() {
-        return `<div class="section-title">💬 Need Help?</div>
-        <div class="card" style="text-align:center;">
-            <p style="font-size:3rem;">👋</p>
-            <h3>Chat with us on WhatsApp</h3>
-            <p style="color:var(--text-secondary);margin:8px 0;">We reply quickly — tap below</p>
-            <button class="btn btn-gold btn-block" onclick="contactSupport()">
-                <i class="fab fa-whatsapp"></i> ${WHATSAPP_NUMBER}
-            </button>
-        </div>
-        <div class="card">
-            <h4>📧 Email Support</h4>
-            <p style="font-size:0.9rem;">support@secondchance.co.ke</p>
-        </div>
-        <div class="card">
-            <h4>❓ FAQs</h4>
-            <p style="font-size:0.85rem;color:var(--text-secondary);">• How to sell? Pay KSH 350 to ${MASTER_MPESA}<br>• Delivery? We partner with Sendy, Fargo, G4S<br>• Returns? Contact seller within 24hrs</p>
-        </div>`;
-    }
-
-    function renderProfilePage() {
-        if (!currentUser) {
-            return `<div class="card" style="margin-top:20px;"><p style="text-align:center;">Please login to see your profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
-        }
-        const verified = isVerifiedSeller();
-        const pending = isPendingVerification();
-        return `<div class="section-title">👤 My Profile</div>
-        <div class="card">
-            <p style="font-size:1.2rem;"><strong>${currentUser.name}</strong></p>
-            <p style="color:var(--text-secondary);">Phone: ${currentUser.phone || 'Not set'}</p>
-            <p>Seller Status: ${verified ? '<span class="status-badge status-approved">✅ Verified</span>' : pending ? '<span class="status-badge status-pending">⏳ Pending</span>' : '<span class="status-badge status-rejected">Not Registered</span>'}</p>
-        </div>
-        <div class="card">
-            <h4 style="margin-bottom:12px;">⚙️ Settings</h4>
-            <div class="toggle-row">
-                <span>🌙 Dark Mode</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" ${settings.darkMode ? 'checked' : ''} onchange="toggleDark(this.checked)">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            <div class="toggle-row">
-                <span>🔔 Notifications</span>
-                <label class="toggle-switch">
-                    <input type="checkbox" ${settings.notifications ? 'checked' : ''} onchange="settings.notifications=this.checked;saveAll()">
-                    <span class="toggle-slider"></span>
-                </label>
-            </div>
-            <button class="btn btn-outline btn-block" onclick="logout()" style="margin-top:8px;">🚪 Logout</button>
-        </div>
-        <div class="card">
-            <h4>📦 Recent Orders</h4>
-            ${orders.filter(o => o.buyer === currentUser.name).slice(0, 3).map(o => `
-                <div style="padding:8px 0;border-bottom:1px solid var(--border);font-size:0.8rem;">
-                    <strong>Order #${o.id}</strong><br>
-                    ${o.items.join(', ')}<br>
-                    KSH ${o.total.toLocaleString()} • ${new Date(o.date).toLocaleDateString()}
-                </div>
-            `).join('') || '<p style="font-size:0.85rem;color:var(--text-secondary);">No orders yet</p>'}
-        </div>`;
-    }
-
-    function showLogin() {
-        const html = `<div class="modal-overlay open" id="loginModal" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
-            <div class="modal-handle"></div><h2>Create Account</h2>
-            <div class="form-group"><label>Full Name</label><input class="form-input" id="loginName" placeholder="John Doe"></div>
-            <div class="form-group"><label>Phone Number</label><input class="form-input" id="loginPhone" placeholder="0712345678"></div>
-            <button class="btn btn-gold btn-block" onclick="registerUser()">Register</button>
-            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
-        </div></div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function registerUser() {
-        const name = document.getElementById('loginName').value.trim();
-        if (!name) return alert('Please enter your name');
-        currentUser = { id: Date.now(), name, phone: document.getElementById('loginPhone').value, registeredAt: new Date().toISOString() };
-        saveAll(); closeModal();
-        showToast(`Welcome, ${name}! 👋`);
-    }
-
-    function showRegistrationModal() {
-        const html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
-            <div class="modal-handle"></div><h2>📱 M-Pesa Payment</h2>
-            <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;margin-bottom:16px;">
-                <p style="font-size:0.9rem;">Send <strong>KSH 350</strong> to:</p>
-                <p style="font-size:1.5rem;font-weight:800;letter-spacing:2px;">${MASTER_MPESA}</p>
-                <p style="font-size:0.8rem;">SECONDCHANCE MARKET</p>
-            </div>
-            <p style="font-size:0.8rem;color:var(--text-secondary);text-align:center;margin-bottom:12px;">⚠️ After sending, enter your M-Pesa confirmation code below.</p>
-            <div class="form-group"><label>M-Pesa Transaction Code</label><input class="form-input" id="mpesaCode" placeholder="e.g., QWE1234567"></div>
-            <button class="btn btn-gold btn-block" onclick="submitRegistration()">Submit for Verification</button>
-            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
-        </div></div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function submitRegistration() {
-        const code = document.getElementById('mpesaCode').value.trim();
-        if (!code) return alert('Enter M-Pesa code');
-        adminData.payments.push({
-            id: Date.now(), userId: currentUser.id, userName: currentUser.name,
-            phone: currentUser.phone, amount: 350, method: 'mpesa',
-            code: code, status: 'pending', date: new Date().toISOString()
-        });
-        saveAll(); closeModal();
-        showToast('Payment submitted! Awaiting verification ⏳');
-        page = 'sell'; renderPage();
-    }
-
-    function showListForm() {
-        const html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
-            <div class="modal-handle"></div><h2>📸 List New Item</h2>
-            <div class="form-group"><label>Title</label><input class="form-input" id="sTitle" placeholder="What are you selling?"></div>
-            <div class="form-group"><label>Category</label><select class="form-select" id="sCategory"><option>kitchen</option><option>electronics</option><option>furniture</option><option>fashion</option><option>automotive</option><option>sports</option><option>books</option><option>baby</option><option>pets</option><option>tools</option></select></div>
-            <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice" placeholder="0"></div>
-            <div class="form-group"><label>Condition</label><select class="form-select" id="sCondition"><option>new</option><option>like-new</option><option>good</option><option>fair</option></select></div>
-            <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc" rows="3" placeholder="Describe your item..."></textarea></div>
-            <button class="btn btn-gold btn-block" onclick="submitListing()">Submit for Review</button>
-            <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
-        </div></div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function submitListing() {
-        const title = document.getElementById('sTitle').value;
-        const category = document.getElementById('sCategory').value;
-        const price = parseInt(document.getElementById('sPrice').value);
-        const desc = document.getElementById('sDesc').value;
-        if (!title || !price) return alert('Fill in title and price');
-        const newItem = {
-            id: Date.now(), title, category, price, desc,
-            condition: document.getElementById('sCondition').value,
-            seller: currentUser.name, rating: 5.0,
-            img: productImages[Object.keys(productImages).find(k => k.includes(category)) || 'drill'] || productImages.drill,
-            status: 'pending', isLarge: false
-        };
-        items.unshift(newItem);
-        closeModal();
-        showToast('Item submitted for review! ✅');
-        renderPage();
-    }
-
-    function viewItem(id) {
-        const item = items.find(i => i.id === id);
-        if (!item) return;
-        const html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
-            <div class="modal-handle"></div>
-            <img src="${item.img}" style="width:100%;border-radius:12px;aspect-ratio:1/1;object-fit:cover;">
-            <h2 style="margin-top:16px;">${item.title}</h2>
-            <p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
-            <p style="color:var(--text-secondary);">${item.desc}</p>
-            <p><strong>Seller:</strong> ${item.seller} • ⭐ ${item.rating} • ${item.condition}</p>
-            <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">🛒 Add to Cart</button>
-            <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
-        </div></div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function openCart() {
-        const total = cart.reduce((s, i) => s + i.price, 0);
-        const comm = total >= 10000 ? total * 0.05 : total * 0.03;
-        let html = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
-            <div class="modal-handle"></div><h2>🛒 Your Cart</h2>`;
-        if (cart.length === 0) {
-            html += `<div style="text-align:center;padding:40px;"><p style="font-size:3rem;">🛍️</p><h3>Cart is empty</h3><p style="color:var(--text-secondary);">Tap + on items to add them</p></div>`;
-        } else {
-            cart.forEach(item => {
-                html += `<div style="display:flex;gap:10px;align-items:center;padding:10px;background:var(--bg);border-radius:10px;margin-bottom:8px;">
-                    <div style="width:45px;height:45px;background-image:url(${item.img});background-size:cover;border-radius:6px;"></div>
-                    <div style="flex:1;"><strong>${item.title}</strong><br>KSH ${item.price.toLocaleString()}</div>
-                    <button onclick="removeFromCart(${item.cartId})" style="background:none;border:none;cursor:pointer;">🗑</button></div>`;
-            });
-            html += `<hr><div style="display:flex;justify-content:space-between;font-weight:700;"><span>Subtotal</span><span>KSH ${total.toLocaleString()}</span></div>
-            <p style="color:var(--gold);font-size:0.85rem;text-align:center;">Commission (${total>=10000?'5%':'3%'}): KSH ${comm.toFixed(2)}</p>
-            <p style="text-align:center;font-size:0.85rem;">Seller receives: <strong>KSH ${(total-comm).toFixed(2)}</strong></p>
-            <button class="btn btn-gold btn-block" onclick="checkout()">Place Order • KSH ${total.toLocaleString()}</button>`;
-        }
-        html += `<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
-        document.getElementById('modalContainer').innerHTML = html;
-    }
-
-    function addToCart(id) {
-        const item = items.find(i => i.id === id);
-        if (!item) return;
-        cart.push({ ...item, cartId: Date.now() });
-        saveAll(); updateCartDot();
-        showToast(`${item.title} added! 🛒`);
-    }
-
-    function removeFromCart(cartId) {
-        cart = cart.filter(i => i.cartId !== cartId);
-        saveAll(); updateCartDot(); openCart();
-    }
-
-    function checkout() {
-        if (!currentUser) { closeModal(); showLogin(); return; }
-        if (cart.length === 0) return;
-        const total = cart.reduce((s, i) => s + i.price, 0);
-        const comm = total >= 10000 ? total * 0.05 : total * 0.03;
-        orders.push({
-            id: Date.now(), buyer: currentUser.name, buyerId: currentUser.id,
-            items: cart.map(i => i.title), total, commission: comm,
-            date: new Date().toISOString()
-        });
-        cart = []; saveAll(); closeModal(); updateCartDot();
-        showToast('Order placed successfully! ✅');
-    }
-
-    function logout() {
-        currentUser = null; localStorage.removeItem('sc_user');
-        cart = []; saveAll(); updateCartDot(); page = 'home'; renderPage();
-        showToast('Logged out');
-    }
-
-    function toggleDark(val) { settings.darkMode = val; document.body.classList.toggle('dark-mode', val); saveAll(); }
-    function contactAdmin() { window.open(`${WHATSAPP_LINK}?text=Hello%2C%20please%20verify%20my%20seller%20registration.`, '_blank'); }
-    function contactSupport() { window.open(`${WHATSAPP_LINK}?text=Hello%2C%20I%20need%20help%20with%20SecondChance.`, '_blank'); }
-    function applySearch() { if (page === 'home' || page === 'large') renderPage(); }
-    function updateCartDot() { document.getElementById('cartDot').classList.toggle('show', cart.length > 0); }
-    function closeModal() { document.getElementById('modalContainer').innerHTML = ''; }
-
-    // ============ PWA INSTALL ============
-    let deferredPrompt;
-    
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        document.getElementById('installBanner').classList.remove('hidden');
-    });
-
-    function installApp() {
-        if (deferredPrompt) {
-            deferredPrompt.prompt();
-            deferredPrompt.userChoice.then((choiceResult) => {
-                if (choiceResult.outcome === 'accepted') {
-                    console.log('User accepted install');
-                    showToast('App installed! 🎉');
-                }
-                deferredPrompt = null;
-                document.getElementById('installBanner').classList.add('hidden');
-            });
-        } else {
-            // Fallback for devices/browsers that don't support beforeinstallprompt
-            const isIOS = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
-            if (isIOS) {
-                alert('To install: tap the Share button (📤) then "Add to Home Screen"');
-            } else if (window.matchMedia('(display-mode: standalone)').matches) {
-                showToast('App is already installed! ✅');
-            } else {
-                alert('To install: open Chrome menu (⋮) → "Install app" or "Add to Home Screen"');
-            }
-        }
-    }
-
-    window.addEventListener('appinstalled', () => {
-        document.getElementById('installBanner').classList.add('hidden');
-        deferredPrompt = null;
-        showToast('App installed successfully! 🎉');
-    });
-
-    // ============ SERVICE WORKER ============
-    if ('serviceWorker' in navigator) {
-        const swCode = `
-            self.addEventListener('install', (e) => {
-                self.skipWaiting();
-            });
-            self.addEventListener('activate', (e) => {
-                e.waitUntil(clients.claim());
-            });
-            self.addEventListener('fetch', (e) => {
-                e.respondWith(fetch(e.request).catch(() => caches.match(e.request)));
-            });
-        `;
-        const swBlob = new Blob([swCode], { type: 'application/javascript' });
-        const swUrl = URL.createObjectURL(swBlob);
-        navigator.serviceWorker.register(swUrl).catch(() => {});
-    }
-
-    // ============ ADMIN HELPERS ============
-    window.verifySeller = function(userId) {
-        const p = adminData.payments.find(p => p.userId === userId && p.status === 'pending');
-        if (p) { p.status = 'completed'; if (!adminData.approvedSellers.includes(userId)) adminData.approvedSellers.push(userId); saveAll(); return 'Verified!'; }
-        return 'No pending payment found';
-    };
-    window.verifyAll = function() {
-        adminData.payments.forEach(p => { if (p.status === 'pending') { p.status = 'completed'; if (!adminData.approvedSellers.includes(p.userId)) adminData.approvedSellers.push(p.userId); } });
-        saveAll(); return 'All verified!';
-    };
-
-    // ============ INIT ============
-    document.querySelectorAll('.nav-item').forEach(btn => {
-        btn.addEventListener('click', (e) => {
-            page = e.currentTarget.dataset.page;
-            renderPage();
-        });
-    });
-
-    if (settings.darkMode) document.body.classList.add('dark-mode');
+// ==================== PAGE RENDERING ====================
+function showPage(p){
+    currentPage=p;isAdminMode=false;
+    document.getElementById('adminBadge').classList.add('hidden');
     renderPage();
-    updateCartDot();
-    
-    // Check if already installed
-    if (window.matchMedia('(display-mode: standalone)').matches) {
-        console.log('App running in standalone mode');
+}
+function renderPage(){
+    const c=document.getElementById('mainScroll');
+    if(isAdminMode){c.innerHTML=renderAdminPanel();updateAdminBadges();}
+    else{
+        switch(currentPage){
+            case'home':c.innerHTML=renderHome();break;
+            case'large':c.innerHTML=renderLarge();break;
+            case'sell':c.innerHTML=renderSell();break;
+            case'help':c.innerHTML=renderHelp();break;
+            case'profile':c.innerHTML=renderProfile();break;
+        }
     }
+    document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
+    const active=document.querySelector(`.nav-item[data-page="${currentPage}"]`);
+    if(active)active.classList.add('active');
+    updateCartDot();
+}
 
-    console.log('✅ SecondChance App Ready');
-    console.log('📲 Install: Tap the Download button or banner');
-    console.log('📱 WhatsApp:', WHATSAPP_NUMBER);
-    console.log('💳 M-Pesa:', MASTER_MPESA);
-    console.log('🔧 Admin: verifySeller(userId) or verifyAll()');
+function productCard(item){
+    return`<div class="product-card" onclick="viewItem(${item.id})">
+        <div class="product-img" style="background-image:url('${item.img}');"></div>
+        <div class="product-info">
+            <div class="product-title">${item.title}</div>
+            <div class="product-price">KSH ${item.price.toLocaleString()}</div>
+            <div class="product-footer"><span>⭐${item.rating}</span><span>${item.seller}</span></div>
+            <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">+ Add</button>
+        </div></div>`;
+}
+
+function renderHome(){
+    let f=items.filter(i=>!i.isLarge);
+    return`<div class="section-title">🔥 Trending</div><div class="products-grid">${f.map(productCard).join('')}</div>`;
+}
+function renderLarge(){
+    let f=items.filter(i=>i.isLarge);
+    return`<div class="section-title">🏠 Large Items</div><div class="products-grid">${f.map(productCard).join('')}</div>`;
+}
+
+function renderSell(){
+    if(!currentUser)return`<div class="card"><p>Login to sell</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
+    if(isPending())return`<div class="card"><h3>⏳ Verification Pending</h3><p>Admin is reviewing your KSH 350 payment.</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Please verify my seller registration','_blank')">Contact Admin: ${WHATSAPP}</button></div>`;
+    if(!hasPaid())return`<div class="card"><h3>💰 Register as Seller</h3><p>Send KSH 350 to <strong>${MASTER_MPESA}</strong></p><button class="btn btn-gold btn-block" onclick="showRegPayment()">Pay KSH 350</button></div>`;
+    let myItems=items.filter(i=>i.seller===currentUser.name);
+    return`<div class="card"><span class="status-badge status-approved">✅ Verified</span><p>Welcome,${currentUser.name}!</p><button class="btn btn-gold btn-block" onclick="showListForm()">+ List Item</button></div>
+    <div class="section-title">My Listings (${myItems.length})</div>${myItems.map(i=>`<div class="card">${i.title} - KSH ${i.price}</div>`).join('')}`;
+}
+
+function renderHelp(){
+    return`<div class="card" style="text-align:center;"><h3>💬 WhatsApp Help</h3><p>${WHATSAPP}</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Hello,I need help with SecondChance','_blank')">Chat Now</button></div>
+    <div class="card"><p>📧 support@secondchance.co.ke</p><p>💳 Pay to: ${MASTER_MPESA}</p></div>`;
+}
+
+function renderProfile(){
+    if(!currentUser)return`<div class="card"><p>Login to see profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
+    return`<div class="card"><h3>👤 ${currentUser.name}</h3><p>Phone: ${currentUser.phone||'--'}</p>
+    <p>Status: ${isVerified()?'<span class="status-badge status-approved">Verified</span>':isPending()?'<span class="status-badge status-pending">Pending</span>':'Not registered'}</p></div>
+    <div class="card">
+        <div class="toggle-row"><span>🌙 Dark Mode</span><label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label></div>
+        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;saveAll()"><span class="toggle-slider"></span></label></div>
+        <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
+    </div>
+    <div class="card"><h4>📦 Orders</h4>${orders.filter(o=>o.buyer===currentUser.name).slice(0,3).map(o=>`<div>#${o.id} - ${o.items.join(',')} - KSH ${o.total}</div>`).join('')||'None'}</div>`;
+}
+
+// ==================== ADMIN PANEL ====================
+function toggleAdminMode(){
+    if(isAdminMode){isAdminMode=false;document.getElementById('adminBadge').classList.add('hidden');renderPage();return;}
+    const pw=prompt('Enter admin password:');
+    if(pw===ADMIN_PASSWORD){isAdminMode=true;document.getElementById('adminBadge').classList.remove('hidden');renderPage();}
+    else if(pw)alert('Wrong password');
+}
+function updateAdminBadges(){
+    document.getElementById('adminBadge').textContent=`ADMIN (${adminData.payments.filter(p=>p.status==='pending').length} pending)`;
+}
+
+function renderAdminPanel(){
+    const pp=adminData.payments.filter(p=>p.status==='pending');
+    const up=adminData.products.filter(p=>p.status==='pending');
+    const totalRev=adminData.payments.filter(p=>p.status==='completed').reduce((s,p)=>s+p.amount,0)+adminData.orders.reduce((s,o)=>s+(o.commission||0),0);
+    let h=`<div class="section-title">👑 Admin Panel</div>
+    <div class="card"><h3>💰 Master Account: ${MASTER_MPESA}</h3><p>Total Revenue: <strong>KSH ${totalRev.toLocaleString()}</strong></p>
+    <button class="btn btn-outline btn-sm" onclick="isAdminMode=false;renderPage();">Exit Admin</button></div>`;
+
+    h+=`<div class="card"><h3>💳 Pending Payments (${pp.length})</h3>`;
+    pp.forEach(p=>{
+        h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <div><strong>${p.userName}</strong><br><small>Code: ${p.code} | KSH ${p.amount}</small></div>
+            <div><button class="btn btn-gold btn-sm" onclick="verifyPayment('${p.id}')">✓ Verify</button>
+            <button class="btn btn-outline btn-sm" onclick="rejectPayment('${p.id}')">✕</button></div></div>`;
+    });
+    if(pp.length===0)h+='<p style="color:var(--text-secondary);">No pending payments</p>';
+    h+=`</div>`;
+
+    h+=`<div class="card"><h3>📦 Pending Products (${up.length})</h3>`;
+    up.forEach(p=>{
+        h+=`<div style="display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border);">
+            <div><strong>${p.title}</strong><br><small>${p.seller} | KSH ${p.price}</small></div>
+            <div><button class="btn btn-gold btn-sm" onclick="approveProduct(${p.id})">✓ Approve</button>
+            <button class="btn btn-outline btn-sm" onclick="rejectProduct(${p.id})">✕</button></div></div>`;
+    });
+    if(up.length===0)h+='<p style="color:var(--text-secondary);">No pending products</p>';
+    h+=`</div>`;
+
+    h+=`<div class="card"><h3>✅ Approved Sellers (${adminData.approvedSellers.length})</h3>`;
+    if(adminData.approvedSellers.length===0)h+='<p style="color:var(--text-secondary);">None yet</p>';
+    h+=`</div>`;
+
+    h+=`<div class="card"><h3>📋 Activity Log</h3>`;
+    adminData.activityLog.slice(-5).reverse().forEach(l=>{
+        h+=`<div style="font-size:0.75rem;padding:4px 0;">${l.time}: ${l.message}</div>`;
+    });
+    h+=`</div>`;
+    return h;
+}
+
+function verifyPayment(id){
+    const p=adminData.payments.find(p=>p.id==id);
+    if(!p)return;
+    p.status='completed';
+    if(!adminData.approvedSellers.includes(p.userId))adminData.approvedSellers.push(p.userId);
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`Payment verified: ${p.userName} (${p.code})`});
+    saveAll();
+    toast('Payment verified! ✅');
+    renderPage();
+}
+function rejectPayment(id){
+    const p=adminData.payments.find(p=>p.id==id);
+    if(!p)return;
+    p.status='rejected';
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`Payment rejected: ${p.userName}`});
+    saveAll();
+    toast('Payment rejected');
+    renderPage();
+}
+function approveProduct(id){
+    const p=adminData.products.find(p=>p.id==id);
+    if(!p){const item=items.find(i=>i.id==id);if(item){item.status='approved';adminData.products.push(item);}}
+    else p.status='approved';
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`Product approved: #${id}`});
+    saveAll();
+    toast('Product approved! ✅');
+    renderPage();
+}
+function rejectProduct(id){
+    const p=adminData.products.find(p=>p.id==id);
+    if(!p){const item=items.find(i=>i.id==id);if(item)item.status='rejected';}
+    else p.status='rejected';
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`Product rejected: #${id}`});
+    saveAll();
+    toast('Product rejected');
+    renderPage();
+}
+
+// ==================== USER ACTIONS ====================
+function showLogin(){
+    const h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+        <div class="modal-handle"></div><h2>Create Account</h2>
+        <div class="form-group"><label>Name</label><input class="form-input" id="loginName"></div>
+        <div class="form-group"><label>Phone</label><input class="form-input" id="loginPhone"></div>
+        <button class="btn btn-gold btn-block" onclick="doLogin()">Register</button>
+        <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+    </div></div>`;
+    document.getElementById('modalContainer').innerHTML=h;
+}
+function doLogin(){
+    const n=document.getElementById('loginName').value.trim();
+    if(!n)return alert('Enter name');
+    currentUser={id:Date.now(),name:n,phone:document.getElementById('loginPhone').value};
+    saveAll();closeModal();toast(`Welcome,${n}!`);
+}
+function showRegPayment(){
+    const h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+        <div class="modal-handle"></div><h2>M-Pesa Payment</h2>
+        <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;">
+            <p>Send <strong>KSH 350</strong> to:</p><p style="font-size:1.5rem;font-weight:800;">${MASTER_MPESA}</p></div>
+        <div class="form-group"><label>M-Pesa Code</label><input class="form-input" id="mpesaCode" placeholder="QWE1234567"></div>
+        <button class="btn btn-gold btn-block" onclick="submitReg()">Submit</button>
+        <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+    </div></div>`;
+    document.getElementById('modalContainer').innerHTML=h;
+}
+function submitReg(){
+    const code=document.getElementById('mpesaCode').value.trim();
+    if(!code)return alert('Enter code');
+    adminData.payments.push({id:'pm_'+Date.now(),userId:currentUser.id,userName:currentUser.name,phone:currentUser.phone,amount:350,method:'mpesa',code,status:'pending',date:new Date().toISOString()});
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`New payment: ${currentUser.name} (${code})`});
+    saveAll();closeModal();toast('Submitted! Awaiting verification.');
+}
+function showListForm(){
+    const h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+        <div class="modal-handle"></div><h2>List Item</h2>
+        <div class="form-group"><label>Title</label><input class="form-input" id="sTitle"></div>
+        <div class="form-group"><label>Category</label><select class="form-select" id="sCategory"><option>kitchen</option><option>electronics</option><option>furniture</option><option>fashion</option><option>automotive</option></select></div>
+        <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice"></div>
+        <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc"></textarea></div>
+        <button class="btn btn-gold btn-block" onclick="submitListing()">Submit</button>
+        <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button>
+    </div></div>`;
+    document.getElementById('modalContainer').innerHTML=h;
+}
+function submitListing(){
+    const t=document.getElementById('sTitle').value;
+    const p=parseInt(document.getElementById('sPrice').value);
+    if(!t||!p)return alert('Fill required fields');
+    const newItem={id:Date.now(),title:t,category:document.getElementById('sCategory').value,price:p,desc:document.getElementById('sDesc').value,seller:currentUser.name,rating:5,img:productImages.fridge,status:'pending',isLarge:false};
+    items.unshift(newItem);
+    adminData.products.push(newItem);
+    adminData.activityLog.unshift({time:new Date().toLocaleString(),message:`New listing: ${t} by ${currentUser.name}`});
+    saveAll();closeModal();toast('Listed! Pending review.');
+}
+function viewItem(id){
+    const item=items.find(i=>i.id===id);if(!item)return;
+    const h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet">
+        <div class="modal-handle"></div><img src="${item.img}" style="width:100%;border-radius:12px;">
+        <h2>${item.title}</h2><p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
+        <p>${item.desc}</p><p>Seller: ${item.seller} • ⭐${item.rating}</p>
+        <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
+        <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button>
+    </div></div>`;
+    document.getElementById('modalContainer').innerHTML=h;
+}
+function openCart(){
+    const total=cart.reduce((s,i)=>s+i.price,0);
+    const comm=total>=10000?total*0.05:total*0.03;
+    let h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>🛒 Cart</h2>`;
+    if(cart.length===0)h+=`<div style="text-align:center;padding:40px;"><p style="font-size:3rem;">🛍️</p><p>Cart is empty</p></div>`;
+    else{
+        cart.forEach(item=>{h+=`<div style="display:flex;gap:10px;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px;"><div style="width:40px;height:40px;background-image:url(${item.img});background-size:cover;border-radius:6px;"></div><div style="flex:1;"><strong>${item.title}</strong><br>KSH ${item.price}</div><button onclick="removeFromCart(${item.cartId})">🗑</button></div>`;});
+        h+=`<hr><p>Subtotal: KSH ${total}</p><p style="color:var(--gold);">Commission (${total>=10000?'5%':'3%'}): KSH ${comm}</p><p>Seller gets: KSH ${(total-comm).toFixed(2)}</p><button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>`;
+    }
+    h+=`<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
+    document.getElementById('modalContainer').innerHTML=h;
+}
+function addToCart(id){const item=items.find(i=>i.id===id);if(!item)return;cart.push({...item,cartId:Date.now()});saveAll();updateCartDot();toast('Added!');}
+function removeFromCart(cid){cart=cart.filter(i=>i.cartId!==cid);saveAll();updateCartDot();openCart();}
+function checkout(){if(!currentUser){closeModal();showLogin();return;}if(cart.length===0)return;const total=cart.reduce((s,i)=>s+i.price,0);const comm=total>=10000?total*0.05:total*0.03;orders.push({id:Date.now(),buyer:currentUser.name,items:cart.map(i=>i.title),total,commission:comm,date:new Date().toISOString()});adminData.orders=orders;cart=[];saveAll();closeModal();updateCartDot();toast('Order placed!');}
+function logout(){currentUser=null;localStorage.removeItem('sc_user');cart=[];saveAll();updateCartDot();currentPage='home';isAdminMode=false;renderPage();toast('Logged out');}
+function toggleDark(v){settings.darkMode=v;document.body.classList.toggle('dark-mode',v);saveAll();}
+function closeModal(){document.getElementById('modalContainer').innerHTML='';}
+
+// Init
+document.querySelectorAll('.nav-item').forEach(b=>{b.addEventListener('click',e=>{currentPage=e.currentTarget.dataset.page;renderPage();});});
+if(settings.darkMode)document.body.classList.add('dark-mode');
+renderPage();
+updateCartDot();
+console.log('✅ SecondChance Ready | Admin password: '+ADMIN_PASSWORD+' | M-Pesa: '+MASTER_MPESA+' | WhatsApp: '+WHATSAPP);
 </script>
 </body>
-    </html>
+</html>
