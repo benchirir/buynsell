@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <!-- PWA Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="SecondChance">
@@ -14,13 +13,8 @@
     
     <title>SecondChance • Buy & Sell</title>
     
-    <!-- App Icons for Home Screen -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='512' height='512' rx='100' fill='url(%23g)'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
-    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='180' height='180' rx='40' fill='url(%23g)'/><text x='90' y='120' font-size='90' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
-    <link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 152 152'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='152' height='152' rx='34' fill='url(%23g)'/><text x='76' y='102' font-size='76' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
-    
-    <!-- Web App Manifest -->
-    <link rel="manifest" id="appManifest">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
     
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -29,9 +23,8 @@
             --bg: #fafafa; --surface: #fff; --text: #1a1a2e; --text-secondary: #6b7280;
             --primary: #1e2a4a; --gold: #c9a84c; --gold-dark: #a68a3e;
             --border: #e5e7eb; --success: #059669; --danger: #dc2626; --warning: #d97706;
-            --shadow-sm: 0 1px 3px rgba(0,0,0,0.06); --shadow: 0 4px 12px rgba(0,0,0,0.08);
-            --radius: 14px; --transition: all 0.2s ease;
-            --safe-bottom: env(safe-area-inset-bottom, 0px);
+            --shadow: 0 4px 12px rgba(0,0,0,0.06); --radius: 14px;
+            --transition: all 0.2s ease; --safe-bottom: env(safe-area-inset-bottom,0px);
         }
         .dark-mode {
             --bg: #0a0a0f; --surface: #14141f; --text: #e5e7eb; --text-secondary: #9ca3af;
@@ -39,55 +32,15 @@
         }
         * { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
         html,body { width:100%; height:100%; overflow:hidden; position:fixed; top:0; left:0; }
-        body {
-            font-family:'Inter',sans-serif; background:var(--bg); color:var(--text);
-            transition:var(--transition); display:flex; flex-direction:column;
-            height:100vh; height:-webkit-fill-available;
-        }
+        body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); transition:var(--transition); display:flex; flex-direction:column; height:100vh; }
         .app-container { display:flex; flex-direction:column; height:100%; max-width:480px; margin:0 auto; width:100%; background:var(--bg); }
-        @media (min-width: 481px) {
-            .app-container { border-left:1px solid var(--border); border-right:1px solid var(--border); box-shadow:0 0 60px rgba(0,0,0,0.1); }
-        }
+        @media(min-width:481px){.app-container{border-left:1px solid var(--border);border-right:1px solid var(--border);box-shadow:0 0 60px rgba(0,0,0,0.1);}}
         
-        /* Install Banner */
-        .install-banner {
-            background: linear-gradient(135deg, #1a1a2e, #3d2c5e);
-            color: white; padding: 14px 16px; display: flex; align-items: center;
-            gap: 12px; cursor: pointer; flex-shrink: 0; border-bottom: 2px solid var(--gold);
-            animation: slideDown 0.4s ease;
-        }
-        .install-banner.hidden { display: none; }
-        .install-icon-app {
-            width: 48px; height: 48px; border-radius: 12px;
-            background: var(--gold); display: flex; align-items: center;
-            justify-content: center; font-size: 1.5rem; flex-shrink: 0;
-            box-shadow: 0 4px 12px rgba(201,168,76,0.4);
-        }
-        .install-text { flex: 1; }
-        .install-text strong { font-size: 0.9rem; display: block; }
-        .install-text span { font-size: 0.75rem; opacity: 0.85; }
-        .install-btn {
-            background: var(--gold); color: #1a1a1a; border: none;
-            padding: 8px 16px; border-radius: 20px; font-weight: 700;
-            font-size: 0.8rem; cursor: pointer; font-family: inherit;
-        }
-        @keyframes slideDown {
-            from { transform: translateY(-100%); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-        
-        .top-header {
-            background:var(--surface); padding:10px 16px; display:flex; align-items:center;
-            justify-content:space-between; border-bottom:1px solid var(--border); flex-shrink:0;
-        }
+        .top-header { background:var(--surface); padding:10px 16px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--border); flex-shrink:0; }
         .logo { font-family:'Playfair Display',serif; font-size:1.3rem; font-weight:900; color:var(--primary); }
         .logo span { color:var(--gold); }
         .header-actions { display:flex; gap:6px; align-items:center; }
-        .icon-btn {
-            width:36px; height:36px; border-radius:50%; border:none; background:transparent;
-            cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center;
-            color:var(--text); position:relative;
-        }
+        .icon-btn { width:36px; height:36px; border-radius:50%; border:none; background:transparent; cursor:pointer; font-size:1.1rem; display:flex; align-items:center; justify-content:center; color:var(--text); position:relative; }
         .icon-btn:active { transform:scale(0.9); }
         .cart-dot { position:absolute; top:6px; right:6px; width:8px; height:8px; border-radius:50%; background:var(--danger); display:none; }
         .cart-dot.show { display:block; }
@@ -95,334 +48,262 @@
         .status-pending { background:rgba(217,119,6,0.2); color:var(--warning); }
         .status-approved { background:rgba(5,150,105,0.2); color:var(--success); }
         .search-bar { padding:8px 16px; flex-shrink:0; background:var(--bg); }
-        .search-input-wrap {
-            display:flex; align-items:center; background:var(--surface);
-            border:1px solid var(--border); border-radius:24px; overflow:hidden;
-        }
-        .search-input-wrap input {
-            border:none; padding:10px 14px; flex:1; background:transparent;
-            color:var(--text); outline:none; font-size:0.85rem; font-family:inherit;
-        }
+        .search-input-wrap { display:flex; align-items:center; background:var(--surface); border:1px solid var(--border); border-radius:24px; overflow:hidden; }
+        .search-input-wrap input { border:none; padding:10px 14px; flex:1; background:transparent; color:var(--text); outline:none; font-size:0.85rem; font-family:inherit; }
         .search-input-wrap button { background:none; border:none; padding:10px 14px; cursor:pointer; color:var(--text-secondary); }
-        .main-scroll { flex:1; overflow-y:auto; overflow-x:hidden; -webkit-overflow-scrolling:touch; padding-bottom:8px; }
-        .bottom-nav {
-            background:var(--surface); border-top:1px solid var(--border);
-            display:flex; justify-content:space-around; padding:6px 4px calc(6px + var(--safe-bottom));
-            flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.04);
-        }
-        .nav-item {
-            display:flex; flex-direction:column; align-items:center; gap:2px;
-            background:none; border:none; color:var(--text-secondary); font-size:0.6rem;
-            font-weight:500; cursor:pointer; padding:6px 4px; border-radius:10px;
-            font-family:inherit; min-width:48px;
-        }
+        .main-scroll { flex:1; overflow-y:auto; overflow-x:hidden; padding-bottom:8px; }
+        .bottom-nav { background:var(--surface); border-top:1px solid var(--border); display:flex; justify-content:space-around; padding:6px 4px calc(6px+var(--safe-bottom)); flex-shrink:0; box-shadow:0 -2px 8px rgba(0,0,0,0.04); }
+        .nav-item { display:flex; flex-direction:column; align-items:center; gap:2px; background:none; border:none; color:var(--text-secondary); font-size:0.6rem; font-weight:500; cursor:pointer; padding:6px 4px; border-radius:10px; font-family:inherit; min-width:48px; }
         .nav-item.active { color:var(--gold); font-weight:700; }
         .nav-item i { font-size:1.1rem; }
         .section-title { padding:16px 16px 8px; font-family:'Playfair Display',serif; font-size:1.1rem; font-weight:700; }
-        .card {
-            background:var(--surface); border-radius:var(--radius); padding:16px;
-            margin:0 16px 12px; box-shadow:var(--shadow-sm); border:1px solid var(--border);
-        }
+        .card { background:var(--surface); border-radius:var(--radius); padding:16px; margin:0 16px 12px; box-shadow:var(--shadow); border:1px solid var(--border); }
         .card-gold { border:2px solid var(--gold); }
-        .btn {
-            padding:10px 18px; border-radius:25px; border:none; font-weight:600;
-            font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center;
-            gap:6px; justify-content:center; font-family:inherit;
-        }
+        .btn { padding:10px 18px; border-radius:25px; border:none; font-weight:600; font-size:0.85rem; cursor:pointer; display:inline-flex; align-items:center; gap:6px; justify-content:center; font-family:inherit; }
         .btn:active { transform:scale(0.95); }
         .btn-gold { background:var(--gold); color:#1a1a1a; }
         .btn-outline { background:transparent; border:1px solid var(--border); color:var(--text); }
         .btn-block { width:100%; }
         .btn-sm { padding:6px 12px; font-size:0.7rem; }
+        .btn-install { background:linear-gradient(135deg,#1a1a2e,#3d2c5e); color:white; border:2px solid var(--gold); font-size:1rem; padding:14px; animation:pulse 2s infinite; }
+        @keyframes pulse { 0%,100%{box-shadow:0 0 0 0 rgba(201,168,76,0.4)} 50%{box-shadow:0 0 0 15px rgba(201,168,76,0)} }
         .products-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; padding:0 16px 16px; }
-        .product-card {
-            background:var(--surface); border-radius:var(--radius); overflow:hidden;
-            box-shadow:var(--shadow-sm); border:1px solid var(--border); cursor:pointer;
-        }
+        .product-card { background:var(--surface); border-radius:var(--radius); overflow:hidden; box-shadow:var(--shadow); border:1px solid var(--border); cursor:pointer; }
         .product-card:active { transform:scale(0.97); }
         .product-img { width:100%; aspect-ratio:1/1; background-size:cover; background-position:center; background-color:#e5e7eb; }
         .product-info { padding:10px; }
         .product-title { font-weight:600; font-size:0.8rem; margin-bottom:4px; }
         .product-price { font-weight:800; font-size:0.95rem; color:var(--gold-dark); margin-bottom:6px; }
         .product-footer { display:flex; justify-content:space-between; font-size:0.65rem; color:var(--text-secondary); margin-bottom:6px; }
-        .modal-overlay {
-            position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200;
-            display:flex; align-items:flex-end; justify-content:center;
-            opacity:0; pointer-events:none; transition:opacity 0.3s;
-        }
+        .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,0.6); z-index:200; display:flex; align-items:flex-end; justify-content:center; opacity:0; pointer-events:none; transition:opacity 0.3s; }
         .modal-overlay.open { opacity:1; pointer-events:auto; }
-        .modal-sheet {
-            background:var(--surface); border-radius:20px 20px 0 0;
-            width:100%; max-width:480px; max-height:85vh; overflow-y:auto;
-            padding:20px; transform:translateY(100%); transition:transform 0.3s;
-        }
+        .modal-sheet { background:var(--surface); border-radius:20px 20px 0 0; width:100%; max-width:480px; max-height:85vh; overflow-y:auto; padding:20px; transform:translateY(100%); transition:transform 0.3s; }
         .modal-overlay.open .modal-sheet { transform:translateY(0); }
         .modal-handle { width:36px; height:4px; background:var(--border); border-radius:2px; margin:0 auto 16px; }
         .form-group { margin-bottom:14px; }
         .form-group label { display:block; margin-bottom:5px; font-weight:600; font-size:0.8rem; color:var(--text-secondary); text-transform:uppercase; }
-        .form-input,.form-select,.form-textarea {
-            width:100%; padding:10px 14px; border:1px solid var(--border);
-            border-radius:10px; background:var(--bg); color:var(--text);
-            font-family:inherit; font-size:0.9rem;
-        }
+        .form-input,.form-select,.form-textarea { width:100%; padding:10px 14px; border:1px solid var(--border); border-radius:10px; background:var(--bg); color:var(--text); font-family:inherit; font-size:0.9rem; }
         .toggle-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); }
         .toggle-switch { position:relative; width:44px; height:24px; }
         .toggle-switch input { opacity:0; width:0; height:0; }
         .toggle-slider { position:absolute; cursor:pointer; inset:0; background:#ccc; border-radius:24px; transition:.3s; }
         .toggle-slider:before { content:""; position:absolute; height:18px; width:18px; left:3px; bottom:3px; background:white; border-radius:50%; transition:.3s; }
-        input:checked + .toggle-slider { background:var(--gold); }
-        input:checked + .toggle-slider:before { transform:translateX(20px); }
+        input:checked+.toggle-slider { background:var(--gold); }
+        input:checked+.toggle-slider:before { transform:translateX(20px); }
         .hidden { display:none!important; }
-        .toast-msg {
-            position:fixed; bottom:90px; left:50%; transform:translateX(-50%);
-            background:var(--surface); color:var(--text); padding:10px 20px;
-            border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:400;
-            font-weight:600; font-size:0.85rem; white-space:nowrap; border:1px solid var(--border);
-        }
-
-        /* Standalone mode adjustments */
-        @media all and (display-mode: standalone) {
-            .install-banner { display: none !important; }
-            body { padding-top: env(safe-area-inset-top); }
-        }
+        .toast-msg { position:fixed; bottom:90px; left:50%; transform:translateX(-50%); background:var(--surface); color:var(--text); padding:10px 20px; border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:400; font-weight:600; font-size:0.85rem; white-space:nowrap; border:1px solid var(--border); }
+        .install-banner { background:linear-gradient(135deg,#1a1a2e,#3d2c5e); color:white; padding:14px 16px; display:flex; align-items:center; gap:12px; cursor:pointer; flex-shrink:0; border-bottom:2px solid var(--gold); }
+        .install-banner.hidden { display:none; }
+        .install-banner .icon { font-size:1.8rem; }
+        .install-banner .text { flex:1; font-weight:600; font-size:0.85rem; }
     </style>
 </head>
 <body>
 <div class="app-container" id="appContainer">
-    <!-- Install Banner with Download Button -->
-    <div class="install-banner hidden" id="installBanner">
-        <div class="install-icon-app">📲</div>
-        <div class="install-text">
-            <strong>Install SecondChance App</strong>
-            <span>Add to home screen for quick access</span>
-        </div>
-        <button class="install-btn" onclick="installApp()">Install</button>
+    <!-- Install Banner at top -->
+    <div class="install-banner hidden" id="installBanner" onclick="installApp()">
+        <span class="icon">📲</span>
+        <span class="text">Tap to install SecondChance on your phone</span>
+        <button class="btn btn-gold btn-sm" onclick="event.stopPropagation();installApp()">Install</button>
     </div>
 
     <div class="top-header">
         <div class="logo">Second<span>Chance</span></div>
         <div class="header-actions">
-            <span id="userStatusBadge" class="hidden"></span>
             <button class="icon-btn" onclick="openCart()">🛒<span class="cart-dot" id="cartDot"></span></button>
-            <button class="icon-btn" onclick="navigateTo('profile')">👤</button>
+            <button class="icon-btn" onclick="switchTab('profile')">👤</button>
         </div>
     </div>
+    
     <div class="search-bar">
         <div class="search-input-wrap">
             <input type="text" id="searchInput" placeholder="Search anything..." oninput="applySearch()">
             <button onclick="applySearch()">🔍</button>
         </div>
     </div>
+    
     <div class="main-scroll" id="mainScroll"></div>
-    <div class="bottom-nav">
-        <button class="nav-item active" data-page="home"><i class="fas fa-home"></i>Home</button>
-        <button class="nav-item" data-page="large"><i class="fas fa-couch"></i>Large</button>
-        <button class="nav-item" data-page="sell"><i class="fas fa-store"></i>Sell</button>
-        <button class="nav-item" data-page="help"><i class="fab fa-whatsapp"></i>Help</button>
-        <button class="nav-item" data-page="profile"><i class="fas fa-user"></i>Profile</button>
+    
+    <div class="bottom-nav" id="bottomNav">
+        <button class="nav-item active" data-tab="home"><i class="fas fa-home"></i>Home</button>
+        <button class="nav-item" data-tab="large"><i class="fas fa-couch"></i>Large</button>
+        <button class="nav-item" data-tab="sell"><i class="fas fa-store"></i>Sell</button>
+        <button class="nav-item" data-tab="help"><i class="fab fa-whatsapp"></i>Help</button>
+        <button class="nav-item" data-tab="profile"><i class="fas fa-user"></i>Profile</button>
     </div>
 </div>
 <div id="modalContainer"></div>
 
 <script>
 // ============ PWA MANIFEST ============
-const manifestData = {
-    name: 'SecondChance Marketplace',
-    short_name: 'SecondChance',
-    description: 'Buy & Sell Second-Hand Items in Kenya',
-    start_url: '.',
-    display: 'standalone',
-    background_color: '#1a1a2e',
-    theme_color: '#c9a84c',
-    orientation: 'portrait-primary',
-    categories: ['shopping', 'marketplace'],
-    icons: [
-        {
-            src: "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#3d2c5e"/></linearGradient></defs><rect width="192" height="192" rx="42" fill="url(#g)"/><text x="96" y="128" font-size="96" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),
-            sizes: '192x192',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-        },
-        {
-            src: "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#3d2c5e"/></linearGradient></defs><rect width="512" height="512" rx="100" fill="url(#g)"/><text x="256" y="340" font-size="260" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),
-            sizes: '512x512',
-            type: 'image/svg+xml',
-            purpose: 'any maskable'
-        }
-    ]
+const manifest = {
+    name:'SecondChance Marketplace',short_name:'SecondChance',
+    start_url:'.',display:'standalone',background_color:'#1a1a2e',theme_color:'#c9a84c',
+    icons:[{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><rect width="192" height="192" rx="42" fill="#1a1a2e"/><text x="96" y="128" font-size="96" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),sizes:'192x192',type:'image/svg+xml',purpose:'any maskable'},{src:"data:image/svg+xml,"+encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><rect width="512" height="512" rx="100" fill="#1a1a2e"/><text x="256" y="340" font-size="260" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),sizes:'512x512',type:'image/svg+xml',purpose:'any maskable'}]
 };
+const ml=document.createElement('link');ml.rel='manifest';ml.href=URL.createObjectURL(new Blob([JSON.stringify(manifest)],{type:'application/json'}));document.head.appendChild(ml);
 
-const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
-const manifestUrl = URL.createObjectURL(manifestBlob);
-document.getElementById('appManifest').href = manifestUrl;
-
-// ============ SERVICE WORKER ============
-if ('serviceWorker' in navigator) {
-    const swCode = `
-        const CACHE_NAME = 'secondchance-v2';
-        const urlsToCache = ['/'];
-        
-        self.addEventListener('install', (event) => {
-            event.waitUntil(
-                caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
-            );
-            self.skipWaiting();
-        });
-        
-        self.addEventListener('activate', (event) => {
-            event.waitUntil(
-                caches.keys().then((cacheNames) => {
-                    return Promise.all(
-                        cacheNames.map((cacheName) => {
-                            if (cacheName !== CACHE_NAME) return caches.delete(cacheName);
-                        })
-                    );
-                })
-            );
-            event.waitUntil(clients.claim());
-        });
-        
-        self.addEventListener('fetch', (event) => {
-            event.respondWith(
-                caches.match(event.request).then((response) => {
-                    return response || fetch(event.request).then((fetchResponse) => {
-                        return caches.open(CACHE_NAME).then((cache) => {
-                            cache.put(event.request, fetchResponse.clone());
-                            return fetchResponse;
-                        });
-                    });
-                }).catch(() => {
-                    return caches.match(event.request);
-                })
-            );
-        });
-    `;
-    const swBlob = new Blob([swCode], { type: 'application/javascript' });
-    const swUrl = URL.createObjectURL(swBlob);
-    navigator.serviceWorker.register(swUrl).then((registration) => {
-        console.log('Service Worker registered with scope:', registration.scope);
-    }).catch((error) => {
-        console.log('Service Worker registration failed:', error);
-    });
+if('serviceWorker' in navigator){
+    const sw='self.addEventListener("install",e=>self.skipWaiting());self.addEventListener("activate",e=>e.waitUntil(clients.claim()));self.addEventListener("fetch",e=>e.respondWith(fetch(e.request).catch(()=>caches.match(e.request))));';
+    navigator.serviceWorker.register(URL.createObjectURL(new Blob([sw],{type:'application/javascript'})));
 }
 
-// ============ CONFIG ============
-const MASTER_MPESA = '0792091769';
-const WHATSAPP_NUMBER = '+254753711672';
-const WHATSAPP_LINK = 'https://wa.me/254753711672';
+// ============ DATA ============
+const MASTER_MPESA='0792091769',WHATSAPP='+254753711672',WHATSAPP_LINK='https://wa.me/254753711672';
+let currentUser=JSON.parse(localStorage.getItem('sc_user'))||null;
+let cart=JSON.parse(localStorage.getItem('sc_cart'))||[];
+let orders=JSON.parse(localStorage.getItem('sc_orders'))||[];
+let settings=JSON.parse(localStorage.getItem('sc_settings'))||{darkMode:false,notifications:true};
+let currentTab='home';
+let adminData=JSON.parse(localStorage.getItem('secondchance_admin_data'))||{payments:[],approvedSellers:[],products:[],orders:[]};
 
-// ============ STATE ============
-let currentUser = JSON.parse(localStorage.getItem('sc_user')) || null;
-let cart = JSON.parse(localStorage.getItem('sc_cart')) || [];
-let orders = JSON.parse(localStorage.getItem('sc_orders')) || [];
-let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: false, notifications: true };
-let page = 'home';
-let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || { payments: [], approvedSellers: [] };
-
-const productImages = {
-    fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
-    pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
-    phone: 'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
-    sofa: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
-    dress: 'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
-    rims: 'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
-    treadmill: 'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
-    books: 'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
-    stroller: 'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
-    drill: 'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
-    car: 'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
-    bed: 'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop',
-    table: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=300&h=300&fit=crop',
-    kennel: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=300&h=300&fit=crop',
-    shoes: 'https://images.unsplash.com/photo-1543163521-1bf539c16dd2?w=300&h=300&fit=crop'
+const imgs={
+    fridge:'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
+    pans:'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
+    phone:'https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=300&h=300&fit=crop',
+    sofa:'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=300&h=300&fit=crop',
+    dress:'https://images.unsplash.com/photo-1595777457583-95e059d581b8?w=300&h=300&fit=crop',
+    rims:'https://images.unsplash.com/photo-1580274455191-1c62238fa333?w=300&h=300&fit=crop',
+    treadmill:'https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=300&h=300&fit=crop',
+    books:'https://images.unsplash.com/photo-1512820790803-83ca734da794?w=300&h=300&fit=crop',
+    stroller:'https://images.unsplash.com/photo-1555252333-9f8e92e65df9?w=300&h=300&fit=crop',
+    drill:'https://images.unsplash.com/photo-1581147036324-1b3b7a2e1e0a?w=300&h=300&fit=crop',
+    car:'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=300&h=300&fit=crop',
+    bed:'https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=300&h=300&fit=crop'
 };
 
-const items = [
-    { id:1, title:'Samsung Fridge 200L', category:'kitchen', price:45000, desc:'Excellent, 2yrs', seller:'Jane', rating:4.5, img:productImages.fridge, isLarge:true },
-    { id:2, title:'Non-stick Pan Set', category:'kitchen', price:2500, desc:'Like new', seller:'Mike', rating:4.8, img:productImages.pans, isLarge:false },
-    { id:3, title:'iPhone 13 Pro Max', category:'electronics', price:85000, desc:'256GB, box', seller:'TechKe', rating:4.3, img:productImages.phone, isLarge:false },
-    { id:4, title:'Leather Sofa Set', category:'furniture', price:65000, desc:'3+2, brown', seller:'HomeDecor', rating:4.0, img:productImages.sofa, isLarge:true },
-    { id:5, title:'Evening Gown', category:'fashion', price:8000, desc:'Size M', seller:'Glam', rating:4.7, img:productImages.dress, isLarge:false },
-    { id:6, title:'Alloy Rims 17"', category:'automotive', price:28000, desc:'Set of 4', seller:'CarParts', rating:4.2, img:productImages.rims, isLarge:false },
-    { id:7, title:'Treadmill', category:'sports', price:35000, desc:'Electric', seller:'Fitness', rating:4.6, img:productImages.treadmill, isLarge:true },
-    { id:8, title:'Harry Potter Set', category:'books', price:5000, desc:'Hardcover', seller:'Books', rating:4.9, img:productImages.books, isLarge:false },
-    { id:9, title:'Baby Stroller', category:'baby', price:12000, desc:'Travel', seller:'Parent', rating:4.4, img:productImages.stroller, isLarge:false },
-    { id:10, title:'Power Drill', category:'tools', price:6500, desc:'18V', seller:'DIY', rating:4.5, img:productImages.drill, isLarge:false },
-    { id:11, title:'Toyota Vitz 2019', category:'automotive', price:850000, desc:'Low mileage', seller:'Auto', rating:4.0, img:productImages.car, isLarge:true },
-    { id:12, title:'Queen Bed Frame', category:'furniture', price:18000, desc:'Wooden', seller:'Furniture', rating:4.3, img:productImages.bed, isLarge:true }
+const items=[
+    {id:1,title:'Samsung Fridge 200L',category:'kitchen',price:45000,desc:'Excellent,2yrs',seller:'Jane',rating:4.5,img:imgs.fridge,isLarge:true},
+    {id:2,title:'Non-stick Pan Set',category:'kitchen',price:2500,desc:'Like new',seller:'Mike',rating:4.8,img:imgs.pans,isLarge:false},
+    {id:3,title:'iPhone 13 Pro Max',category:'electronics',price:85000,desc:'256GB,box',seller:'TechKe',rating:4.3,img:imgs.phone,isLarge:false},
+    {id:4,title:'Leather Sofa Set',category:'furniture',price:65000,desc:'3+2,brown',seller:'HomeDecor',rating:4.0,img:imgs.sofa,isLarge:true},
+    {id:5,title:'Evening Gown',category:'fashion',price:8000,desc:'Size M',seller:'Glam',rating:4.7,img:imgs.dress,isLarge:false},
+    {id:6,title:'Alloy Rims 17"',category:'automotive',price:28000,desc:'Set of 4',seller:'CarParts',rating:4.2,img:imgs.rims,isLarge:false},
+    {id:7,title:'Treadmill',category:'sports',price:35000,desc:'Electric',seller:'Fitness',rating:4.6,img:imgs.treadmill,isLarge:true},
+    {id:8,title:'Harry Potter Set',category:'books',price:5000,desc:'Hardcover',seller:'Books',rating:4.9,img:imgs.books,isLarge:false},
+    {id:9,title:'Baby Stroller',category:'baby',price:12000,desc:'Travel',seller:'Parent',rating:4.4,img:imgs.stroller,isLarge:false},
+    {id:10,title:'Power Drill',category:'tools',price:6500,desc:'18V',seller:'DIY',rating:4.5,img:imgs.drill,isLarge:false},
+    {id:11,title:'Toyota Vitz 2019',category:'automotive',price:850000,desc:'Low mileage',seller:'Auto',rating:4.0,img:imgs.car,isLarge:true},
+    {id:12,title:'Queen Bed Frame',category:'furniture',price:18000,desc:'Wooden',seller:'Furniture',rating:4.3,img:imgs.bed,isLarge:true}
 ];
 
-// ============ HELPERS ============
-function saveAll() {
-    localStorage.setItem('sc_cart', JSON.stringify(cart));
-    localStorage.setItem('sc_orders', JSON.stringify(orders));
-    localStorage.setItem('sc_settings', JSON.stringify(settings));
-    if (currentUser) localStorage.setItem('sc_user', JSON.stringify(currentUser));
-    localStorage.setItem('secondchance_admin_data', JSON.stringify(adminData));
-}
-function toast(msg) {
-    let t = document.createElement('div'); t.className='toast-msg'; t.textContent=msg;
-    document.body.appendChild(t);
-    setTimeout(()=>{ t.style.opacity='0'; t.style.transition='opacity 0.3s'; setTimeout(()=>t.remove(),300); },2000);
-}
-function isVerified() { return currentUser && adminData.approvedSellers.includes(currentUser.id); }
-function hasPaid() { return currentUser && adminData.payments.some(p=>p.userId===currentUser.id && p.status==='completed'); }
-function isPending() { return currentUser && adminData.payments.some(p=>p.userId===currentUser.id && p.status==='pending'); }
-function updateCartDot() { document.getElementById('cartDot').classList.toggle('show', cart.length>0); }
+function save(){localStorage.setItem('sc_cart',JSON.stringify(cart));localStorage.setItem('sc_orders',JSON.stringify(orders));localStorage.setItem('sc_settings',JSON.stringify(settings));if(currentUser)localStorage.setItem('sc_user',JSON.stringify(currentUser));localStorage.setItem('secondchance_admin_data',JSON.stringify(adminData));}
+function toast(m){let t=document.createElement('div');t.className='toast-msg';t.textContent=m;document.body.appendChild(t);setTimeout(()=>{t.style.opacity='0';t.style.transition='opacity 0.3s';setTimeout(()=>t.remove(),300);},2000);}
+function isVerified(){return currentUser&&adminData.approvedSellers.includes(currentUser.id);}
+function hasPaid(){return currentUser&&adminData.payments.some(p=>p.userId===currentUser.id&&p.status==='completed');}
+function isPending(){return currentUser&&adminData.payments.some(p=>p.userId===currentUser.id&&p.status==='pending');}
+function updateCartDot(){document.getElementById('cartDot').classList.toggle('show',cart.length>0);}
 
-// ============ NAVIGATION ============
-function navigateTo(p) { page = p; renderPage(); document.getElementById('mainScroll').scrollTop = 0; }
-function renderPage() {
-    const c = document.getElementById('mainScroll');
-    switch(page) {
-        case 'home': c.innerHTML = renderHome(); break;
-        case 'large': c.innerHTML = renderLarge(); break;
-        case 'sell': c.innerHTML = renderSell(); break;
-        case 'help': c.innerHTML = renderHelp(); break;
-        case 'profile': c.innerHTML = renderProfile(); break;
+// ============ TAB SWITCHING ============
+function switchTab(tab){
+    currentTab=tab;
+    const c=document.getElementById('mainScroll');
+    switch(tab){
+        case'home':c.innerHTML=renderHome();break;
+        case'large':c.innerHTML=renderLarge();break;
+        case'sell':c.innerHTML=renderSell();break;
+        case'help':c.innerHTML=renderHelp();break;
+        case'profile':c.innerHTML=renderProfile();break;
     }
+    // Update active state on bottom nav buttons
     document.querySelectorAll('.nav-item').forEach(n=>n.classList.remove('active'));
-    const active = document.querySelector(`.nav-item[data-page="${page}"]`);
-    if (active) active.classList.add('active');
+    const activeBtn=document.querySelector(`.nav-item[data-tab="${tab}"]`);
+    if(activeBtn)activeBtn.classList.add('active');
     updateCartDot();
+    document.getElementById('mainScroll').scrollTop=0;
 }
 
-function productCard(item) {
-    return `<div class="product-card" onclick="viewItem(${item.id})">
-        <div class="product-img" style="background-image:url('${item.img}');"></div>
-        <div class="product-info">
-            <div class="product-title">${item.title}</div>
-            <div class="product-price">KSH ${item.price.toLocaleString()}</div>
-            <div class="product-footer"><span>⭐${item.rating}</span><span>${item.seller}</span></div>
-            <button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">+ Add</button>
-        </div></div>`;
+// ============ BOTTOM NAV CLICK HANDLERS ============
+document.addEventListener('DOMContentLoaded',function(){
+    document.querySelectorAll('.nav-item').forEach(btn=>{
+        btn.addEventListener('click',function(){
+            const tab=this.getAttribute('data-tab');
+            if(tab)switchTab(tab);
+        });
+    });
+});
+
+function pc(item){return`<div class="product-card" onclick="viewItem(${item.id})"><div class="product-img" style="background-image:url('${item.img}');"></div><div class="product-info"><div class="product-title">${item.title}</div><div class="product-price">KSH ${item.price.toLocaleString()}</div><div class="product-footer"><span>⭐${item.rating}</span><span>${item.seller}</span></div><button class="btn btn-gold btn-sm btn-block" onclick="event.stopPropagation();addToCart(${item.id})">+ Add</button></div></div>`;}
+
+function renderHome(){
+    let f=items.filter(i=>!i.isLarge);
+    const t=(document.getElementById('searchInput')?.value||'').toLowerCase();
+    if(t)f=f.filter(i=>i.title.toLowerCase().includes(t)||i.desc.toLowerCase().includes(t));
+    let h=`<div style="text-align:center;padding:20px 16px 10px;">
+        <h3 style="font-family:'Playfair Display',serif;">📲 Get the App</h3>
+        <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:12px;">Install on your phone for the best experience</p>
+        <button class="btn btn-install btn-block" onclick="installApp()">
+            <i class="fas fa-download"></i> Download / Install App
+        </button>
+        <p style="font-size:0.7rem;color:var(--text-secondary);margin-top:6px;">Works on Android, iPhone & Desktop</p>
+    </div>`;
+    h+=`<div class="section-title">🔥 Trending Items</div><div class="products-grid">${f.map(pc).join('')}</div>`;
+    if(f.length===0)h='<div class="section-title">📭 No items found</div>';
+    return h;
 }
 
-function renderHome() {
-    let f = items.filter(i=>!i.isLarge);
-    const term = (document.getElementById('searchInput')?.value||'').toLowerCase();
-    if (term) f = f.filter(i=>i.title.toLowerCase().includes(term)||i.desc.toLowerCase().includes(term));
-    return `<div class="section-title">🔥 Trending</div><div class="products-grid">${f.map(productCard).join('')}</div>`;
+function renderLarge(){return`<div class="section-title">🏠 Large Items</div><div class="products-grid">${items.filter(i=>i.isLarge).map(pc).join('')}</div>`;}
+
+function renderSell(){
+    if(!currentUser)return`<div class="card" style="margin-top:20px;"><p>Login to sell items</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
+    if(isPending())return`<div class="card"><h3>⏳ Verification Pending</h3><p>Admin is reviewing your KSH 350 payment.</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Please verify my seller registration','_blank')">Contact Admin: ${WHATSAPP}</button></div>`;
+    if(!hasPaid())return`<div class="card card-gold"><h3>💰 Register as Seller</h3><p>KSH 350 to <strong>${MASTER_MPESA}</strong></p><button class="btn btn-gold btn-block" onclick="showRegPayment()">Pay KSH 350</button></div>`;
+    let mi=items.filter(i=>i.seller===currentUser.name);
+    return`<div class="card"><span class="status-badge status-approved">✅ Verified</span><p>Welcome, ${currentUser.name}!</p><button class="btn btn-gold btn-block" onclick="showListForm()">+ List New Item</button></div><div class="section-title">My Listings (${mi.length})</div>${mi.map(i=>`<div class="card">${i.title} - KSH ${i.price}</div>`).join('')}`;
 }
-function renderLarge() {
-    return `<div class="section-title">🏠 Large Items</div><div class="products-grid">${items.filter(i=>i.isLarge).map(productCard).join('')}</div>`;
-}
-function renderSell() {
-    if (!currentUser) return `<div class="card"><p>Login to sell</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
-    if (isPending()) return `<div class="card"><h3>⏳ Verification Pending</h3><p>Admin is reviewing your KSH 350 payment.</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Please verify my seller registration','_blank')">Contact Admin: ${WHATSAPP_NUMBER}</button></div>`;
-    if (!hasPaid()) return `<div class="card card-gold"><h3>💰 Register as Seller</h3><p>Send KSH 350 to <strong>${MASTER_MPESA}</strong></p><button class="btn btn-gold btn-block" onclick="showRegPayment()">Pay KSH 350</button></div>`;
-    let myItems = items.filter(i=>i.seller===currentUser.name);
-    return `<div class="card"><span class="status-badge status-approved">✅ Verified</span><p>Welcome, ${currentUser.name}!</p><button class="btn btn-gold btn-block" onclick="showListForm()">+ List Item</button></div>
-    <div class="section-title">My Listings (${myItems.length})</div>${myItems.map(i=>`<div class="card">${i.title} - KSH ${i.price}</div>`).join('')}`;
-}
-function renderHelp() {
-    return `<div class="card" style="text-align:center;"><h3>💬 WhatsApp Help</h3><p>${WHATSAPP_NUMBER}</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Hello, I need help with SecondChance','_blank')">Chat Now</button></div>
-    <div class="card"><p>📧 support@secondchance.co.ke</p><p>💳 Pay to: ${MASTER_MPESA}</p></div>`;
-}
-function renderProfile() {
-    if (!currentUser) return `<div class="card"><p>Login to see profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
-    return `<div class="card"><h3>👤 ${currentUser.name}</h3><p>Phone: ${currentUser.phone||'--'}</p>
-    <p>Status: ${isVerified()?'<span class="status-badge status-approved">Verified</span>':isPending()?'<span class="status-badge status-pending">Pending</span>':'Not registered'}</p></div>
+
+function renderHelp(){return`<div class="card" style="text-align:center;margin-top:20px;"><h3>💬 WhatsApp Help</h3><p>${WHATSAPP}</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Hello, I need help with SecondChance','_blank')">Chat Now</button></div><div class="card"><p>📧 support@secondchance.co.ke</p><p>💳 Pay to: ${MASTER_MPESA}</p></div>`;}
+
+function renderProfile(){
+    if(!currentUser)return`<div class="card" style="margin-top:20px;"><p>Login to see profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login / Register</button></div>`;
+    return`<div class="card"><h3>👤 ${currentUser.name}</h3><p>Phone: ${currentUser.phone||'--'}</p><p>Seller: ${isVerified()?'<span class="status-badge status-approved">✅ Verified</span>':isPending()?'<span class="status-badge status-pending">⏳ Pending</span>':'Not registered'}</p></div>
     <div class="card">
         <div class="toggle-row"><span>🌙 Dark Mode</span><label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label></div>
-        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange
+        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;save()"><span class="toggle-slider"></span></label></div>
+        <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
+    </div>
+    <div class="card"><h4>📦 Recent Orders</h4>${orders.filter(o=>o.buyer===currentUser.name).slice(0,3).map(o=>`<div>#${o.id} - ${o.items.join(',')} - KSH ${o.total}</div>`).join('')||'None'}</div>`;
+}
+
+// ============ MODALS ============
+function showLogin(){document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>Create Account</h2><div class="form-group"><label>Full Name</label><input class="form-input" id="loginName"></div><div class="form-group"><label>Phone Number</label><input class="form-input" id="loginPhone"></div><button class="btn btn-gold btn-block" onclick="doLogin()">Register</button><button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;}
+function doLogin(){const n=document.getElementById('loginName').value.trim();if(!n)return alert('Enter name');currentUser={id:Date.now(),name:n,phone:document.getElementById('loginPhone').value};save();closeModal();toast(`Welcome, ${n}!`);}
+function showRegPayment(){document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>📱 M-Pesa Payment</h2><div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;"><p>Send <strong>KSH 350</strong> to:</p><p style="font-size:1.5rem;font-weight:800;">${MASTER_MPESA}</p></div><div class="form-group"><label>M-Pesa Code</label><input class="form-input" id="mpesaCode" placeholder="QWE1234567"></div><button class="btn btn-gold btn-block" onclick="submitReg()">Submit</button><button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;}
+function submitReg(){const c=document.getElementById('mpesaCode').value.trim();if(!c)return alert('Enter code');adminData.payments.push({id:'pm_'+Date.now(),userId:currentUser.id,userName:currentUser.name,phone:currentUser.phone,amount:350,method:'mpesa',code:c,status:'pending',date:new Date().toISOString()});save();closeModal();toast('Submitted! Awaiting verification.');}
+function showListForm(){document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>📸 List New Item</h2><div class="form-group"><label>Title</label><input class="form-input" id="sTitle"></div><div class="form-group"><label>Category</label><select class="form-select" id="sCategory"><option>kitchen</option><option>electronics</option><option>furniture</option><option>fashion</option><option>automotive</option></select></div><div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice"></div><div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc"></textarea></div><button class="btn btn-gold btn-block" onclick="submitListing()">Submit</button><button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;}
+function submitListing(){const t=document.getElementById('sTitle').value,p=parseInt(document.getElementById('sPrice').value);if(!t||!p)return alert('Fill required');const ni={id:Date.now(),title:t,category:document.getElementById('sCategory').value,price:p,desc:document.getElementById('sDesc').value,seller:currentUser.name,rating:5,img:imgs.fridge,status:'pending',isLarge:false};items.unshift(ni);adminData.products=adminData.products||[];adminData.products.push(ni);save();closeModal();toast('Listed! Pending review.');}
+function viewItem(id){const i=items.find(x=>x.id===id);if(!i)return;document.getElementById('modalContainer').innerHTML=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><img src="${i.img}" style="width:100%;border-radius:12px;"><h2>${i.title}</h2><p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${i.price.toLocaleString()}</p><p>${i.desc}</p><p>Seller: ${i.seller} • ⭐${i.rating}</p><button class="btn btn-gold btn-block" onclick="addToCart(${i.id});closeModal();">Add to Cart</button><button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;}
+
+// ============ CART ============
+function openCart(){const t=cart.reduce((s,i)=>s+i.price,0),c=t>=10000?t*0.05:t*0.03;let h=`<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>🛒 Cart</h2>`;if(cart.length===0)h+=`<div style="text-align:center;padding:40px;"><p style="font-size:3rem;">🛍️</p><p>Cart is empty</p></div>`;else{cart.forEach(i=>{h+=`<div style="display:flex;gap:10px;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px;"><div style="width:40px;height:40px;background-image:url(${i.img});background-size:cover;border-radius:6px;"></div><div style="flex:1;"><strong>${i.title}</strong><br>KSH ${i.price}</div><button onclick="removeFromCart(${i.cartId})">🗑</button></div>`;});h+=`<hr><p>Subtotal: KSH ${t}</p><p style="color:var(--gold);">Commission (${t>=10000?'5%':'3%'}): KSH ${c}</p><p>Seller gets: KSH ${(t-c).toFixed(2)}</p><button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>`;}h+=`<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;document.getElementById('modalContainer').innerHTML=h;}
+function addToCart(id){const i=items.find(x=>x.id===id);if(!i)return;cart.push({...i,cartId:Date.now()});save();updateCartDot();toast('Added!');}
+function removeFromCart(cid){cart=cart.filter(i=>i.cartId!==cid);save();updateCartDot();openCart();}
+function checkout(){if(!currentUser){closeModal();showLogin();return;}if(cart.length===0)return;const t=cart.reduce((s,i)=>s+i.price,0),c=t>=10000?t*0.05:t*0.03;orders.push({id:Date.now(),buyer:currentUser.name,items:cart.map(i=>i.title),total:t,commission:c,date:new Date().toISOString()});adminData.orders=orders;cart=[];save();closeModal();updateCartDot();toast('Order placed!');}
+function logout(){currentUser=null;localStorage.removeItem('sc_user');cart=[];save();updateCartDot();switchTab('home');toast('Logged out');}
+function toggleDark(v){settings.darkMode=v;document.body.classList.toggle('dark-mode',v);save();}
+function applySearch(){if(currentTab==='home'||currentTab==='large')switchTab(currentTab);}
+function closeModal(){document.getElementById('modalContainer').innerHTML='';}
+
+// ============ PWA INSTALL ============
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt',(e)=>{e.preventDefault();deferredPrompt=e;document.getElementById('installBanner').classList.remove('hidden');});
+function installApp(){
+    if(deferredPrompt){
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((r)=>{if(r.outcome==='accepted')toast('App installed! 🎉');deferredPrompt=null;document.getElementById('installBanner').classList.add('hidden');});
+    }else{
+        if(/iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase()))alert('📱 To install:\n1. Tap the Share button\n2. Scroll down\n3. Tap "Add to Home Screen"');
+        else if(window.matchMedia('(display-mode:standalone)').matches)toast('Already installed!');
+        else alert('📱 To install:\nOpen Chrome menu (⋮) → "Install app"');
+    }
+}
+window.addEventListener('appinstalled',()=>{document.getElementById('installBanner').classList.add('hidden');toast('Installed! 🎉');});
+
+// ============ INIT ============
+if(settings.darkMode)document.body.classList.add('dark-mode');
+switchTab('home');
+updateCartDot();
+console.log('✅ SecondChance Ready | Download button on Home page | All nav buttons working');
+</script>
+</body>
+</html>
