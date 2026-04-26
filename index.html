@@ -3,15 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    
+    <!-- PWA Meta Tags -->
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
     <meta name="apple-mobile-web-app-title" content="SecondChance">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1a1a2e">
-    <meta name="description" content="Buy & Sell Second-Hand Items – Kenya's Premium Marketplace">
+    <meta name="description" content="Buy & Sell Second-Hand Items - Kenya's Premium Marketplace">
+    
     <title>SecondChance • Buy & Sell</title>
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%231a1a2e'/><text x='50' y='68' font-size='55' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><rect width='180' height='180' rx='40' fill='%231a1a2e'/><text x='90' y='115' font-size='100' text-anchor='middle' fill='%23c9a84c'>S</text></svg>">
+    
+    <!-- App Icons for Home Screen -->
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='512' height='512' rx='100' fill='url(%23g)'/><text x='256' y='340' font-size='260' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
+    <link rel="apple-touch-icon" sizes="180x180" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 180 180'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='180' height='180' rx='40' fill='url(%23g)'/><text x='90' y='120' font-size='90' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
+    <link rel="apple-touch-icon" sizes="152x152" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 152 152'><defs><linearGradient id='g' x1='0%25' y1='0%25' x2='100%25' y2='100%25'><stop offset='0%25' style='stop-color:%231a1a2e'/><stop offset='100%25' style='stop-color:%233d2c5e'/></linearGradient></defs><rect width='152' height='152' rx='34' fill='url(%23g)'/><text x='76' y='102' font-size='76' text-anchor='middle' fill='%23c9a84c' font-family='serif' font-weight='bold'>S</text></svg>">
+    
+    <!-- Web App Manifest -->
+    <link rel="manifest" id="appManifest">
+    
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -35,6 +45,37 @@
             height:100vh; height:-webkit-fill-available;
         }
         .app-container { display:flex; flex-direction:column; height:100%; max-width:480px; margin:0 auto; width:100%; background:var(--bg); }
+        @media (min-width: 481px) {
+            .app-container { border-left:1px solid var(--border); border-right:1px solid var(--border); box-shadow:0 0 60px rgba(0,0,0,0.1); }
+        }
+        
+        /* Install Banner */
+        .install-banner {
+            background: linear-gradient(135deg, #1a1a2e, #3d2c5e);
+            color: white; padding: 14px 16px; display: flex; align-items: center;
+            gap: 12px; cursor: pointer; flex-shrink: 0; border-bottom: 2px solid var(--gold);
+            animation: slideDown 0.4s ease;
+        }
+        .install-banner.hidden { display: none; }
+        .install-icon-app {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: var(--gold); display: flex; align-items: center;
+            justify-content: center; font-size: 1.5rem; flex-shrink: 0;
+            box-shadow: 0 4px 12px rgba(201,168,76,0.4);
+        }
+        .install-text { flex: 1; }
+        .install-text strong { font-size: 0.9rem; display: block; }
+        .install-text span { font-size: 0.75rem; opacity: 0.85; }
+        .install-btn {
+            background: var(--gold); color: #1a1a1a; border: none;
+            padding: 8px 16px; border-radius: 20px; font-weight: 700;
+            font-size: 0.8rem; cursor: pointer; font-family: inherit;
+        }
+        @keyframes slideDown {
+            from { transform: translateY(-100%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        
         .top-header {
             background:var(--surface); padding:10px 16px; display:flex; align-items:center;
             justify-content:space-between; border-bottom:1px solid var(--border); flex-shrink:0;
@@ -138,17 +179,24 @@
             border-radius:25px; box-shadow:0 10px 30px rgba(0,0,0,0.2); z-index:400;
             font-weight:600; font-size:0.85rem; white-space:nowrap; border:1px solid var(--border);
         }
-        .download-section { text-align:center; padding:20px 16px; }
-        .btn-install { background:linear-gradient(135deg,#1a1a2e,#3d2c5e); color:white; border:2px solid var(--gold); }
+
+        /* Standalone mode adjustments */
+        @media all and (display-mode: standalone) {
+            .install-banner { display: none !important; }
+            body { padding-top: env(safe-area-inset-top); }
+        }
     </style>
 </head>
 <body>
 <div class="app-container" id="appContainer">
-    <!-- Install Banner -->
-    <div class="install-banner hidden" id="installBanner" onclick="installApp()" style="background:linear-gradient(135deg,var(--primary),#2a3f6e);color:white;padding:12px 16px;display:flex;align-items:center;gap:12px;cursor:pointer;flex-shrink:0;">
-        <div style="width:44px;height:44px;border-radius:12px;background:var(--gold);display:flex;align-items:center;justify-content:center;font-size:1.3rem;">📲</div>
-        <div style="flex:1;"><strong>Install SecondChance App</strong><br><span style="font-size:0.75rem;opacity:0.85;">Add to your home screen</span></div>
-        <div style="font-size:1.2rem;">›</div>
+    <!-- Install Banner with Download Button -->
+    <div class="install-banner hidden" id="installBanner">
+        <div class="install-icon-app">📲</div>
+        <div class="install-text">
+            <strong>Install SecondChance App</strong>
+            <span>Add to home screen for quick access</span>
+        </div>
+        <button class="install-btn" onclick="installApp()">Install</button>
     </div>
 
     <div class="top-header">
@@ -177,6 +225,87 @@
 <div id="modalContainer"></div>
 
 <script>
+// ============ PWA MANIFEST ============
+const manifestData = {
+    name: 'SecondChance Marketplace',
+    short_name: 'SecondChance',
+    description: 'Buy & Sell Second-Hand Items in Kenya',
+    start_url: '.',
+    display: 'standalone',
+    background_color: '#1a1a2e',
+    theme_color: '#c9a84c',
+    orientation: 'portrait-primary',
+    categories: ['shopping', 'marketplace'],
+    icons: [
+        {
+            src: "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#3d2c5e"/></linearGradient></defs><rect width="192" height="192" rx="42" fill="url(#g)"/><text x="96" y="128" font-size="96" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),
+            sizes: '192x192',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+        },
+        {
+            src: "data:image/svg+xml," + encodeURIComponent('<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><defs><linearGradient id="g" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" style="stop-color:#1a1a2e"/><stop offset="100%" style="stop-color:#3d2c5e"/></linearGradient></defs><rect width="512" height="512" rx="100" fill="url(#g)"/><text x="256" y="340" font-size="260" text-anchor="middle" fill="#c9a84c" font-family="serif" font-weight="bold">S</text></svg>'),
+            sizes: '512x512',
+            type: 'image/svg+xml',
+            purpose: 'any maskable'
+        }
+    ]
+};
+
+const manifestBlob = new Blob([JSON.stringify(manifestData)], { type: 'application/json' });
+const manifestUrl = URL.createObjectURL(manifestBlob);
+document.getElementById('appManifest').href = manifestUrl;
+
+// ============ SERVICE WORKER ============
+if ('serviceWorker' in navigator) {
+    const swCode = `
+        const CACHE_NAME = 'secondchance-v2';
+        const urlsToCache = ['/'];
+        
+        self.addEventListener('install', (event) => {
+            event.waitUntil(
+                caches.open(CACHE_NAME).then((cache) => cache.addAll(urlsToCache))
+            );
+            self.skipWaiting();
+        });
+        
+        self.addEventListener('activate', (event) => {
+            event.waitUntil(
+                caches.keys().then((cacheNames) => {
+                    return Promise.all(
+                        cacheNames.map((cacheName) => {
+                            if (cacheName !== CACHE_NAME) return caches.delete(cacheName);
+                        })
+                    );
+                })
+            );
+            event.waitUntil(clients.claim());
+        });
+        
+        self.addEventListener('fetch', (event) => {
+            event.respondWith(
+                caches.match(event.request).then((response) => {
+                    return response || fetch(event.request).then((fetchResponse) => {
+                        return caches.open(CACHE_NAME).then((cache) => {
+                            cache.put(event.request, fetchResponse.clone());
+                            return fetchResponse;
+                        });
+                    });
+                }).catch(() => {
+                    return caches.match(event.request);
+                })
+            );
+        });
+    `;
+    const swBlob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(swBlob);
+    navigator.serviceWorker.register(swUrl).then((registration) => {
+        console.log('Service Worker registered with scope:', registration.scope);
+    }).catch((error) => {
+        console.log('Service Worker registration failed:', error);
+    });
+}
+
 // ============ CONFIG ============
 const MASTER_MPESA = '0792091769';
 const WHATSAPP_NUMBER = '+254753711672';
@@ -190,7 +319,6 @@ let settings = JSON.parse(localStorage.getItem('sc_settings')) || { darkMode: fa
 let page = 'home';
 let adminData = JSON.parse(localStorage.getItem('secondchance_admin_data')) || { payments: [], approvedSellers: [] };
 
-// Product images (real photos)
 const productImages = {
     fridge: 'https://images.unsplash.com/photo-1571175443880-49e1d25b2bc5?w=300&h=300&fit=crop',
     pans: 'https://images.unsplash.com/photo-1590794056226-79ef3a8147e1?w=300&h=300&fit=crop',
@@ -274,18 +402,11 @@ function renderHome() {
     let f = items.filter(i=>!i.isLarge);
     const term = (document.getElementById('searchInput')?.value||'').toLowerCase();
     if (term) f = f.filter(i=>i.title.toLowerCase().includes(term)||i.desc.toLowerCase().includes(term));
-    return `<div class="download-section">
-        <h3>📲 Get the App</h3>
-        <p>Install SecondChance on your phone</p>
-        <button class="btn btn-install btn-block" onclick="installApp()"><i class="fas fa-download"></i> Download / Install App</button>
-    </div>
-    <div class="section-title">🔥 Trending</div>
-    <div class="products-grid">${f.map(productCard).join('')}</div>`;
+    return `<div class="section-title">🔥 Trending</div><div class="products-grid">${f.map(productCard).join('')}</div>`;
 }
 function renderLarge() {
     return `<div class="section-title">🏠 Large Items</div><div class="products-grid">${items.filter(i=>i.isLarge).map(productCard).join('')}</div>`;
 }
-
 function renderSell() {
     if (!currentUser) return `<div class="card"><p>Login to sell</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
     if (isPending()) return `<div class="card"><h3>⏳ Verification Pending</h3><p>Admin is reviewing your KSH 350 payment.</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Please verify my seller registration','_blank')">Contact Admin: ${WHATSAPP_NUMBER}</button></div>`;
@@ -294,142 +415,14 @@ function renderSell() {
     return `<div class="card"><span class="status-badge status-approved">✅ Verified</span><p>Welcome, ${currentUser.name}!</p><button class="btn btn-gold btn-block" onclick="showListForm()">+ List Item</button></div>
     <div class="section-title">My Listings (${myItems.length})</div>${myItems.map(i=>`<div class="card">${i.title} - KSH ${i.price}</div>`).join('')}`;
 }
-
 function renderHelp() {
     return `<div class="card" style="text-align:center;"><h3>💬 WhatsApp Help</h3><p>${WHATSAPP_NUMBER}</p><button class="btn btn-gold btn-block" onclick="window.open('${WHATSAPP_LINK}?text=Hello, I need help with SecondChance','_blank')">Chat Now</button></div>
     <div class="card"><p>📧 support@secondchance.co.ke</p><p>💳 Pay to: ${MASTER_MPESA}</p></div>`;
 }
-
 function renderProfile() {
     if (!currentUser) return `<div class="card"><p>Login to see profile</p><button class="btn btn-gold btn-block" onclick="showLogin()">Login</button></div>`;
     return `<div class="card"><h3>👤 ${currentUser.name}</h3><p>Phone: ${currentUser.phone||'--'}</p>
     <p>Status: ${isVerified()?'<span class="status-badge status-approved">Verified</span>':isPending()?'<span class="status-badge status-pending">Pending</span>':'Not registered'}</p></div>
     <div class="card">
         <div class="toggle-row"><span>🌙 Dark Mode</span><label class="toggle-switch"><input type="checkbox" ${settings.darkMode?'checked':''} onchange="toggleDark(this.checked)"><span class="toggle-slider"></span></label></div>
-        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange="settings.notifications=this.checked;saveAll()"><span class="toggle-slider"></span></label></div>
-        <button class="btn btn-outline btn-block" onclick="logout()">Logout</button>
-    </div>
-    <div class="card"><h4>📦 Orders</h4>${orders.filter(o=>o.buyer===currentUser.name).slice(0,3).map(o=>`<div>#${o.id} - ${o.items.join(',')} - KSH ${o.total}</div>`).join('')||'None'}</div>`;
-}
-
-// ============ MODALS ============
-function showLogin() {
-    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>Create Account</h2>
-    <div class="form-group"><label>Name</label><input class="form-input" id="loginName"></div>
-    <div class="form-group"><label>Phone</label><input class="form-input" id="loginPhone"></div>
-    <button class="btn btn-gold btn-block" onclick="doLogin()">Register</button>
-    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
-    document.getElementById('modalContainer').innerHTML = h;
-}
-function doLogin() {
-    const n = document.getElementById('loginName').value.trim();
-    if (!n) return alert('Enter name');
-    currentUser = { id:Date.now(), name:n, phone:document.getElementById('loginPhone').value };
-    saveAll(); closeModal(); toast(`Welcome, ${n}!`);
-}
-function showRegPayment() {
-    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>M-Pesa Payment</h2>
-    <div style="background:#1a1a1a;color:#4caf50;padding:16px;border-radius:12px;text-align:center;">
-        <p>Send <strong>KSH 350</strong> to:</p><p style="font-size:1.5rem;font-weight:800;">${MASTER_MPESA}</p></div>
-    <div class="form-group"><label>M-Pesa Code</label><input class="form-input" id="mpesaCode" placeholder="QWE1234567"></div>
-    <button class="btn btn-gold btn-block" onclick="submitReg()">Submit</button>
-    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
-    document.getElementById('modalContainer').innerHTML = h;
-}
-function submitReg() {
-    const code = document.getElementById('mpesaCode').value.trim();
-    if (!code) return alert('Enter code');
-    adminData.payments.push({ id:'pm_'+Date.now(), userId:currentUser.id, userName:currentUser.name, phone:currentUser.phone, amount:350, method:'mpesa', code, status:'pending', date:new Date().toISOString() });
-    saveAll(); closeModal(); toast('Submitted! Awaiting verification.');
-}
-function showListForm() {
-    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>List Item</h2>
-    <div class="form-group"><label>Title</label><input class="form-input" id="sTitle"></div>
-    <div class="form-group"><label>Category</label><select class="form-select" id="sCategory"><option>kitchen</option><option>electronics</option><option>furniture</option><option>fashion</option><option>automotive</option></select></div>
-    <div class="form-group"><label>Price (KSH)</label><input class="form-input" type="number" id="sPrice"></div>
-    <div class="form-group"><label>Description</label><textarea class="form-textarea" id="sDesc"></textarea></div>
-    <button class="btn btn-gold btn-block" onclick="submitListing()">Submit</button>
-    <button class="btn btn-outline btn-block" onclick="closeModal()">Cancel</button></div></div>`;
-    document.getElementById('modalContainer').innerHTML = h;
-}
-function submitListing() {
-    const t = document.getElementById('sTitle').value;
-    const p = parseInt(document.getElementById('sPrice').value);
-    if (!t||!p) return alert('Fill required fields');
-    const newItem = { id:Date.now(), title:t, category:document.getElementById('sCategory').value, price:p, desc:document.getElementById('sDesc').value, seller:currentUser.name, rating:5, img:productImages.fridge, status:'pending', isLarge:false };
-    items.unshift(newItem);
-    adminData.products = adminData.products || [];
-    adminData.products.push(newItem);
-    saveAll(); closeModal(); toast('Listed! Pending review.');
-}
-
-function viewItem(id) {
-    const item = items.find(i=>i.id===id); if(!item) return;
-    const h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><img src="${item.img}" style="width:100%;border-radius:12px;">
-    <h2>${item.title}</h2><p style="font-size:1.5rem;font-weight:800;color:var(--gold-dark);">KSH ${item.price.toLocaleString()}</p>
-    <p>${item.desc}</p><p>Seller: ${item.seller} • ⭐${item.rating}</p>
-    <button class="btn btn-gold btn-block" onclick="addToCart(${item.id});closeModal();">Add to Cart</button>
-    <button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
-    document.getElementById('modalContainer').innerHTML = h;
-}
-
-// ============ CART ============
-function openCart() {
-    const total = cart.reduce((s,i)=>s+i.price,0);
-    const comm = total>=10000?total*0.05:total*0.03;
-    let h = `<div class="modal-overlay open" onclick="if(event.target===this)closeModal()"><div class="modal-sheet"><div class="modal-handle"></div><h2>🛒 Cart</h2>`;
-    if (cart.length===0) h += `<div style="text-align:center;padding:40px;"><p style="font-size:3rem;">🛍️</p><p>Cart is empty</p></div>`;
-    else {
-        cart.forEach(item => { h += `<div style="display:flex;gap:10px;padding:8px;background:var(--bg);border-radius:10px;margin-bottom:6px;"><div style="width:40px;height:40px;background-image:url(${item.img});background-size:cover;border-radius:6px;"></div><div style="flex:1;"><strong>${item.title}</strong><br>KSH ${item.price}</div><button onclick="removeFromCart(${item.cartId})">🗑</button></div>`; });
-        h += `<hr><p>Subtotal: KSH ${total}</p><p style="color:var(--gold);">Commission (${total>=10000?'5%':'3%'}): KSH ${comm}</p><p>Seller gets: KSH ${(total-comm).toFixed(2)}</p><button class="btn btn-gold btn-block" onclick="checkout()">Place Order</button>`;
-    }
-    h += `<button class="btn btn-outline btn-block" onclick="closeModal()">Close</button></div></div>`;
-    document.getElementById('modalContainer').innerHTML = h;
-}
-function addToCart(id) { const item=items.find(i=>i.id===id); if(!item)return; cart.push({...item,cartId:Date.now()}); saveAll(); updateCartDot(); toast('Added!'); }
-function removeFromCart(cid) { cart=cart.filter(i=>i.cartId!==cid); saveAll(); updateCartDot(); openCart(); }
-function checkout() {
-    if (!currentUser) { closeModal(); showLogin(); return; }
-    if (cart.length===0) return;
-    const total = cart.reduce((s,i)=>s+i.price,0);
-    const comm = total>=10000?total*0.05:total*0.03;
-    orders.push({ id:Date.now(), buyer:currentUser.name, items:cart.map(i=>i.title), total, commission:comm, date:new Date().toISOString() });
-    adminData.orders = orders;
-    cart = []; saveAll(); closeModal(); updateCartDot(); toast('Order placed!');
-}
-function logout() { currentUser=null; localStorage.removeItem('sc_user'); cart=[]; saveAll(); updateCartDot(); page='home'; renderPage(); toast('Logged out'); }
-function toggleDark(v) { settings.darkMode=v; document.body.classList.toggle('dark-mode',v); saveAll(); }
-function applySearch() { if (page==='home'||page==='large') renderPage(); }
-function closeModal() { document.getElementById('modalContainer').innerHTML=''; }
-
-// ============ PWA INSTALL ============
-let deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-    e.preventDefault();
-    deferredPrompt = e;
-    document.getElementById('installBanner').classList.remove('hidden');
-});
-function installApp() {
-    if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((r) => {
-            if (r.outcome==='accepted') toast('App installed! 🎉');
-            deferredPrompt = null;
-            document.getElementById('installBanner').classList.add('hidden');
-        });
-    } else {
-        const isIOS = /iphone|ipad|ipod/.test(navigator.userAgent.toLowerCase());
-        if (isIOS) alert('To install: tap Share → Add to Home Screen');
-        else if (window.matchMedia('(display-mode: standalone)').matches) toast('Already installed!');
-        else alert('To install: open Chrome menu → Install app');
-    }
-}
-
-// ============ INIT ============
-document.querySelectorAll('.nav-item').forEach(b=>{ b.addEventListener('click',e=>{ page=e.currentTarget.dataset.page; renderPage(); }); });
-if (settings.darkMode) document.body.classList.add('dark-mode');
-renderPage();
-updateCartDot();
-</script>
-</body>
-</html>
+        <div class="toggle-row"><span>🔔 Notifications</span><label class="toggle-switch"><input type="checkbox" ${settings.notifications?'checked':''} onchange
